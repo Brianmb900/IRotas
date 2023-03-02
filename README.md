@@ -52,6 +52,9 @@ Para executar o projeto localmento você pode utilizar o arquivo .WAR que se enc
 #### Frameworks/Bibliotecas
 * Bootstrap - 5.3
 
-<h2 align="center"> Autor </h2>
+<h2 align="center"> Autores/Desenvolvedores </h2>
 
+* **Alex Feitoza Alves**
 * **Brian Melisnki Bianchini**
+* **Erik Faria da Silva**
+* **Luan Alejandro Cardoso Vazquez Gil**
