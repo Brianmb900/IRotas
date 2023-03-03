@@ -6,19 +6,19 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 
 <h2 align="center"> Requisitos Funcionais da aplicação: </h2>
 
-### Crud de Autoescolas:
+### CRUD de Autoescolas:
 
 * Completar
 
-### Crud de Serviços:
+### CRUD de Serviços:
 
 * Completar
 
-### Crud de Oportunidades:
+### CRUD de Oportunidades:
 
 * Completar
 
-### Crud de Usuários:
+### CRUD de Usuários:
 
 * Completar
 
