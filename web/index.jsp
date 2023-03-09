@@ -9,9 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Home</title>
+        <%@include file="WEB-INF/jspf/css.jspf" %>
+        <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>
     <body>
-        <h1>Irotas: encontre sua autoescola</h1>
+        <h2>Irotas: encontre sua autoescola</h2>
     </body>
 </html>
