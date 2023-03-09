@@ -1,3 +1,116 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<h2>Hello World!</h2>
+
+<!-- Modais -->
+
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img align="left" src="" width="70">
+                <img align="right" src="" width="50"><br><br>
+                <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Efetuar Login</h4><hr>
+                <!-- Formulário de Login -->
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Endereço de E-mail</label>
+                        <input name="email" type="email" class="form-control"
+                               pattern=".+@fatec\.sp\.gov\.br" title="Usar e-mail institucional" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input name="password" type="password" class="form-control" required>
+                    </div>
+                    <hr>
+                    <div class="container" style="margin: auto;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button name="login" type="submit" class="btn btn-my">Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal text-center">
+        <div class="modal-content">
+            <div class="modal-body">                    
+                <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Cadastrar-se</h4><hr>
+                <!--Adicionar usuário -->
+                <form method="post">                                                     
+                    <input type="hidden" value="0" name="id_user" class="form-control">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">E-mail Institucional</span>
+                        <input type="email" name="email" class="form-control"
+                               pattern=".+@fatec\.sp\.gov\.br" title="Usar e-mail institucional" required>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Senha</span>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal" data-bs-target="#cadastro">Fechar</button> 
+                    <input type="submit" name="user-add" value="Cadastrar" class="btn btn-adicionarUser" id="adicionarUser">   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar -->
+
+<nav class="navDim sticky-top" style="justify-content: center;">
+    <a href="index.jsp"><img class="logoNav" src="imagens/fatecPgWhite.png"></a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Institucional
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Sobre a Fatec</a>
+        <a class="dropdown-item" href="#">Regulamento e Regimento</a>
+        <a class="dropdown-item" href="#">Departamentos</a>
+        <a class="dropdown-item" href="#">DTI</a>
+        <a class="dropdown-item" href="#">Google For Education</a>
+    </div>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Cursos
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Análise e Desenvolvimento de Sistemas</a>
+        <a class="dropdown-item" href="#">Comércio Exterior</a>
+        <a class="dropdown-item" href="#">Gestão Empresarial</a>
+        <a class="dropdown-item" href="#">Processos Químicos</a>
+    </div>
+    <a class="nav-link" aria-current="page" href="#">Secretaria</a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Calendário/Aulas
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Horário das Aulas</a>
+        <a class="dropdown-item" href="#">Calendário Acadêmico</a>
+        <a class="dropdown-item" href="#">Professores</a>
+    </div>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Projetos
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Núcleos de Pesquisa</a>
+        <a class="dropdown-item" href="#">Vitrine de Negócios</a>
+        <a class="dropdown-item" href="#">Revista Processando o Saber</a>
+    </div>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+       style="border-right: solid 0.08px; border-color: var(--cor2);">
+        Login/Cadastro
+    </a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#login">Login</a>
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#cadastro">Cadastro</a>
+    </div>
+</nav>
