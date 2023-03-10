@@ -17,7 +17,6 @@
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <h2>Irotas: encontre sua autoescola</h2>
-        <h3>Mostrando para o Alex como funciona a integração com o Github Desktop</h3>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>
