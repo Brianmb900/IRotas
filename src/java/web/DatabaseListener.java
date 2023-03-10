@@ -59,15 +59,19 @@ public class DatabaseListener implements ServletContextListener {
                     + "im_photo_drivingSchool BLOB NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL,"
-                    + "vl_rating_drivingSchool INTEGER NOT NULL)");
+                    + "cd_service_drivingschool INTEGER,"
+                    + "cd_opportunities_drivingschool INTEGER"
+                    + "vl_rating_drivingSchool INTEGER NOT NULL,"
+                    + "FOREIGN KEY (cd_service_drivingschool) REFERENCES services (cd_service),"
+                    + "FOREIGN KEY (cd_opportunities_drivingschool) REFERENCES opportunities (cd_opportunities))");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS services("
-                    + "cd_service INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "ds_service VARCHAR NOT NULL,"
-                    + "hr_start_service VARCHAR NOT NULL,"
-                    + "hr_end_service VARCHAR NOT NULL,"
-                    + "vl_service VARCHAR NOT NULL,"
-                    + "ic_class_theoretical_practical_service INTEGER NOT NULL)");
+                    + "cd_services INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "ds_services VARCHAR NOT NULL,"
+                    + "hr_start_services VARCHAR NOT NULL,"
+                    + "hr_end_services VARCHAR NOT NULL,"
+                    + "vl_services VARCHAR NOT NULL,"
+                    + "ic_class_theoretical_practical_services INTEGER NOT NULL)");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS opportunities("
                     + "cd_opportunities INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -79,10 +83,10 @@ public class DatabaseListener implements ServletContextListener {
             
             stmt.execute("CREATE TABLE IF NOT EXISTS candidates("
                     + "cd_candidates INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "cd_user_candidates VARCHAR NOT NULL,"
-                    + "cd_opportunity_candidates VARCHAR NOT NULL,"
-                    + "FOREIGN KEY (cd_user_candidate) REFERENCES users (cd_user),"
-                    + "FOREIGN KEY (cd_opportunity_candidate) REFERENCES users (cd_opportunities))");
+                    + "cd_user_candidates INTEGER NOT NULL,"
+                    + "cd_opportunities_candidates INTEGER NOT NULL,"
+                    + "FOREIGN KEY (cd_user_candidates) REFERENCES users (cd_user),"
+                    + "FOREIGN KEY (cd_opportunities_candidates) REFERENCES opportunities (cd_opportunities))");
 
         } catch (Exception ex) {
             exception = ex;
