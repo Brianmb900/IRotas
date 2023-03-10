@@ -4,7 +4,7 @@
     <!--Alguma tralah só para ter conteúdo-->
     <div class="row border-bottom pc">
         <div class="col">
-            <a class="nav-link" href="https://bdsmtest.org/prelims" target="_blank" style="margin-bottom: 16px;"> Teste BDSM </a>
+            <a class="nav-link" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank" style="margin-bottom: 16px;"> Link da Documentação do Bootstrap </a>
         </div>
     </div>
 </div>
