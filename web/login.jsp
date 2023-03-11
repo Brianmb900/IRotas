@@ -27,7 +27,7 @@
                             <br><br>
                             <input class="form-control" type="password" name="senha" placeholder="Senha">
                             <br><br>
-                            <input class="btn btn-primary" type="submit" name="submit" value="Enviar">
+                            <input class="btn btn-primary" type="submit" name="submit" value="Entrar">
                         </form>
                     </div>
                 </div>
