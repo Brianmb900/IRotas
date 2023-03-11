@@ -23,7 +23,7 @@
                     <div class="caixa">
                         <form action="testelogin.php" method="POST">
                             <h1 style="padding-bottom: 40px;">Login</h1>
-                            <input class="form-control" type="text" name="email" placeholder="E-mai">
+                            <input class="form-control" type="text" name="email" placeholder="E-mail">
                             <br><br>
                             <input class="form-control" type="password" name="senha" placeholder="Senha">
                             <br><br>
