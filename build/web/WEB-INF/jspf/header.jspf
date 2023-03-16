@@ -2,11 +2,11 @@
 <%@page import="web.*"%>
 <%@page pageEncoding="UTF-8" %>
 <%
-    int a = 0;
+    int b = 0;
     Exception requestException = null;
     if (request.getParameter("login") != null) {
         Session.getLogin(request, response);
-        a++;
+        b++;
     }
 %>
 <%if (DatabaseListener.exception != null) {%>
