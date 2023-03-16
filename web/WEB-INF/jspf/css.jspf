@@ -3,7 +3,6 @@
 <style>
     body {
         background-color: #f3f3f3;
-        background-image: linear-gradient(to bottom, red, yellow);
         text-align: center;
     }
 
@@ -27,7 +26,6 @@
         top: 0;
         font-size: 100%;
         justify-content: center;
-        color: white;
     }
 
     .navDim > a{

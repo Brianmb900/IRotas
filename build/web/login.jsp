@@ -21,13 +21,13 @@
             <div class="row justify-content-center" style="margin-top: 30px;">
                 <div class="col-4">
                     <div class="caixa">
-                        <form action="testelogin.php" method="POST">
+                        <form method="POST">
                             <h1 style="padding-bottom: 40px;">Login</h1>
                             <input class="form-control" type="text" name="email" placeholder="E-mail">
                             <br><br>
-                            <input class="form-control" type="password" name="senha" placeholder="Senha">
+                            <input class="form-control" type="password" name="password" placeholder="Senha">
                             <br><br>
-                            <input class="btn btn-primary" type="submit" name="submit" value="Entrar">
+                            <input class="btn btn-primary" type="submit" name="login" value="Entrar">
                         </form>
                     </div>
                 </div>

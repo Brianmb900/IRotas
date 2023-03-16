@@ -16,7 +16,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <h2>Irotas: encontre sua autoescola</h2>
+        <h2>IRotas: encontre sua autoescola</h2>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

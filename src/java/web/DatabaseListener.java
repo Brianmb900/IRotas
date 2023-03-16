@@ -4,7 +4,6 @@
  */
 package web;
 
-import db.*;
 import java.sql.*;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -36,6 +35,7 @@ public class DatabaseListener implements ServletContextListener {
             Class.forName(CLASS_NAME);
             Connection con = getConnection();
             Statement stmt = con.createStatement();
+            stmt.execute("DROP TABLE users");
             stmt.execute("CREATE TABLE IF NOT EXISTS users("
                     + "cd_user INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "ic_client_yes_no_user INTEGER NOT NULL,"
@@ -46,7 +46,8 @@ public class DatabaseListener implements ServletContextListener {
                     + "cd_phone_number_user VARCHAR NOT NULL,"
                     + "dt_birthdate_user VARCHAR NOT NULL,"
                     + "ic_sex_male_female_user VARCHAR NOT NULL,"
-                    + "im_curriculum_user BLOB NOT NULL)");
+                    + "im_curriculum_user BLOB)");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 0, 'Fulano', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M', NULL)");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -80,13 +81,14 @@ public class DatabaseListener implements ServletContextListener {
                     + "vl_salary_opportunities REAL NOT NULL,"
                     + "hr_shift_start_opportunities VARCHAR NOT NULL,"
                     + "hr_shift_end_opportunities VARCHAR NOT NULL)");
-            
+
             stmt.execute("CREATE TABLE IF NOT EXISTS candidates("
                     + "cd_candidates INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "cd_user_candidates INTEGER NOT NULL,"
                     + "cd_opportunities_candidates INTEGER NOT NULL,"
                     + "FOREIGN KEY (cd_user_candidates) REFERENCES users (cd_user),"
                     + "FOREIGN KEY (cd_opportunities_candidates) REFERENCES opportunities (cd_opportunities))");
+            stmt.execute("PRAGMA foreign_keys = ON");
 
         } catch (Exception ex) {
             exception = ex;
