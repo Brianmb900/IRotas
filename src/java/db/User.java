@@ -26,7 +26,7 @@ public class User {
     private String password;
     private String telefone;
     private LocalDate dataNascimento;
-    private String sexo;
+    private char sexo;
     private String curriculo;
 
     public static String passwordMD5(String s) throws NoSuchAlgorithmException {
@@ -52,7 +52,8 @@ public class User {
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
             LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String sexo = rs.getString("ic_sex_male_female_user");
+            String Sexo= rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
             String curriculo = rs.getString("im_curriculum_user");
 
             user = new User(id, cliente, colaborador, nome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
@@ -63,7 +64,7 @@ public class User {
         return user;
     }
 
-    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, String sexo, String curriculo) {
+    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
         this.idCLiente = idCLiente;
         this.cliente = cliente;
         this.colaborador = colaborador;
@@ -140,11 +141,11 @@ public class User {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getSexo() {
+    public char getSexo() {
         return sexo;
     }
 
-    public void setSexo(String Sexo) {
+    public void setSexo(char Sexo) {
         this.sexo = sexo;
     }
 
