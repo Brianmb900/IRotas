@@ -132,19 +132,19 @@ public class User {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char Sexo) {
+    public void setSexo(String Sexo) {
         this.sexo = sexo;
     }
 
