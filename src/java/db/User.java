@@ -25,8 +25,8 @@ public class User {
     private String email;
     private String password;
     private String telefone;
-    private LocalDate dataNascimento;
-    private char sexo;
+    private String dataNascimento;
+    private String sexo;
     private String curriculo;
 
     public static String passwordMD5(String s) throws NoSuchAlgorithmException {
@@ -43,7 +43,7 @@ public class User {
         stmt.setString(1, email);
         stmt.setString(2, passwordMD5(password));
         ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
             Integer id = rs.getInt("cd_user");
             int cliente = rs.getInt("ic_client_yes_no_user");
             int colaborador = rs.getInt("ic_collaborator_yes_no_user");
@@ -51,9 +51,8 @@ public class User {
             String emailC = rs.getString("nm_email_user");
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
+            String dataNascimento = rs.getString("dt_birthdate_user");
+            String sexo = rs.getString("ic_sex_male_female_user");
             String curriculo = rs.getString("im_curriculum_user");
 
             user = new User(id, cliente, colaborador, nome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
@@ -64,7 +63,7 @@ public class User {
         return user;
     }
 
-    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
+    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, String dataNascimento, String sexo, String curriculo) {
         this.idCLiente = idCLiente;
         this.cliente = cliente;
         this.colaborador = colaborador;
