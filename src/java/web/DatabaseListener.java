@@ -46,8 +46,9 @@ public class DatabaseListener implements ServletContextListener {
                     + "cd_phone_number_user VARCHAR NOT NULL,"
                     + "dt_birthdate_user VARCHAR NOT NULL,"
                     + "ic_sex_male_female_user VARCHAR NOT NULL,"
-                    + "im_curriculum_user BLOB NOT NULL)");
-
+                    + "im_curriculum_user BLOB)");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 0, 'Fulano', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '01/01/2000', 'M', NULL)");
+                    
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "nm_drivingSchool VARCHAR NOT NULL,"
