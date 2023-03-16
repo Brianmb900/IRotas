@@ -1,0 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
+
+<nav class="navDim sticky-top" sticky-top>
+    <a class="nav-link logoNav" href="index.jsp"><img src="images/logo1.png" width="70" height="70"></a>
+    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="" >Encontre</a>
+    <a class="nav-link" href="login.jsp">Login</a>
+    <a class="nav-link" href="cadastro.jsp" style="border-right: solid 0.08px;">Cadastro</a>
+</nav>
