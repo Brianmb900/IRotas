@@ -2,9 +2,11 @@
 <%@page import="web.*"%>
 <%@page pageEncoding="UTF-8" %>
 <%
+    int a = 0;
     Exception requestException = null;
     if (request.getParameter("login") != null) {
         Session.getLogin(request, response);
+        a++;
     }
 %>
 <%if (DatabaseListener.exception != null) {%>
@@ -27,10 +29,21 @@
     <a class="nav-link" href="login.jsp">Login</a>
     <a class="nav-link" href="" style="border-right: solid 0.08px;">Cadastro</a>
 </nav>
+<<<<<<< Updated upstream
 <%//} else {%>
+=======
+<%} else {%> 
+
+>>>>>>> Stashed changes
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp"><img src="images/logo1.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
+<<<<<<< Updated upstream
     Bem vindo, <b><%= ((User) session.getAttribute("user")).getNome()%></b>
 </nav>
+=======
+    <a class="nav-link" href="" style="border-right: solid 0.08px;">Bem Vindo <b><%= ((User) session.getAttribute("user")).getNome()%></b></a>
+</nav>
+<%}%>
+>>>>>>> Stashed changes
