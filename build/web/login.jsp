@@ -29,7 +29,6 @@
                             <br><br>
                             <input class="btn btn-primary" type="submit" name="login" value="Entrar">
                         </form>
-                        <%=b%>
                     </div>
                 </div>
             </div>

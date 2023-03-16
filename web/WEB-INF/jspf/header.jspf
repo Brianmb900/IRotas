@@ -2,11 +2,11 @@
 <%@page import="web.*"%>
 <%@page pageEncoding="UTF-8" %>
 <%
-    int b = 0;
     Exception requestException = null;
     if (request.getParameter("login") != null) {
         Session.getLogin(request, response);
-        b++;
+    } else if (request.getParameter("logout") != null) {
+        Session.getLogoff(request, response);
     }
 %>
 <%if (DatabaseListener.exception != null) {%>
@@ -34,7 +34,15 @@
     <a class="nav-link logoNav" href="index.jsp"><img src="images/logo1.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
-    <a class="nav-link" href="" style="border-right: solid 0.08px; width: 12em;">Bem Vindo,<b><%= ((User) session.getAttribute("user")).getNome()%></b></a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
+        Bem Vindo,<b><%= ((User) session.getAttribute("user")).getNome()%></b>
+    </a>
+    <div class="dropdown-menu" style="text-align: center">
+        <a class="dropdown-item" href="#">Ver Perfil</a>
+        <form class="dropdown-item"method="POST">
+            <input class="btn btn-dark" type="submit" name="logout" value="Sair"/>
+        </form>
+    </div>
 </nav>
 <%}%>
 

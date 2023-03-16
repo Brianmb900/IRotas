@@ -35,7 +35,7 @@ public class Session {
     public static void getLogoff(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.removeAttribute(USER);
-        response.sendRedirect(request.getRequestURI());
+        response.sendRedirect("http://localhost:8080/IRotas/index.jsp");
     }
 
     public static void getMySession(HttpServletRequest request, HttpServletResponse response, String user) {
