@@ -25,7 +25,7 @@ public class User {
     private String email;
     private String password;
     private String telefone;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private String sexo;
     private String curriculo;
 
@@ -51,7 +51,7 @@ public class User {
             String emailC = rs.getString("nm_email_user");
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
-            String dataNascimento = rs.getString("dt_birthdate_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
             String sexo = rs.getString("ic_sex_male_female_user");
             String curriculo = rs.getString("im_curriculum_user");
 
@@ -63,7 +63,7 @@ public class User {
         return user;
     }
 
-    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, String dataNascimento, String sexo, String curriculo) {
+    public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, String sexo, String curriculo) {
         this.idCLiente = idCLiente;
         this.cliente = cliente;
         this.colaborador = colaborador;
@@ -132,11 +132,11 @@ public class User {
         this.telefone = telefone;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

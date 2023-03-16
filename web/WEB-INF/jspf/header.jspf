@@ -34,7 +34,7 @@
     <a class="nav-link logoNav" href="index.jsp"><img src="images/logo1.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
-    <a class="nav-link" href="" style="border-right: solid 0.08px; width: 12em;">Bem Vindo, <b><%= ((User) session.getAttribute("user")).getNome()%></b></a>
+    <a class="nav-link" href="" style="border-right: solid 0.08px; width: 12em;">Bem Vindo,<b><%= ((User) session.getAttribute("user")).getNome()%></b></a>
 </nav>
 <%}%>
 
