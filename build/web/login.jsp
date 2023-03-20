@@ -17,9 +17,9 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-center" style="margin-top: 30px;">
-                <div class="col-4">
+                <div class="col-5">
                     <div class="caixa">
                         <form method="POST">
                             <h1 style="padding-bottom: 40px;">Login</h1>
