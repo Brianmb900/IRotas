@@ -52,7 +52,7 @@ public class User {
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
             LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo= rs.getString("ic_sex_male_female_user");
+            String Sexo = rs.getString("ic_sex_male_female_user");
             char sexo = Sexo.charAt(0);
             String curriculo = rs.getString("im_curriculum_user");
 
