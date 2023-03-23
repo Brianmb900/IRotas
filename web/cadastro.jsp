@@ -22,38 +22,43 @@
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">
                         <form autocomplete="off" method="POST">
-                            <h1 style="padding-bottom: 40px;">Cadastro Aluno</h1>
-                            <input class="form-control" type="text" name="nome" placeholder="Nome" required>
-                            <br>
-                            <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" required>
-                            <br>
-                            <input class="form-control" type="email" name="e-mail" placeholder="E-mail" required>
-                            <br>
-                            <input class="form-control2" type="password" name="senha1" placeholder="Senha" required>
-                            <input class="form-control2" type="password" name="senha2" placeholder="Confirme Senha" required>
-                            <br><br>
+                            <h1 style="padding-bottom: 5px;">Cadastro Cliente</h1>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-check-input" type="checkbox" id="Alu" name="vehicle1" value="1">
+                                    <label class="form-check-label" for="Colab"> Quero ser aluno</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-check-input" type="checkbox" id="Colab" name="vehicle1" value="1">
+                                    <label class="form-check-label" for="Colab"> Quero ser colaborador</label>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome" required>
+
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="sobrenome" placeholder="Sobrenome" required>
+
+                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="e-mail" placeholder="E-mail" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col" style="padding-left: 0px;">
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha1" placeholder="Telefone" required>
+
+                                    <input class="form-control" type="date" name="senha1" placeholder="Data de Nascimento" required>
+                                </div>
+                                <div class="col" style="padding-right: 0px;">
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha1" placeholder="Sexo" required>
+
+                                    <input class="form-control" type="password" name="senha1" placeholder="Senha" required>
+                                </div>
+                            </div>
+                            <hr>
                             <input class="btn btn-primary" type="submit" name="submit" value="Registrar">
                         </form>
                     </div>
                 </div>
-
-                <!--<div class="col">
-                    <div class="caixa2">
-                        <form autocomplete="off" action="" method="POST">
-                            <h1 style="padding-bottom: 40px;">Cadastro Auto</h1>
-                            <input class="form-control" type="text" name="nome" placeholder="Nome" required>
-                            <br>
-                            <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" required>
-                            <br>
-                            <input class="form-control" type="email" name="e-mail" placeholder="E-mail" required>
-                            <br>
-                            <input class="form-control2" type="password" name="senha" placeholder="Senha" required>
-                            <input class="form-control2" type="password" name="senha2" placeholder="Confirme Senha" required>
-                            <br><br>
-                            <input class="btn btn-primary" type="submit" name="submit" value="Registar">
-                        </form>
-                    </div>
-                </div>-->
             </div>
         </div>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
