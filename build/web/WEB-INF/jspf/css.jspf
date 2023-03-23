@@ -23,7 +23,6 @@
         color: white;
         border: solid 0.3px;
         border-color: black;
-        margin-top: 120px;
     }
 
     .caixa2 {

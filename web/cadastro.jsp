@@ -17,12 +17,12 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid" style="display: flex; justify-content: center;">
-            <div class="row">
-                <div class="col">
-                    <div class="caixa">
-                        <form autocomplete="off" action="" method="POST">
-                            <h1 style="padding-bottom: 40px;">Cadastro</h1>
+        <div class="container-fluid" justify-content: center;">
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <div class="caixa" style="margin-top: 30px;">
+                        <form autocomplete="off" method="POST">
+                            <h1 style="padding-bottom: 40px;">Cadastro Aluno</h1>
                             <input class="form-control" type="text" name="nome" placeholder="Nome" required>
                             <br>
                             <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" required>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="col">
+                <!--<div class="col">
                     <div class="caixa2">
                         <form autocomplete="off" action="" method="POST">
                             <h1 style="padding-bottom: 40px;">Cadastro Auto</h1>
@@ -53,7 +53,7 @@
                             <input class="btn btn-primary" type="submit" name="submit" value="Registar">
                         </form>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
         <%@include file="WEB-INF/jspf/footer.jspf" %>

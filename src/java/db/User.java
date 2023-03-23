@@ -21,8 +21,9 @@ public class User {
     private Integer idCLiente;
     private int cliente;
     private int colaborador;
-    private int administrastor;
+    private int administrator;
     private String nome;
+    private String sobrenome;
     private String email;
     private String password;
     private String telefone;
@@ -50,6 +51,7 @@ public class User {
             int colaborador = rs.getInt("ic_collaborator_yes_no_user");
             int administrator = rs.getInt("ic_administrator_yes_no_user");
             String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
             String emailC = rs.getString("nm_email_user");
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
@@ -58,7 +60,7 @@ public class User {
             char sexo = Sexo.charAt(0);
             String curriculo = rs.getString("im_curriculum_user");
 
-            user = new User(id, cliente, colaborador, administrator, nome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
+            user = new User(id, cliente, colaborador, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
         }
         stmt.close();
         con.close();
@@ -69,30 +71,32 @@ public class User {
     public static void addUser(User user) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_client_yes_no_user, ic_collaborator_yes_no_user,"
-                + "ic_administrator_yes_no_user, nm_user, nm_email_user,"
+                + "ic_administrator_yes_no_user, nm_user, nm_last_user, nm_email_user,"
                 + "cd_password_user, cd_phone_number_user, dt_birthdate_user, ic_sex_male_female_user, im_curriculum_user)"
                 + "VALUES (?,?,?,?,?)");
         stmt.setInt(1, user.getCliente());
         stmt.setInt(2, user.getColaborador());
-        stmt.setInt(3, user.getAdministrastor());
+        stmt.setInt(3, user.getAdministrator());
         stmt.setString(4, user.getNome());
-        stmt.setString(5, user.getEmail());
-        stmt.setString(6, user.getPassword());
-        stmt.setString(7, user.getTelefone());
-        stmt.setString(8, user.getDataNascimento().toString());
-        stmt.setString(9, String.valueOf(user.getSexo()));
-        stmt.setString(10, user.getCurriculo());
+        stmt.setString(5, user.getSobrenome());
+        stmt.setString(6, user.getEmail());
+        stmt.setString(7, user.getPassword());
+        stmt.setString(8, user.getTelefone());
+        stmt.setString(9, user.getDataNascimento().toString());
+        stmt.setString(10, String.valueOf(user.getSexo()));
+        stmt.setString(11, user.getCurriculo());
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public User(Integer idCLiente, int cliente, int colaborador, int administrator, String nome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
+    public User(Integer idCLiente, int cliente, int colaborador, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
         this.idCLiente = idCLiente;
         this.cliente = cliente;
         this.colaborador = colaborador;
-        this.colaborador = administrator;
+        this.administrator = administrator;
         this.nome = nome;
+        this.sobrenome = sobrenome;
         this.email = email;
         this.password = password;
         this.telefone = telefone;
@@ -181,11 +185,19 @@ public class User {
         this.curriculo = curriculo;
     }
 
-    public int getAdministrastor() {
-        return administrastor;
+    public int getAdministrator() {
+        return administrator;
     }
 
-    public void setAdministrastor(int administrastor) {
-        this.administrastor = administrastor;
+    public void setAdministrator(int administrator) {
+        this.administrator = administrator;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 }

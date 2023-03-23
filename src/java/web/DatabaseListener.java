@@ -35,21 +35,22 @@ public class DatabaseListener implements ServletContextListener {
             Class.forName(CLASS_NAME);
             Connection con = getConnection();
             Statement stmt = con.createStatement();
-            //stmt.execute("DROP TABLE users");
+            stmt.execute("DROP TABLE users");
             stmt.execute("CREATE TABLE IF NOT EXISTS users("
                     + "cd_user INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "ic_client_yes_no_user INTEGER NOT NULL,"
                     + "ic_collaborator_yes_no_user INTEGER NOT NULL,"
                     + "ic_administrator_yes_no_user NOT NULL,"
                     + "nm_user VARCHAR NOT NULL,"
+                    + "nm_last_user VARCHAR NOT NULL,"
                     + "nm_email_user VARCHAR NOT NULL,"
                     + "cd_password_user VARCHAR NOT NULL,"
                     + "cd_phone_number_user VARCHAR NOT NULL,"
                     + "dt_birthdate_user VARCHAR NOT NULL,"
                     + "ic_sex_male_female_user VARCHAR NOT NULL,"
                     + "im_curriculum_user BLOB)");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 0, 0, 1, 'Fulano do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M', NULL)");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 0, 0, 'Fulana da Silva', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'F', NULL)");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 0, 0, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M', NULL)");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 0, 0, 'Fulana', 'da Silva', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'F', NULL)");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
