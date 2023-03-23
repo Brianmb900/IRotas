@@ -63,6 +63,25 @@ public class User {
 
         return user;
     }
+    
+    public static void addUser(User user) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_client_yes_no_user, ic_collaborator_yes_no_user, nm_user, nm_email_user,"
+                + "cd_password_user, cd_phone_number_user, dt_birthdate_user, ic_sex_male_female_user, im_curriculum_user)"
+                + "VALUES (?,?,?,?,?)");
+        stmt.setInt(1, user.getCliente());
+        stmt.setInt(2, user.getColaborador());
+        stmt.setString(3, user.getNome());
+        stmt.setString(4, user.getEmail());
+        stmt.setString(5, user.getPassword());
+        stmt.setString(6, user.getTelefone());
+        stmt.setString(7, user.getDataNascimento().toString());
+        stmt.setString(8, String.valueOf(user.getSexo()));
+        stmt.setString(9, user.getCurriculo());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
 
     public User(Integer idCLiente, int cliente, int colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
         this.idCLiente = idCLiente;
