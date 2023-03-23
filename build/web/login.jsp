@@ -18,16 +18,16 @@
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <div class="container-fluid">
-            <div class="row justify-content-center" style="margin-top: 30px;">
+            <div class="row justify-content-center" style="margin-top: 160px;">
                 <div class="col-4">
-                    <div class="caixa">
-                        <form action="testelogin.php" method="POST">
+                    <div class="login">
+                        <form autocomplete="off" action="testelogin.php" method="POST">
                             <h1 style="padding-bottom: 40px;">Login</h1>
-                            <input class="form-control" type="text" name="email" placeholder="E-mail">
+                            <input class="form-control" type="text" name="email" placeholder="E-mail" required>
                             <br><br>
-                            <input class="form-control" type="password" name="senha" placeholder="Senha">
+                            <input class="form-control" type="password" name="senha" placeholder="Senha" required>
                             <br><br>
-                            <input class="btn btn-primary" type="submit" name="submit" value="Entrar">
+                            <input class="btn btn-light" type="submit" name="submit" value="Entrar">
                         </form>
                     </div>
                 </div>
