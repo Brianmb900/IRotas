@@ -23,13 +23,14 @@
                     <div class="caixa" style="margin-top: 30px;">
                         <form autocomplete="off" method="POST">
                             <h1 style="padding-bottom: 5px;">Cadastro Cliente</h1>
+                            <input class="form-control" type="hidden" name="id" value="1">
                             <div class="row">
                                 <div class="col">
-                                    <input class="form-check-input" type="checkbox" id="Alu" name="vehicle1" value="1">
+                                    <input class="form-check-input" type="checkbox" id="Alu" name="student" value="1">
                                     <label class="form-check-label" for="Colab"> Quero ser aluno</label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input" type="checkbox" id="Colab" name="vehicle1" value="1">
+                                    <input class="form-check-input" type="checkbox" id="Colab" name="collaborator" value="1">
                                     <label class="form-check-label" for="Colab"> Quero ser colaborador</label>
                                 </div>
                                 <hr>
@@ -44,18 +45,18 @@
 
                             <div class="row">
                                 <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha1" placeholder="Telefone" required>
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha" placeholder="Telefone" required>
 
-                                    <input class="form-control" type="date" name="senha1" placeholder="Data de Nascimento" required>
+                                    <input class="form-control" type="date" name="bDate" placeholder="Data de Nascimento" required>
                                 </div>
                                 <div class="col" style="padding-right: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha1" placeholder="Sexo" required>
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="sex" placeholder="Sexo" required>
 
-                                    <input class="form-control" type="password" name="senha1" placeholder="Senha" required>
+                                    <input class="form-control" type="password" name="pass" placeholder="Senha" required>
                                 </div>
                             </div>
                             <hr>
-                            <input class="btn btn-primary" type="submit" name="submit" value="Registrar">
+                            <input class="btn btn-primary" type="submit" name="cadCli" value="Registrar">
                         </form>
                     </div>
                 </div>

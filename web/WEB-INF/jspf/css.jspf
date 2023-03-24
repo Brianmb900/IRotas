@@ -25,18 +25,8 @@
         border-color: black;
     }
 
-    .caixa2 {
-        background-color: #007FFF;
-        border-radius: 6px;
-        padding: 30px;
-        color: white;
-        border: solid 0.3px;
-        border-color: black;
-        margin-top: 120px;
-    }
-
     .navDim{
-        background-color: #f3f3f3;
+        background-color: #007FFF;
         height: 4.5em;
         display: flex;
         align-items: center;
@@ -47,7 +37,7 @@
         top: 0;
         font-size: 100%;
         justify-content: center;
-        color: black;
+        color: white;
     }
 
     .navDim > a{

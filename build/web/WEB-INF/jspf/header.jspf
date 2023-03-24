@@ -23,7 +23,7 @@
 <%}%>
 <%if (session.getAttribute("user") == null) {%>
 <nav class="navDim sticky-top">
-    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/logo1.png" width="70" height="70"></a>
+    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
     <a class="nav-link" href="login.jsp">Login</a>
@@ -38,7 +38,7 @@
         Bem Vindo,<b><%= ((User) session.getAttribute("user")).getNome()%></b>
     </a>
     <div class="dropdown-menu" style="text-align: center">
-        <a class="dropdown-item" href="#">Ver Perfil</a>
+        <a class="dropdown-item" href="perfilUser.jsp">Ver Perfil</a>
         <form class="dropdown-item"method="POST">
             <input class="btn btn-dark" type="submit" name="logout" value="Sair"/>
         </form>
