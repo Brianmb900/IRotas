@@ -25,18 +25,18 @@
             <hr>
             <div class="row justify-content-center">
                 <div class="col">
-                    <input class="form-control" type="text" name="Nome" placeholder="<%= ((User) session.getAttribute("user")).getNome()%>">
+                    <input class="form-control" type="text" name="nome" value="<%= ((User) session.getAttribute("user")).getNome()%>" placeholder="Primeiro Nome">
                     <br><br>
-                    <input class="form-control" type="text" name="email" placeholder="<%= ((User) session.getAttribute("user")).getEmail()%>">
+                    <input class="form-control" type="email" name="e-mail" value="<%= ((User) session.getAttribute("user")).getEmail()%>" placeholder="Email">
                     <br><br>
-                    <input class="form-control" type="text" name="email" placeholder="<%= ((User) session.getAttribute("user")).getTelefone()%>">
+                    <input class="form-control" type="text" name="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>" placeholder=" Número do Telefone">
                 </div>
                 <div class="col">
-                    <input class="form-control" type="Sobrenome" name="sobrenome" placeholder="<%= ((User) session.getAttribute("user")).getSobrenome()%>">
+                    <input class="form-control" type="text" name="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Último Sobrenome">
                     <br><br>
                     <div class="row">
                         <div class="col">
-                            <input class="form-control" type="text" name="email" placeholder="<%
+                            <input class="form-control" type="text" name="bDate" value="<%
                                 String strNor = ((User) session.getAttribute("user")).getDataNascimento().toString();
                                 String strCorreta = "";
                                 String dia = "";
@@ -53,16 +53,17 @@
                                 }
                                 strCorreta = dia + mes + ano;
                                 out.print(strCorreta);
-                                   %>">
+                                   %>" placeholder="Data de Nascimento">
                         </div>
                         <div class="col">
-                            <input class="form-control" type="text" name="email" placeholder="<%= ((User) session.getAttribute("user")).getSexo()%>">
+                            <input class="form-control" type="text" name="sex" value="<%= ((User) session.getAttribute("user")).getSexo()%>" placeholder="Seu sexo">
                         </div>
                     </div>
                     <br><br>
-                    <input class="form-control" type="text" name="email" placeholder="Senha">
+                    <input class="form-control" type="password" name="pass" placeholder="******">
                 </div>
             </div>
         </div>
+        <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

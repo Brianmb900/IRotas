@@ -34,6 +34,9 @@
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/logo1.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
+    <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {
+            out.print("<a class='nav-link' href='' >Administração</a>");
+        }%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
         Bem Vindo,<b><%= ((User) session.getAttribute("user")).getNome()%></b>
     </a>

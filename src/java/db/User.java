@@ -19,8 +19,6 @@ import web.DatabaseListener;
 public class User {
 
     private Integer idCLiente;
-    private int cliente;
-    private int colaborador;
     private int administrator;
     private String nome;
     private String sobrenome;
@@ -29,7 +27,6 @@ public class User {
     private String telefone;
     private LocalDate dataNascimento;
     private char sexo;
-    private String curriculo;
 
     public static String passwordMD5(String s) throws NoSuchAlgorithmException {
         MessageDigest m = MessageDigest.getInstance("MD5");
@@ -47,8 +44,6 @@ public class User {
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             Integer id = rs.getInt("cd_user");
-            int cliente = rs.getInt("ic_client_yes_no_user");
-            int colaborador = rs.getInt("ic_collaborator_yes_no_user");
             int administrator = rs.getInt("ic_administrator_yes_no_user");
             String nome = rs.getString("nm_user");
             String sobrenome = rs.getString("nm_last_user");
@@ -58,42 +53,35 @@ public class User {
             LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
             String Sexo = rs.getString("ic_sex_male_female_user");
             char sexo = Sexo.charAt(0);
-            String curriculo = rs.getString("im_curriculum_user");
 
-            user = new User(id, cliente, colaborador, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
+            user = new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo);
         }
         stmt.close();
         con.close();
 
         return user;
     }
-    
+
     public static void addUser(User user) throws Exception {
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_client_yes_no_user, ic_collaborator_yes_no_user,"
-                + "ic_administrator_yes_no_user, nm_user, nm_last_user, nm_email_user,"
-                + "cd_password_user, cd_phone_number_user, dt_birthdate_user, ic_sex_male_female_user, im_curriculum_user)"
-                + "VALUES (?,?,?,?,?)");
-        stmt.setInt(1, user.getCliente());
-        stmt.setInt(2, user.getColaborador());
-        stmt.setInt(3, user.getAdministrator());
-        stmt.setString(4, user.getNome());
-        stmt.setString(5, user.getSobrenome());
-        stmt.setString(6, user.getEmail());
-        stmt.setString(7, user.getPassword());
-        stmt.setString(8, user.getTelefone());
-        stmt.setString(9, user.getDataNascimento().toString());
-        stmt.setString(10, String.valueOf(user.getSexo()));
-        stmt.setString(11, user.getCurriculo());
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_administrator_yes_no_user, nm_user, nm_last_user, nm_email_user,"
+                + "cd_password_user, cd_phone_number_user, dt_birthdate_user, ic_sex_male_female_user)"
+                + "VALUES (?,?,?,?,?,?,?,?)");
+        stmt.setInt(1, user.getAdministrator());
+        stmt.setString(2, user.getNome());
+        stmt.setString(3, user.getSobrenome());
+        stmt.setString(4, user.getEmail());
+        stmt.setString(5, passwordMD5(user.getPassword()));
+        stmt.setString(6, user.getTelefone());
+        stmt.setString(7, user.getDataNascimento().toString());
+        stmt.setString(8, String.valueOf(user.getSexo()));
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public User(Integer idCLiente, int cliente, int colaborador, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
+    public User(Integer idCLiente, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo) {
         this.idCLiente = idCLiente;
-        this.cliente = cliente;
-        this.colaborador = colaborador;
         this.administrator = administrator;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -102,7 +90,6 @@ public class User {
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
-        this.curriculo = curriculo;
     }
 
     public Integer getIdCLiente() {
@@ -111,22 +98,6 @@ public class User {
 
     public void setIdCLiente(Integer idCLiente) {
         this.idCLiente = idCLiente;
-    }
-
-    public int getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(int cliente) {
-        this.cliente = cliente;
-    }
-
-    public int getColaborador() {
-        return colaborador;
-    }
-
-    public void setColaborador(int colaborador) {
-        this.colaborador = colaborador;
     }
 
     public String getNome() {
@@ -175,14 +146,6 @@ public class User {
 
     public void setSexo(char Sexo) {
         this.sexo = sexo;
-    }
-
-    public String getCurriculo() {
-        return curriculo;
-    }
-
-    public void setCurriculo(String curriculo) {
-        this.curriculo = curriculo;
     }
 
     public int getAdministrator() {

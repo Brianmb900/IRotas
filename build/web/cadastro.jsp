@@ -4,14 +4,53 @@
     Author     : user
 --%>
 
+<%@page import="java.time.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String addException = null;
+    try {
+        if (request.getParameter("cadCli") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            int adm = 0;
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            String email = request.getParameter("e-mail");
+            String telefone = request.getParameter("phone");
+            LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
+            LocalDate curDate = LocalDate.now();
+            if (Period.between(nascimento, curDate).getYears() < 18) {
+                addException = "Você deve ser maior de idade!";
+                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+            }
+            String Sexo = request.getParameter("sex");
+            char sexo = Sexo.charAt(0);
+            String senha = request.getParameter("pass");
+            User user = new User(
+                    id,
+                    adm,
+                    nome,
+                    sobrenome,
+                    email,
+                    senha,
+                    telefone,
+                    nascimento,
+                    sexo
+            );
+            User.addUser(user);
+            response.sendRedirect("http://localhost:8080/IRotas/login.jsp");
+        }
+
+    } catch (Exception ex) {
+        addException = ex.getMessage();
+    }
+%>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
+        <title>Cadastro</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>
@@ -21,20 +60,15 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">
+                        <h1 style="padding-bottom: 5px;">Cadastro Aluno</h1>
+                        <%if (addException != null) {%>
+                        <div style="color: black; font-size: 30px; border: 10px double red;">
+                            <%= addException%>
+                        </div>
+                        <br>
+                        <%}%>
                         <form autocomplete="off" method="POST">
-                            <h1 style="padding-bottom: 5px;">Cadastro Cliente</h1>
                             <input class="form-control" type="hidden" name="id" value="1">
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-check-input" type="checkbox" id="Alu" name="student" value="1">
-                                    <label class="form-check-label" for="Colab"> Quero ser aluno</label>
-                                </div>
-                                <div class="col">
-                                    <input class="form-check-input" type="checkbox" id="Colab" name="collaborator" value="1">
-                                    <label class="form-check-label" for="Colab"> Quero ser colaborador</label>
-                                </div>
-                                <hr>
-                            </div>
                             <div class="row">
                                 <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome" required>
 
@@ -45,12 +79,18 @@
 
                             <div class="row">
                                 <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="senha" placeholder="Telefone" required>
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone" required>
 
                                     <input class="form-control" type="date" name="bDate" placeholder="Data de Nascimento" required>
                                 </div>
                                 <div class="col" style="padding-right: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="sex" placeholder="Sexo" required>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="inputGroup">Sexo</span>
+                                        <select name="sex" required>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Feminino</option>
+                                        </select>
+                                    </div>
 
                                     <input class="form-control" type="password" name="pass" placeholder="Senha" required>
                                 </div>
