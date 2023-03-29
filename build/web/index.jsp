@@ -55,10 +55,25 @@
                     </button>
                     <!-- Fim anterior e próximo slide carousel -->
                 </div>
+        <section id = "sec-4" class = "py-2.5">
+                <div class = "container my-3">
+                        <div class = "row gx-lg-5">
+                            <div class = "col-lg-6 mb-5">
+                                <h3 class="mt-4">Encontre sua AutoEscola!</h3>
+                                <p class = "text-muted fw-light lh-lg my-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit sequi iste accusamus blanditiis sit ex voluptates et qui iusto fugit, alias quod eveniet eum quidem culpa odio tenetur ea? Earum iste maiores vero tempora aperiam, quia perspiciatis eligendi nihil odit debitis eum, itaque dolorum cumque ad? Id expedita fugiat ut!</p>
+                                <p class = "text-muted fw-light lh-lg my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet error id qui labore dolorem omnis?</p>
+                                <button type = "button" class = "btn btn-green mt-2">Read more</button>
+                            </div>
+                            <div class = "col-lg-6">
+                                <img src = "images/autoescola.jpg" class = "img-fluid">
+                            </div>
+                        </div>
+                </div>
+        </section>
                 <div class="box">
                     <section class="container marketing">
                         <div class="mb-3 d-flex justify-content-center">
-                            <h2>Sobre</h2>
+                            <h2 class="mt-3">Sobre</h2>
                         </div>
                         <div class="row">
                             <div class="col-lg-4">

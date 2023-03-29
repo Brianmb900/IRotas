@@ -1,8 +1,20 @@
 <%@ page pageEncoding="UTF-8" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <style>
+
+    :root{
+    --green: #16db93;
+    --green-dark: #13bc7e;
+    --light-grey: #f1f4f6;
+    --silver: #C0C0C0;
+    }
+
+    *{
+    font-family: 'Roboto', sans-serif;
+    }
+
     body {
-        background-color: gray;
+        background-color: var(--silver);
         text-align: center;
     }
 
@@ -93,6 +105,19 @@
 
     .box{
         background-color: #A9A9A9;
+    }
+
+    .btn-green{
+    background-color: var(--green);
+    color: #fff;
+    padding: 0.55rem 0;
+    width: 140px;
+    }
+    
+    .btn-green:hover{
+        color: var(--green);
+        background: #fff;
+        border-color: var(--green);
     }
 
 </style>
