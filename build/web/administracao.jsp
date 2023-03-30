@@ -93,7 +93,7 @@
         if (request.getParameter("delCli") != null) {
             int idenCli = Integer.parseInt(request.getParameter("idenCliDel"));
             User.deleteUser(idenCli);
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
     } catch (Exception ex) {
@@ -184,7 +184,7 @@
                                             out.print("Feminino");
                                         }%></td>
                                     <td>
-                                        <form>
+                                        <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="margin-right: 10%; color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altCliente"
                                                    onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
@@ -322,22 +322,24 @@
                     </div>
                 </div>
                 <div>
-                    <a style="text-decoration: none; font-size: 30px; margin-right: 18%;" href="administracao.jsp?page=<%= Integer.parseInt(request.getParameter("page")) - 1%>"><</a>
+                    <a style="text-decoration: none; font-size: 30px; margin-right: 18%; <% if (Integer.parseInt(request.getParameter("page")) == 1) {
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
+                        }%>" href="administracao.jsp?page=<%= Integer.parseInt(request.getParameter("page")) - 1%>"><</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%;" href="administracao.jsp?page=1">1</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 6) {
-                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5;");
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracao.jsp?page=2">2</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 11) {
-                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5;");
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracao.jsp?page=3">3</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 16) {
-                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5;");
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracao.jsp?page=4">4</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
-                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5;");
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracao.jsp?page=5">5</a>
                     <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
-                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5;");
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracao.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>
             </div>
