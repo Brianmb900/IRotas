@@ -4,7 +4,7 @@
     <!--Alguma tralha só para ter conteúdo-->
     <div class="row border-bottom pc">
         <div class="col">
-            <a class="nav-link" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank" style="margin-bottom: 16px;"> Link da Documentação do Bootstrap </a>
+            <a class="nav-link" href="https://docs.google.com/document/d/1vLdbW79J6m_xQSUNV5K0vXiEHC7UatG_0mK7zpHqL9U/" target="_blank" style="margin-bottom: 16px;"> Link da Documentação do Projeto</a>
         </div>
     </div>
 </div>

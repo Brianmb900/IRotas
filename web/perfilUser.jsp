@@ -4,8 +4,49 @@
     Author     : Alex
 --%>
 
+<%@page import="java.time.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String addException = null;
+    try {
+        if (request.getParameter("altCli") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            int adm = 0;
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            String email = request.getParameter("e-mail");
+            String telefone = request.getParameter("phone");
+            LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
+            LocalDate curDate = LocalDate.now();
+            if (Period.between(nascimento, curDate).getYears() < 18) {
+                addException = "Você deve ser maior de idade!";
+                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+            } else if (Period.between(nascimento, curDate).getYears() > 100) {
+                addException = "Imortalidade Não Existe!";
+                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+            }
+            char sexo = ((User) session.getAttribute("user")).getSexo();
+            String senha = request.getParameter("pass");
+            User user = new User(
+                    id,
+                    adm,
+                    nome,
+                    sobrenome,
+                    email,
+                    senha,
+                    telefone,
+                    nascimento,
+                    sexo
+            );
+            User.alterarUser(user);
+            Session.altData(request, response);
+        }
+
+    } catch (Exception ex) {
+        addException = ex.getMessage();
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,55 +56,110 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
+        <%if (session.getAttribute("user") == null) {%>
+        <%} else {%> 
         <div class="container-fluid">
             <div class="row justify-content-center">
+                <%if (addException != null) {%>
+                <div style="color: black; font-size: 30px; border: 10px double red;">
+                    <%= addException%>
+                </div>
+                <br>
+                <%}%>
                 <div class="col" style="margin-top: 20px;">
-                    <img class="rounded-circle" src="https://extra.globo.com/incoming/2446068-75d-e0a/w976h550-PROP/flyingcow.jpg" alt="img" height="150" width="155">
+                    <% if (((User) session.getAttribute("user")).getSexo() == 'M') { %>
+                    <img class="rounded-circle" src="https://img.freepik.com/vetores-premium/homem-perfil-caricatura_18591-58482.jpg?w=2000" alt="img" height="150" width="155">
+                    <% } else { %>
+                    <img class="rounded-circle" src="https://img.freepik.com/vetores-premium/desenho-de-perfil-de-mulher_18591-58480.jpg?w=2000" alt="img" height="150" width="155">
+                    <% }%>
                     <b style="font-size: 30px; margin-left: 15px;">Meu Perfil</b>
                 </div>
             </div>
             <hr>
             <div class="row justify-content-center">
                 <div class="col">
-                    <input class="form-control" type="text" name="nome" value="<%= ((User) session.getAttribute("user")).getNome()%>" placeholder="Primeiro Nome">
-                    <br><br>
-                    <input class="form-control" type="email" name="e-mail" value="<%= ((User) session.getAttribute("user")).getEmail()%>" placeholder="Email">
-                    <br><br>
-                    <input class="form-control" type="text" name="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>" placeholder=" Número do Telefone">
-                </div>
-                <div class="col">
-                    <input class="form-control" type="text" name="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Último Sobrenome">
-                    <br><br>
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" type="text" name="bDate" value="<%
-                                String strNor = ((User) session.getAttribute("user")).getDataNascimento().toString();
-                                String strCorreta = "";
-                                String dia = "";
-                                String mes = "";
-                                String ano = "";
-                                for (int i = 0; i < strNor.length(); i++) {
-                                    if (i <= 3) {
-                                        ano += strNor.charAt(i);
-                                    } else if (i <= 7) {
-                                        mes += strNor.charAt(i);
-                                    } else {
-                                        dia += strNor.charAt(i);
-                                    }
-                                }
-                                strCorreta = dia + mes + ano;
-                                out.print(strCorreta);
-                                   %>" placeholder="Data de Nascimento">
+                    <form autocomplete="off" method="POST">
+                        <input class="form-control" type="hidden" name="id" value="<%=((User) session.getAttribute("user")).getIdCLiente()%>">
+                        <input class="form-control" type="text" name="nome" id="nome" value="<%= ((User) session.getAttribute("user")).getNome()%>" placeholder="Primeiro Nome" disabled>
+                        <br><br>
+                        <input class="form-control" type="email" name="e-mail" id="e-mail" value="<%= ((User) session.getAttribute("user")).getEmail()%>" placeholder="Email" disabled>
+                        <br><br>
+                        <input class="form-control" type="text" name="phone" id="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>" placeholder=" Número do Telefone" disabled>
                         </div>
                         <div class="col">
-                            <input class="form-control" type="text" name="sex" value="<%= ((User) session.getAttribute("user")).getSexo()%>" placeholder="Seu sexo">
+                            <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Último Sobrenome" disabled>
+                            <br><br>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" type="text" name="bDate" id="bDate" value="<%
+                                        String strNor = ((User) session.getAttribute("user")).getDataNascimento().toString();
+                                        String strCorreta = "";
+                                        String dia = "";
+                                        String mes = "";
+                                        String ano = "";
+                                        for (int i = 0; i < strNor.length(); i++) {
+                                            if (i <= 3) {
+                                                ano += strNor.charAt(i);
+
+                                            } else if (i == 4) {
+                                                mes += '/';
+                                            } else if (i >= 5 && i <= 6) {
+                                                mes += strNor.charAt(i);
+
+                                            } else if (i == 7) {
+                                                mes += '/';
+                                            } else {
+                                                dia += strNor.charAt(i);
+                                            }
+
+                                        }
+                                        strCorreta = dia + mes + ano;
+                                        out.print(strCorreta);
+                                           %>" placeholder="Data de Nascimento" disabled>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="sex" id="sex" value="<% if (((User) session.getAttribute("user")).getSexo() == 'M') {
+                                            out.print("Masculino");
+                                        } else {
+                                            out.print("Feminino");
+                                        }%>" placeholder="Seu sexo" disabled>
+                                </div>
+                            </div>
+                            <br><br>
+                            <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="*****************" disabled>
                         </div>
-                    </div>
-                    <br><br>
-                    <input class="form-control" type="password" name="pass" placeholder="******">
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-2-center">
+                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altCli" id="altCli" value="Salvar Alteração" disabled="">
+                                </form>
+                                <button class="btn btn-primary">
+                                    <a onclick="removeDisabled()"> Alterar Dados</a>
+                                </button>
+                            </div>
+                        </div>
                 </div>
             </div>
-        </div>
-        <%@include file="WEB-INF/jspf/footer.jspf" %>
+            <script>
+                function removeDisabled() {
+                    document.getElementById('nome').removeAttribute("disabled");
+                    document.getElementById('nome').setAttribute("required", "");
+                    document.getElementById('e-mail').removeAttribute("disabled");
+                    document.getElementById('e-mail').setAttribute("required", "");
+                    document.getElementById('phone').removeAttribute("disabled");
+                    document.getElementById('phone').setAttribute("required", "");
+                    document.getElementById('sobrenome').removeAttribute("disabled");
+                    document.getElementById('sobrenome').setAttribute("required", "");
+                    document.getElementById('bDate').removeAttribute("disabled");
+                    document.getElementById('bDate').setAttribute("required", "");
+                    document.getElementById('bDate').type = "date";
+                    document.getElementById('bDate').value = '<%=((User) session.getAttribute("user")).getDataNascimento().toString()%>';
+                    document.getElementById('pass').removeAttribute("disabled");
+                    document.getElementById('pass').setAttribute("required", "");
+                    document.getElementById('pass').value = "";
+                    document.getElementById('altCli').removeAttribute("disabled");
+                }
+            </script>
+            <%}%>
+            <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

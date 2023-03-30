@@ -80,6 +80,25 @@ public class User {
         con.close();
     }
 
+    public static void alterarUser(User user) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE users SET ic_administrator_yes_no_user = ?, nm_user = ?, nm_last_user = ?, nm_email_user = ?,"
+                + "cd_password_user = ?, cd_phone_number_user = ?, dt_birthdate_user = ?, ic_sex_male_female_user = ? WHERE cd_user = ?");
+        stmt.setInt(1, user.getAdministrator());
+        stmt.setString(2, user.getNome());
+        stmt.setString(3, user.getSobrenome());
+        stmt.setString(4, user.getEmail());
+        stmt.setString(5, passwordMD5(user.getPassword()));
+        stmt.setString(6, user.getTelefone());
+        stmt.setString(7, user.getDataNascimento().toString());
+        stmt.setString(8, String.valueOf(user.getSexo()));
+        stmt.setInt(9, user.getIdCLiente());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
     public User(Integer idCLiente, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo) {
         this.idCLiente = idCLiente;
         this.administrator = administrator;

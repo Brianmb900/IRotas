@@ -22,6 +22,9 @@
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 addException = "Você deve ser maior de idade!";
                 throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+            } else if (Period.between(nascimento, curDate).getYears() > 100) {
+                addException = "Imortalidade Não Existe!";
+                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
             }
             String Sexo = request.getParameter("sex");
             char sexo = Sexo.charAt(0);
@@ -86,7 +89,7 @@
                                 <div class="col" style="padding-right: 0px;">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="inputGroup">Sexo</span>
-                                        <select name="sex" required>
+                                        <select class="form-select" name="sex" required>
                                             <option value="M">Masculino</option>
                                             <option value="F">Feminino</option>
                                         </select>
