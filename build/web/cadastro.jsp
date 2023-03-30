@@ -22,7 +22,7 @@
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 addException = "Você deve ser maior de idade!";
                 throw new java.lang.RuntimeException("Você deve ser maior de idade!");
-            } else if (Period.between(nascimento, curDate).getYears() > 100) {
+            } else if (Period.between(nascimento, curDate).getYears() > 130) {
                 addException = "Imortalidade Não Existe!";
                 throw new java.lang.RuntimeException("Imortalidade Não Existe!");
             }
@@ -53,6 +53,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="images/Logo2.png">
         <title>Cadastro</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>

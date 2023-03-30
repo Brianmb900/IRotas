@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    String addException = null;
+    String admException = null;
     try {
         if (request.getParameter("cadCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -20,10 +20,10 @@
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
-                addException = "Você deve ser maior de idade!";
+                admException = "O aluno ser maior de idade!";
                 throw new java.lang.RuntimeException("Você deve ser maior de idade!");
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                addException = "Imortalidade Não Existe!";
+                admException = "Imortalidade Não Existe!";
                 throw new java.lang.RuntimeException("Imortalidade Não Existe!");
             }
             String Sexo = request.getParameter("sex");
@@ -41,11 +41,44 @@
                     sexo
             );
             User.addUser(user);
-            response.sendRedirect("http://localhost:8080/IRotas/login.jsp");
+            response.sendRedirect(request.getRequestURI());
+        }
+
+        if (request.getParameter("altCli") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            int adm = 0;
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            String email = request.getParameter("e-mail");
+            String telefone = request.getParameter("phone");
+            LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
+            LocalDate curDate = LocalDate.now();
+            if (Period.between(nascimento, curDate).getYears() < 18) {
+                admException = "Você deve ser maior de idade!";
+                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+            } else if (Period.between(nascimento, curDate).getYears() > 130) {
+                admException = "Imortalidade Não Existe!";
+                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+            }
+            char sexo = ((User) session.getAttribute("user")).getSexo();
+            String senha = request.getParameter("pass");
+            User user = new User(
+                    id,
+                    adm,
+                    nome,
+                    sobrenome,
+                    email,
+                    senha,
+                    telefone,
+                    nascimento,
+                    sexo
+            );
+            User.alterarUser(user);
+            response.sendRedirect(request.getRequestURI());
         }
 
     } catch (Exception ex) {
-        addException = ex.getMessage();
+        admException = ex.getMessage();
     }
 %>
 <html lang="pt-br">
@@ -64,10 +97,10 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">
-                        <h1 style="padding-bottom: 5px;">Cadastro Aluno</h1>
-                        <%if (addException != null) {%>
+                        <h1 style="padding-bottom: 5px;">Lista de Aluno</h1>
+                        <%if (admException != null) {%>
                         <div style="color: black; font-size: 30px; border: 10px double red;">
-                            <%= addException%>
+                            <%= admException%>
                         </div>
                         <br>
                         <%}%>

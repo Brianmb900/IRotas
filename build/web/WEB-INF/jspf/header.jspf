@@ -2,11 +2,15 @@
 <%@page import="web.*"%>
 <%@page pageEncoding="UTF-8" %>
 <%
-    Exception requestException = null;
-    if (request.getParameter("login") != null) {
-        Session.getLogin(request, response);
-    } else if (request.getParameter("logout") != null) {
-        Session.getLogoff(request, response);
+    String loginException = null;
+    try {
+        if (request.getParameter("login") != null) {
+            Session.getLogin(request, response);
+        } else if (request.getParameter("logout") != null) {
+            Session.getLogoff(request, response);
+        }
+    } catch (Exception ex) {
+        loginException = ex.getMessage();
     }
 %>
 <%if (DatabaseListener.exception != null) {%>
@@ -15,13 +19,8 @@
 </div>
 <hr/>
 <%}%>
-<%if (requestException != null) {%>
-<div style="color: red">
-    <%= requestException.getMessage()%>
-</div>
-<hr/>
-<%}%>
-<%if (session.getAttribute("user") == null) {%>
+<%if (session.getAttribute(
+            "user") == null) {%>
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
