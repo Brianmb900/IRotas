@@ -54,7 +54,7 @@
                     sexo
             );
             User.addUser(user);
-            response.sendRedirect(request.getRequestURI());
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
         if (request.getParameter("altCli") != null) {
@@ -87,13 +87,13 @@
                     sexo
             );
             User.alterarUser(user);
-            response.sendRedirect(request.getRequestURI());
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
         if (request.getParameter("delCli") != null) {
             int idenCli = Integer.parseInt(request.getParameter("idenCliDel"));
             User.deleteUser(idenCli);
-            response.sendRedirect(request.getRequestURI());
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1" + request.getParameter("page"));
         }
 
     } catch (Exception ex) {
