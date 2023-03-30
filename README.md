@@ -2,7 +2,7 @@
 
 <h2 align="center"> Descrição </h2>
 
-Aplicação web que oferece uma plataforma para comunicação entre diversas instituições de ensino para direção de veículos automotores (autoescolas), clientes e possíveis colaboradores para as autoescolas.
+Aplicação web que oferece uma plataforma para comunicação entre diversas instituições de ensino para direção de veículos automotores (autoescolas) e clientes (alunos).
 
 <h2 align="center"> Requisitos Funcionais da aplicação: </h2>
 
@@ -11,10 +11,6 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 * Completar
 
 ### CRUD de Serviços:
-
-* Completar
-
-### CRUD de Oportunidades:
 
 * Completar
 
