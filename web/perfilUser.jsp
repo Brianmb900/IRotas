@@ -87,7 +87,9 @@
                         <br><br>
                         <input class="form-control" type="email" name="e-mail" id="e-mail" value="<%= ((User) session.getAttribute("user")).getEmail()%>" placeholder="Email" disabled>
                         <br><br>
-                        <input class="form-control" type="text" name="phone" id="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>" placeholder=" Número do Telefone" disabled>
+                        <input class="form-control" type="text" name="phone" id="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
                         </div>
                         <div class="col">
                             <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Último Sobrenome" disabled>

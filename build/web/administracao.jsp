@@ -214,18 +214,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome">
+                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome" required>
                                                         <br><br>
-                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail">
+                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail" required>
                                                         <br><br>
-                                                        <input class="form-control" type="text" name="phone" id="phone" placeholder=" Número do Telefone">
+                                                        <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
                                                     </div>
                                                     <div class="col">
-                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome">
+                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
                                                         <br><br>
                                                         <div class="row" style="height: 38px;">
                                                             <div class="col">
-                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento">
+                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento" required>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="input-group mb-3">
@@ -238,7 +240,7 @@
                                                             </div>
                                                         </div>
                                                         <br><br>
-                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="">
+                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="" required>
                                                     </div>
                                                     <div class="row" style="margin-top: 20px;">
                                                         <div class="col-2-center">
@@ -270,18 +272,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome">
+                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome" required>
                                                         <br><br>
-                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail">
+                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail" required>
                                                         <br><br>
-                                                        <input class="form-control" type="text" name="phone" id="phone" placeholder=" Número do Telefone">
+                                                        <input class="form-control" type="text" name="phone" id="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
                                                     </div>
                                                     <div class="col">
-                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome">
+                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
                                                         <br><br>
                                                         <div class="row">
                                                             <div class="col">
-                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento">
+                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento" required>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="input-group mb-3">
@@ -294,7 +298,7 @@
                                                             </div>
                                                         </div>
                                                         <br><br>
-                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="">
+                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="" required>
                                                     </div>
                                                     <div class="row" style="margin-top: 20px;">
                                                         <div class="col-2-center">

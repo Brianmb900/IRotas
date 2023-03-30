@@ -83,7 +83,9 @@
 
                             <div class="row">
                                 <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone" required>
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                           pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
 
                                     <input class="form-control" type="date" name="bDate" placeholder="Data de Nascimento" required>
                                 </div>
