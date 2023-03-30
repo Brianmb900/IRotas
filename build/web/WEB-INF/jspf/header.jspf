@@ -40,7 +40,7 @@
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
     <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {
-            out.print("<a class='nav-link' href='' >Administração</a>");
+            out.print("<a class='nav-link' href='administracao.jsp?page=1' >Administração</a>");
         }%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
         <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((User) session.getAttribute("user")).getNome()%></b></p>

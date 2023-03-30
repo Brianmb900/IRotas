@@ -48,7 +48,15 @@ public class DatabaseListener implements ServletContextListener {
                     + "ic_sex_male_female_user VARCHAR NOT NULL)");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(2, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-3333', '1999-10-21', 'F')");
-            
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(3, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(4, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(5, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(6, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(7, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(8, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(9, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(10, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-3333', '1999-10-21', 'F')");
+
             //stmt.execute("DROP TABLE drivingSchools");
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"

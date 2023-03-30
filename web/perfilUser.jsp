@@ -12,7 +12,7 @@
     try {
         if (request.getParameter("altCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
-            int adm = Integer.parseInt(request.getParameter("adm"));;
+            int adm = Integer.parseInt(request.getParameter("adm"));
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
             String email = request.getParameter("e-mail");
@@ -58,6 +58,7 @@
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("user") == null) {%>
+        <%out.print("Você deve realizar login para acessar o conteúdo desta página");%>
         <%} else {%> 
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -93,31 +94,7 @@
                             <br><br>
                             <div class="row">
                                 <div class="col">
-                                    <input class="form-control" type="text" name="bDate" id="bDate" value="<%
-                                        String strNor = ((User) session.getAttribute("user")).getDataNascimento().toString();
-                                        String strCorreta = "";
-                                        String dia = "";
-                                        String mes = "";
-                                        String ano = "";
-                                        for (int i = 0; i < strNor.length(); i++) {
-                                            if (i <= 3) {
-                                                ano += strNor.charAt(i);
-
-                                            } else if (i == 4) {
-                                                mes += '/';
-                                            } else if (i >= 5 && i <= 6) {
-                                                mes += strNor.charAt(i);
-
-                                            } else if (i == 7) {
-                                                mes += '/';
-                                            } else {
-                                                dia += strNor.charAt(i);
-                                            }
-
-                                        }
-                                        strCorreta = dia + mes + ano;
-                                        out.print(strCorreta);
-                                           %>" placeholder="Data de Nascimento" disabled>
+                                    <input class="form-control" type="date" name="bDate" id="bDate" value="<%=((User) session.getAttribute("user")).getDataNascimento().toString()%>" placeholder="Data de Nascimento" disabled>
                                 </div>
                                 <div class="col">
                                     <input class="form-control" type="text" name="sex" id="sex" value="<% if (((User) session.getAttribute("user")).getSexo() == 'M') {
@@ -153,8 +130,6 @@
                     document.getElementById('sobrenome').setAttribute("required", "");
                     document.getElementById('bDate').removeAttribute("disabled");
                     document.getElementById('bDate').setAttribute("required", "");
-                    document.getElementById('bDate').type = "date";
-                    document.getElementById('bDate').value = '<%=((User) session.getAttribute("user")).getDataNascimento().toString()%>';
                     document.getElementById('pass').removeAttribute("disabled");
                     document.getElementById('pass').setAttribute("required", "");
                     document.getElementById('pass').value = "";
