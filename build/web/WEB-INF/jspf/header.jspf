@@ -27,7 +27,13 @@
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
     <a class="nav-link" href="login.jsp">Login</a>
-    <a class="nav-link" href="cadastro.jsp" style="border-right: solid 0.08px;">Cadastro</a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
+        Cadastro
+    </a>
+    <div class="dropdown-menu" style="text-align: left">
+        <a class="dropdown-item" href="cadastro.jsp">Cadastro Aluno</a>
+        <a class="dropdown-item" href="cadastro.jsp">Cadastro Autoescola</a>
+    </div>
 </nav>
 <%} else {%> 
 <nav class="navDim sticky-top">
