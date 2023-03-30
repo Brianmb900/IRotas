@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div class="footer container-fluid text-center border-top" style="border-top: 5px var(--bs-border-style) #931914!important;
-     background-color: black; color: white; margin-top: 30px; padding-top: 58px;">
+     background-color: black; color: white; padding-top: 58px;">
     <div class="row border-bottom pc">
         <div class="col">
             <a class="nav-link" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" target="_blank" style="margin-bottom: 16px;"> Link da Documentação do Bootstrap </a>

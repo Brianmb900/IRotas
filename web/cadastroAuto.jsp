@@ -4,7 +4,6 @@
     Author     : Erik
 --%>
 
-<%@page import="java.time.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,16 +11,16 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cadastro Auto-Escola</title>
+        <title>Cadastro Auto Escola</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid" justify-content: center;">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-5">
-                    <div class="caixa" style="margin-top: 30px;">
+                    <div class="register" style="margin-top: 30px;">
                         <h1 style="padding-bottom: 5px;">Cadastro Auto-Escola</h1>
                         <form autocomplete="off" method="POST">
                             <input class="form-control" type="hidden" name="id" value="1">
@@ -55,7 +54,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <input class="btn btn-warning" type="submit" name="cadCli" value="Registrar">
+                            <input class="btn btn-primary" type="submit" name="cadCli" value="Registrar">
                         </form>
                     </div>
                 </div>
