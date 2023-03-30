@@ -6,8 +6,18 @@
         text-align: center;
     }
 
+    .login {
+        background-color: #007FFF;
+        border-radius: 6px;
+        padding: 30px;
+        color: white;
+        border: solid 0.3px;
+        border-color: black;
+        margin-bottom: 40px;
+    }
+
     .caixa {
-        background-color: #efb301;
+        background-color: #007FFF;
         border-radius: 6px;
         padding: 30px;
         color: white;
@@ -16,6 +26,7 @@
     }
 
     .navDim{
+        background-color: #007FFF;
         height: 4.5em;
         display: flex;
         align-items: center;
@@ -26,6 +37,7 @@
         top: 0;
         font-size: 100%;
         justify-content: center;
+        color: white;
     }
 
     .navDim > a{
@@ -40,6 +52,7 @@
         border-bottom: none;
         border-right: none;
         font-size: 100%;
+        margin: 0px;
     }
 
     .logoNav{
@@ -60,4 +73,25 @@
         border-bottom: none;
     }
 
+    .carousel-inner {
+        height: 300px;
+    }
+
+    .box{
+        background-color: #A9A9A9;
+    }
+
+    .table-my {
+        --bs-table-color: #fff;
+        /* --bs-table-bg: #212529; */
+        /* --bs-table-border-color: #373b3e; */
+        --bs-table-striped-bg: #2c3034;
+        --bs-table-striped-color: #fff;
+        --bs-table-active-bg: #373b3e;
+        --bs-table-active-color: #fff;
+        --bs-table-hover-bg: #323539;
+        --bs-table-hover-color: #fff;
+        color: var(--bs-table-color);
+        border-color: var(--bs-table-border-color);
+    }
 </style>

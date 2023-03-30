@@ -38,17 +38,26 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("DROP TABLE users");
             stmt.execute("CREATE TABLE IF NOT EXISTS users("
                     + "cd_user INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "ic_client_yes_no_user INTEGER NOT NULL,"
-                    + "ic_collaborator_yes_no_user INTEGER NOT NULL,"
+                    + "ic_administrator_yes_no_user NOT NULL,"
                     + "nm_user VARCHAR NOT NULL,"
+                    + "nm_last_user VARCHAR NOT NULL,"
                     + "nm_email_user VARCHAR NOT NULL,"
                     + "cd_password_user VARCHAR NOT NULL,"
                     + "cd_phone_number_user VARCHAR NOT NULL,"
                     + "dt_birthdate_user VARCHAR NOT NULL,"
-                    + "ic_sex_male_female_user VARCHAR NOT NULL,"
-                    + "im_curriculum_user BLOB)");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 0, 'Fulano', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19) 9999-9999', '2000-01-01', 'M', NULL)");
+                    + "ic_sex_male_female_user VARCHAR NOT NULL)");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(2, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(3, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(4, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(5, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(6, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(7, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(8, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(9, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(10, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
 
+            //stmt.execute("DROP TABLE drivingSchools");
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "nm_drivingSchool VARCHAR NOT NULL,"
@@ -61,10 +70,8 @@ public class DatabaseListener implements ServletContextListener {
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL,"
                     + "cd_service_drivingschool INTEGER,"
-                    + "cd_opportunities_drivingschool INTEGER"
                     + "vl_rating_drivingSchool INTEGER NOT NULL,"
-                    + "FOREIGN KEY (cd_service_drivingschool) REFERENCES services (cd_service),"
-                    + "FOREIGN KEY (cd_opportunities_drivingschool) REFERENCES opportunities (cd_opportunities))");
+                    + "FOREIGN KEY (cd_service_drivingschool) REFERENCES services (cd_service))");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS services("
                     + "cd_services INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -73,22 +80,6 @@ public class DatabaseListener implements ServletContextListener {
                     + "hr_end_services VARCHAR NOT NULL,"
                     + "vl_services VARCHAR NOT NULL,"
                     + "ic_class_theoretical_practical_services INTEGER NOT NULL)");
-
-            stmt.execute("CREATE TABLE IF NOT EXISTS opportunities("
-                    + "cd_opportunities INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nm_role_opportunities VARCHAR NOT NULL,"
-                    + "ds_opportunities VARCHAR NOT NULL,"
-                    + "vl_salary_opportunities REAL NOT NULL,"
-                    + "hr_shift_start_opportunities VARCHAR NOT NULL,"
-                    + "hr_shift_end_opportunities VARCHAR NOT NULL)");
-
-            stmt.execute("CREATE TABLE IF NOT EXISTS candidates("
-                    + "cd_candidates INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "cd_user_candidates INTEGER NOT NULL,"
-                    + "cd_opportunities_candidates INTEGER NOT NULL,"
-                    + "FOREIGN KEY (cd_user_candidates) REFERENCES users (cd_user),"
-                    + "FOREIGN KEY (cd_opportunities_candidates) REFERENCES opportunities (cd_opportunities))");
-            stmt.execute("PRAGMA foreign_keys = ON");
 
         } catch (Exception ex) {
             exception = ex;
