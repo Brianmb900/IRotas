@@ -35,11 +35,12 @@ public class User {
         return passMD5;
     }
 
-    public static ArrayList<User> getUsers(int start, int fim) throws Exception {
+    public static ArrayList<User> getUsers(int start, int fim, int order) throws Exception {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY cd_user LIMIT " + (start - 1) + "," + fim);
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim
+        );
         while (rs.next()) {
             Integer id = rs.getInt("cd_user");
             int administrator = rs.getInt("ic_administrator_yes_no_user");
@@ -58,7 +59,7 @@ public class User {
         con.close();
         return list;
     }
-    
+
     public static ArrayList<User> getTotalUsers() throws Exception {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();

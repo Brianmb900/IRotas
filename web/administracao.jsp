@@ -20,7 +20,7 @@
         } else {
             pageid = (pageid - 1) * limite + 1;
         }
-        users = User.getUsers(pageid, limite);
+        users = User.getUsers(pageid, limite, Integer.parseInt(session.getAttribute("ORDER").toString()));
         usersT = User.getTotalUsers();
         total = usersT.size();
         if (request.getParameter("cadCli") != null) {
@@ -96,6 +96,11 @@
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
+        if (request.getParameter("orderCli") != null) {
+            session.setAttribute("ORDER", Integer.parseInt(request.getParameter("order")));
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
     } catch (Exception ex) {
         admException = ex.getMessage();
     }
@@ -128,6 +133,22 @@
                         </div>
                         <br>
                         <%}%>
+                        <form autocomplete="off" method="POST">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup">Ordenar por:</span>
+                                <select class="form-select" name="order" required>
+                                    <option value="1">ID</option>
+                                    <option value="2">Administrador</option>
+                                    <option value="3">Nome</option>
+                                    <option value="4">Sobrenome</option>
+                                    <option value="5">E-mail</option>
+                                    <option value="7">Telefone</option>
+                                    <option value="8">Data de Nascimento</option>
+                                    <option value="9">Sexo</option>
+                                </select>
+                                <input type="submit" name="orderCli" value="Ordenar" class="btn btn-primary"/>
+                            </div>
+                        </form>
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
