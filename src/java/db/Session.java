@@ -24,6 +24,7 @@ public class Session {
                 throw requestException = new Exception("E-mail não encontrado ou senha inválida");
             } else {
                 session.setAttribute(USER, user);
+                session.setAttribute("ORDER", 1);
                 response.sendRedirect("http://localhost:8080/IRotas/index.jsp");
             }
         } catch (Exception ex) {

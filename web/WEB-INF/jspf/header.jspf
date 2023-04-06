@@ -36,7 +36,7 @@
 </nav>
 <%} else {%> 
 <nav class="navDim sticky-top">
-    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/logo1.png" width="70" height="70"></a>
+    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
     <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {
