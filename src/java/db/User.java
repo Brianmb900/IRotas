@@ -111,6 +111,32 @@ public class User {
         return user;
     }
 
+    public static ArrayList<User> searchUser(String busca) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user = ?");
+        stmt.setString(1, busca);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+
+        return list;
+    }
+
     public static void addUser(User user) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_administrator_yes_no_user, nm_user, nm_last_user, nm_email_user,"
