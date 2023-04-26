@@ -6,24 +6,41 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 
 <h2 align="center"> Requisitos Funcionais da aplicação: </h2>
 
-### CRUD de Autoescolas:
-
-* Completar
-
-### CRUD de Serviços:
-
-* Completar
-
 ### CRUD de Usuários:
 
-* Identifição
-* Administrador: 0/1
+* Identificação
+* Administrador: 0 / 1
 * Nome
 * E-mail
 * Senha
 * Telefone
 * Data de Nascimento
-* Sexo: M/F
+* Sexo: M / F
+
+### CRUD de Autoescolas:
+
+* Identificação
+* Nome
+* Descrição
+* Endereço: Rua, número e complemento
+* Cidade
+* Bairro
+* Cep
+* Telefone
+* E-mail
+* Servicos: Aulas fornecidas pela autoescola
+* Avaliacao: 1 a 5
+
+### CRUD de Serviços:
+
+* Identificação
+* Nome
+* Descricao
+* Hora de Início
+* Hora de Fim
+* Valor
+* Tipo de Aula
+* Interessados no Servico: Lista de usuários interessados no serviço
 
 <h2 align="center"> Instalação Local </h2>
 
