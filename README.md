@@ -16,7 +16,14 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 
 ### CRUD de Usuários:
 
-* Completar
+* Identifição
+* Administrador: 0/1
+* Nome
+* E-mail
+* Senha
+* Telefone
+* Data de Nascimento
+* Sexo: M/F
 
 <h2 align="center"> Instalação Local </h2>
 
