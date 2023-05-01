@@ -75,6 +75,6 @@ Para executar o projeto localmento você pode utilizar o arquivo .WAR que se enc
 <h2 align="center"> Autores/Desenvolvedores </h2>
 
 * **Alex Feitoza Alves**
-* **Brian Melisnki Bianchini**
+* **Brian Melinski Bianchini**
 * **Erik Faria da Silva**
 * **Luan Alejandro Cardoso Vazquez Gil**
