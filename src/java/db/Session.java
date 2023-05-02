@@ -25,7 +25,7 @@ public class Session {
             } else {
                 session.setAttribute(USER, user);
                 session.setAttribute("ORDER", 1);
-                session.setAttribute("SEARCH", 0);
+                session.setAttribute("SEARCH", "0");
                 response.sendRedirect("http://localhost:8080/IRotas/index.jsp");
             }
         } catch (Exception ex) {
@@ -38,25 +38,6 @@ public class Session {
         HttpSession session = request.getSession();
         response.sendRedirect("http://localhost:8080/IRotas/index.jsp");
         session.removeAttribute(USER);
-    }
-
-    public static void altData(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        session.removeAttribute(USER);
-        Exception requestException = null;
-        String email = request.getParameter("e-mail");
-        String password = request.getParameter("pass");
-        try {
-            User user = User.getUser(email, password);
-            if (user == null) {
-                requestException = new Exception("E-mail não encontrado ou senha inválida");
-            } else {
-                session.setAttribute(USER, user);
-                response.sendRedirect(request.getRequestURI());
-            }
-        } catch (Exception ex) {
-            requestException = ex;
-        }
     }
 
     public static void getMySession(HttpServletRequest request, HttpServletResponse response, String user) {

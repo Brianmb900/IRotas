@@ -39,8 +39,7 @@ public class User {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim
-        );
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim);
         while (rs.next()) {
             Integer id = rs.getInt("cd_user");
             int administrator = rs.getInt("ic_administrator_yes_no_user");
@@ -111,11 +110,11 @@ public class User {
         return user;
     }
 
-    public static ArrayList<User> searchUser(String busca) throws Exception {
+    public static ArrayList<User> searchUser(String busca, int start, int fim, int order) throws Exception {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user = ?");
-        stmt.setString(1, busca);
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user LIKE ? ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim);
+        stmt.setString(1, "%" + busca + "%");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             Integer id = rs.getInt("cd_user");
@@ -159,16 +158,26 @@ public class User {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement(""
                 + "UPDATE users SET ic_administrator_yes_no_user = ?, nm_user = ?, nm_last_user = ?, nm_email_user = ?,"
-                + "cd_password_user = ?, cd_phone_number_user = ?, dt_birthdate_user = ?, ic_sex_male_female_user = ? WHERE cd_user = ?");
+                + "cd_phone_number_user = ?, dt_birthdate_user = ?, ic_sex_male_female_user = ? WHERE cd_user = ?");
         stmt.setInt(1, user.getAdministrator());
         stmt.setString(2, user.getNome());
         stmt.setString(3, user.getSobrenome());
         stmt.setString(4, user.getEmail());
-        stmt.setString(5, passwordMD5(user.getPassword()));
-        stmt.setString(6, user.getTelefone());
-        stmt.setString(7, user.getDataNascimento().toString());
-        stmt.setString(8, String.valueOf(user.getSexo()));
-        stmt.setInt(9, user.getIdCLiente());
+        stmt.setString(5, user.getTelefone());
+        stmt.setString(6, user.getDataNascimento().toString());
+        stmt.setString(7, String.valueOf(user.getSexo()));
+        stmt.setInt(8, user.getIdCLiente());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+    
+    public static void alterarSenhaUser(String senha, Integer identificacao) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE users SET cd_password_user = ? WHERE cd_user = ?");
+        stmt.setString(1, passwordMD5(senha));
+        stmt.setInt(2, identificacao);
         stmt.execute();
         stmt.close();
         con.close();
