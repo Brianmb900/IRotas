@@ -52,12 +52,12 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("INSERT OR IGNORE INTO users VALUES(4, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(5, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(6, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(7, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(8, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(9, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(10, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(7, 1, 'Brian', 'Bianchini', 'brian@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(8, 0, 'Alex', 'Alves', 'alex@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(9, 1, 'Erik', 'Faria', 'erik@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(10, 0, 'Luan', 'Alejandro', 'luan@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
 
-            //stmt.execute("DROP TABLE drivingSchools");
+            stmt.execute("DROP TABLE drivingSchools");
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "nm_drivingSchool VARCHAR NOT NULL,"
@@ -65,21 +65,24 @@ public class DatabaseListener implements ServletContextListener {
                     + "nm_address_drivingSchool VARCHAR NOT NULL,"
                     + "nm_city_drivingSchool VARCHAR NOT NULL,"
                     + "nm_neighbordhood_drivingSchool VARCHAR NOT NULL,"
-                    + "cd_cep_drivingSchool INTEGER NOT NULL,"
-                    + "im_photo_drivingSchool BLOB NOT NULL,"
+                    + "cd_cep_drivingSchool VARCHAR NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL,"
-                    + "cd_service_drivingschool INTEGER,"
-                    + "vl_rating_drivingSchool INTEGER NOT NULL,"
-                    + "FOREIGN KEY (cd_service_drivingschool) REFERENCES services (cd_service))");
+                    + "cd_password_drivingSchool VARCHAR NOT NULL,"
+                    + "vl_rating_drivingSchool INTEGER NOT NULL)");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(1, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                       + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '0')");
 
+            stmt.execute("DROP TABLE services");
             stmt.execute("CREATE TABLE IF NOT EXISTS services("
-                    + "cd_services INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "ds_services VARCHAR NOT NULL,"
-                    + "hr_start_services VARCHAR NOT NULL,"
-                    + "hr_end_services VARCHAR NOT NULL,"
-                    + "vl_services VARCHAR NOT NULL,"
-                    + "ic_class_theoretical_practical_services INTEGER NOT NULL)");
+                    + "cd_service INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "cd_drivingschool_service INTEGER,"
+                    + "ds_service VARCHAR NOT NULL,"
+                    + "hr_start_service VARCHAR NOT NULL,"
+                    + "hr_end_service VARCHAR NOT NULL,"
+                    + "vl_service VARCHAR NOT NULL,"
+                    + "ic_class_theoretical_practical_service INTEGER NOT NULL,"
+                    + "FOREIGN KEY (cd_drivingschool_service) REFERENCES drivingSchools (cd_drivingSchool))");
 
         } catch (Exception ex) {
             exception = ex;

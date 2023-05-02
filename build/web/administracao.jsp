@@ -11,7 +11,7 @@
 <%
     String admException = null;
     ArrayList<User> users = new ArrayList<>();
-    ArrayList<User> usersT = new ArrayList<>();
+    ArrayList<User> userSearch = new ArrayList<>();
     int limite = 5;
     int total = 0;
     try {
@@ -21,8 +21,12 @@
             pageid = (pageid - 1) * limite + 1;
         }
         users = User.getUsers(pageid, limite, Integer.parseInt(session.getAttribute("ORDER").toString()));
-        usersT = User.getTotalUsers();
-        total = usersT.size();
+        userSearch = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, limite, Integer.parseInt(session.getAttribute("ORDER").toString()));
+        if (session.getAttribute("SEARCH").toString().equals("0")) {
+            total = User.getTotalUsers().size();
+        } else {
+            total = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, 100000, Integer.parseInt(session.getAttribute("ORDER").toString())).size();
+        }
         if (request.getParameter("cadCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             int adm = 0;
@@ -101,6 +105,16 @@
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
+        if (request.getParameter("searchCli") != null) {
+            session.setAttribute("SEARCH", request.getParameter("search"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("limpaBusca") != null) {
+            session.setAttribute("SEARCH", "0");
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
     } catch (Exception ex) {
         admException = ex.getMessage();
     }
@@ -135,6 +149,13 @@
                         <%}%>
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup">Buscar por:</span>
+                                <input class="form-control" type="text" name="search" placeholder="Nome do Usuário" required>
+                                <input type="submit" name="searchCli" value="Buscar" class="btn btn-primary"/>
+                            </div>
+                        </form>
+                        <form autocomplete="off" method="POST">
+                            <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Ordenar por:</span>
                                 <select class="form-select" name="order" required>
                                     <option value="1">ID</option>
@@ -152,7 +173,7 @@
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
-                                    <th>ID</th>
+                                    <th><%=total%></th>
                                     <th>Administrador</th>
                                     <th>Nome</th>
                                     <th>Sobrenome</th>
@@ -164,7 +185,63 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%for (User u : users) {%>
+                                <%
+                                    if (session.getAttribute("SEARCH").toString().equals("0")) {
+                                        for (User u : users) {%>
+                                <tr class="table-my">
+                                    <td><%= u.getIdCLiente()%></td>
+                                    <td><% if (u.getAdministrator() == 1) {
+                                            out.print("Sim");
+                                        } else {
+                                            out.print("Não");
+                                        }%></td>
+                                    <td><%= u.getNome()%></td>
+                                    <td><%= u.getSobrenome()%></td>
+                                    <td><%= u.getEmail()%></td>
+                                    <td><%= u.getTelefone()%></td>
+                                    <td><% String strNor = u.getDataNascimento().toString();
+                                        String strCorreta = "";
+                                        String dia = "";
+                                        String mes = "";
+                                        String ano = "";
+                                        for (int i = 0; i < strNor.length(); i++) {
+                                            if (i <= 3) {
+                                                ano += strNor.charAt(i);
+
+                                            } else if (i == 4) {
+                                                mes += '/';
+                                            } else if (i >= 5 && i <= 6) {
+                                                mes += strNor.charAt(i);
+
+                                            } else if (i == 7) {
+                                                mes += '/';
+                                            } else {
+                                                dia += strNor.charAt(i);
+                                            }
+
+                                        }
+                                        strCorreta = dia + mes + ano;
+                                        out.print(strCorreta);%></td>
+                                    <td><% if (u.getSexo() == 'M') {
+                                            out.print("Masculino");
+                                        } else {
+                                            out.print("Feminino");
+                                        }%></td>
+                                    <td>
+                                        <form autocomplete="off" method="POST">
+                                            <button class="btn btn-warning" style="margin-right: 10%; color: white;">
+                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altCliente"
+                                                   onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
+                                                                   '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')"> <b>Alterar</b></a>
+                                            </button>
+                                            <input type="hidden" name="idenCliDel" value="<%= u.getIdCLiente()%>" />
+                                            <input style="font-weight: bold;" type="submit" name="delCli" value="Remover" class="btn btn-danger"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%}
+                                } else {
+                                    for (User u : userSearch) {%>
                                 <tr class="table-my">
                                     <td><%= u.getIdCLiente()%></td>
                                     <td><% if (u.getAdministrator() == 1) {
@@ -334,12 +411,21 @@
                                 </div>
                             </div>
 
-                            <%}%>
+                            <%}
+                                }%>
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" style="color: white;">
-                            <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadCliente"><b>Cadastrar</b></a>
-                        </button>
+                            <div style="display: inline-flex">
+                            <button class="btn btn-primary" style="color: white;">
+                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadCliente"><b>Cadastrar</b></a>
+                            </button>
+                            <%if (session.getAttribute("SEARCH").toString().equals("0")) {
+                            } else {%>
+                            <form autocomplete="off" method="POST">
+                                <input type="submit" name="limpaBusca" value="Limpar Busca" class="btn btn-dark" style="margin-left: 20px"/>
+                            </form>
+                            <%}%>
+                        </div>
                     </div>
                 </div>
                 <div>
