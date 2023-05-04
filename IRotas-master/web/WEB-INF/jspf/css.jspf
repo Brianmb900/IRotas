@@ -15,6 +15,21 @@
         border-color: black;
         margin-bottom: 40px;
     }
+    .checkbox {
+        text-align: center;
+    }
+    .textFiltro{
+        text-align: left;
+    }
+    .filtro {
+        background-color: #007FFF;
+        border-radius: 6px;
+        padding: 30px;
+        color: white;
+        border: solid 0.3px;
+        border-color: black;
+        text-align: center;
+    }
 
     .caixa {
         background-color: #007FFF;
@@ -80,7 +95,12 @@
     .box{
         background-color: #A9A9A9;
     }
-
+    h4 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: right;
+    }
     .table-my {
         --bs-table-color: #fff;
         /* --bs-table-bg: #212529; */
@@ -94,5 +114,4 @@
         color: var(--bs-table-color);
         border-color: var(--bs-table-border-color);
     }
-    
 </style>

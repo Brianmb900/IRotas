@@ -28,7 +28,7 @@
                 <div class="col-5">
                     <div class="caixa">
                         <form method="POST">
-                            <h1 style="padding-bottom: 40px;">Login</h1>
+                            <h1 style="padding-bottom: 40px;">Login Aluno</h1>
                             <input class="form-control" type="text" name="email" placeholder="E-mail">
                             <br><br>
                             <input class="form-control" type="password" name="password" placeholder="Senha">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-        </div>         
+        </div>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

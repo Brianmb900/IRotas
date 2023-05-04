@@ -4,10 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/login.jsp</file>
-            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/WEB-INF/jspf/scripts.jspf</file>
             <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/WEB-INF/jspf/css.jspf</file>
             <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/WEB-INF/jspf/header.jspf</file>
-            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/WEB-INF/jspf/footer.jspf</file>
+            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/encontre.jsp</file>
+            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/WEB-INF/jspf/estrela.jspf</file>
+            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/src/java/db/User.java</file>
+            <file>file:/C:/Users/Fatec/Desktop/IRotas-master/web/cadastro.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <%
     String altException = null;
+    session.setAttribute("ORDER", 1);
+    session.setAttribute("SEARCH", "0");
     try {
         if (request.getParameter("altCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -21,13 +23,13 @@
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 altException = "Você deve ser maior de idade!";
-                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+                throw new java.lang.RuntimeException(altException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                altException = "Imortalidade Não Existe!";
-                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+                altException = "Imortalidade (ainda) Não Existe!";
+                throw new java.lang.RuntimeException(altException);
             }
             char sexo = ((User) session.getAttribute("user")).getSexo();
-            String senha = request.getParameter("pass");
+            String senha = ((User) session.getAttribute("user")).getPassword();
             User user = new User(
                     id,
                     adm,
@@ -40,7 +42,29 @@
                     sexo
             );
             User.alterarUser(user);
-            Session.altData(request, response);
+            Session.getLogoff(request, response);
+        }
+
+        if (request.getParameter("altSenha") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String senhaOriginal = ((User) session.getAttribute("user")).passwordMD5(request.getParameter("passOri"));
+            String senhaOriginalBD = ((User) session.getAttribute("user")).getPassword();
+            String senhaNova1 = request.getParameter("passNew1");
+            String senhaNova2 = request.getParameter("passNew2");
+            if (senhaOriginal.equals(senhaOriginalBD)) {
+                if (senhaNova1.equals(senhaNova2)) {
+                    User.alterarSenhaUser(senhaNova1, id);
+                    Session.getLogoff(request, response);
+                    altException = "Senhas Não Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
+                    throw new java.lang.RuntimeException(altException);
+                } else {
+                    altException = "Senhas Não Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
+                    throw new java.lang.RuntimeException(altException);
+                }
+            } else {
+                altException = "Senha Original Inválida!";
+                throw new java.lang.RuntimeException(altException);
+            }
         }
 
     } catch (Exception ex) {
@@ -107,7 +131,9 @@
                                 </div>
                             </div>
                             <br><br>
-                            <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="*****************" disabled>
+                            <button class="btn btn-primary" style="color: white;">
+                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha">Alterar Senha</a>
+                            </button>
                         </div>
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-2-center">
@@ -120,6 +146,37 @@
                         </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="altSenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
+                            <form method="post">
+                                <input class="form-control" type="hidden" name="id" value="<%=((User) session.getAttribute("user")).getIdCLiente()%>">
+                                <div class="mb-3">
+                                    <label for="text" class="form-label">Senha Atual</label>
+                                    <input name="passOri" type="password" class="form-control" required>
+                                </div><hr>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Senha Nova</label>
+                                    <input name="passNew1" type="password" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Senha Nova - Confirmação</label>
+                                    <input name="passNew2" type="password" class="form-control" required>
+                                </div>
+                                <hr>
+                                <div class="container" style="margin: auto;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button name="altSenha" type="submit" class="btn btn-primary" type="submit">Confirmar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <script>
                 function removeDisabled() {
                     document.getElementById('nome').removeAttribute("disabled");
@@ -132,9 +189,6 @@
                     document.getElementById('sobrenome').setAttribute("required", "");
                     document.getElementById('bDate').removeAttribute("disabled");
                     document.getElementById('bDate').setAttribute("required", "");
-                    document.getElementById('pass').removeAttribute("disabled");
-                    document.getElementById('pass').setAttribute("required", "");
-                    document.getElementById('pass').value = "";
                     document.getElementById('altCli').removeAttribute("disabled");
                 }
             </script>
