@@ -1,9 +1,63 @@
-<%@ page pageEncoding="UTF-8" %>
-
-<nav class="navDim sticky-top" sticky-top>
-    <a class="nav-link logoNav" href="index.jsp"><img src="images/logo1.png" width="70" height="70"></a>
+<%@page import="db.*"%>
+<%@page import="web.*"%>
+<%@page pageEncoding="UTF-8" %>
+<%
+    String loginException = null;
+    try {
+        if (request.getParameter("login") != null) {
+            Session.getLogin(request, response);
+        } else if (request.getParameter("logout") != null) {
+            Session.getLogoff(request, response);
+        }
+    } catch (Exception ex) {
+        loginException = ex.getMessage();
+    }
+%>
+<%if (DatabaseListener.exception != null) {%>
+<div style="color: red">
+    <%= DatabaseListener.exception.getMessage()%>
+</div>
+<hr/>
+<%}%>
+<%if (session.getAttribute(
+            "user") == null) {%>
+<nav class="navDim sticky-top">
+    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
-    <a class="nav-link" href="newd.jsp" >Encontre</a>
-    <a class="nav-link" href="login.jsp">Login</a>
-    <a class="nav-link" href="cadastroAuto.jsp" style="border-right: solid 0.08px;">Cadastro</a>
+    <a class="nav-link" href="encontre.jsp" >Encontre</a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
+        Login
+    </a>
+    <div class="dropdown-menu" style="text-align: left">
+        <a class="dropdown-item" href="login.jsp">Login Aluno</a>
+        <a class="dropdown-item" href="loginAutoescola.jsp">Login Autoescola</a>
+    </div>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
+        Cadastro
+    </a>
+    <div class="dropdown-menu" style="text-align: left">
+        <a class="dropdown-item" href="cadastro.jsp">Cadastro Aluno</a>
+        <a class="dropdown-item" href="cadastroAutoescola.jsp">Cadastro Autoescola</a>
+        <a class="dropdown-item" href="cadastroServicos.jsp">Cadastro Autoescola</a>
+    </div>
 </nav>
+<%} else {%> 
+<nav class="navDim sticky-top">
+    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
+    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="" >Encontre</a>
+    <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {
+            out.print("<a class='nav-link' href='administracao.jsp?page=1' >Administração</a>");
+        }%>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
+        <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((User) session.getAttribute("user")).getNome()%></b></p>
+    </a>
+    <div class="dropdown-menu" style="text-align: center">
+        <a class="dropdown-item" href="perfilUser.jsp">Ver Perfil</a>
+        <form class="dropdown-item"method="POST">
+            <input class="btn btn-ligth" style="padding: 0px; border: 0px; width: 160px"  type="submit" name="logout" value="Sair"/>
+        </form>
+    </div>
+</nav>
+<%}%>
+

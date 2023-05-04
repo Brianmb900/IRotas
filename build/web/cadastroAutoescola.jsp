@@ -10,7 +10,7 @@
 <%
     String addException = null;
     try {
-        if (request.getParameter("cadCli") != null) {
+        /*if (request.getParameter("cadAuto") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             int adm = 0;
             String nome = request.getParameter("nome");
@@ -42,7 +42,7 @@
             );
             User.addUser(user);
             response.sendRedirect("http://localhost:8080/IRotas/login.jsp");
-        }
+        }*/
 
     } catch (Exception ex) {
         addException = ex.getMessage();
@@ -60,11 +60,11 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid" justify-content: center;>
+        <div class="container-fluid" justify-content: center;">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">
-                        <h1 style="padding-bottom: 5px;">Cadastro Aluno</h1>
+                        <h1 style="padding-bottom: 5px;">Cadastro Auto Escola</h1>
                         <%if (addException != null) {%>
                         <div style="color: black; font-size: 30px; border: 10px double red;">
                             <%= addException%>
@@ -74,35 +74,31 @@
                         <form autocomplete="off" method="POST">
                             <input class="form-control" type="hidden" name="id" value="1">
                             <div class="row">
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome" required>
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome da Auto Escola:" required>
 
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="sobrenome" placeholder="Sobrenome" required>
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Endereço:" required>
 
-                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="e-mail" placeholder="E-mail" required>
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Cidade:" required>
+
+                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Bairro:" required>
+
+                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="e-mail" placeholder="E-mail:" required>
                             </div>
 
                             <div class="row">
                                 <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
-
-                                    <input class="form-control" type="date" name="bDate" placeholder="Data de Nascimento" required>
+                                           title="Núemro do telefone Ex: (xx)xxxxx-xxxx" required>
                                 </div>
                                 <div class="col" style="padding-right: 0px;">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="inputGroup">Sexo</span>
-                                        <select class="form-select" name="sex" required>
-                                            <option value="M">Masculino</option>
-                                            <option value="F">Feminino</option>
-                                        </select>
-                                    </div>
-
-                                    <input class="form-control" type="password" name="pass" placeholder="Senha" required>
+                                        <input class="form-control" style="margin-bottom: 10px;" type="text" name="CEP" placeholder="CEP:"> 
+                                    </div> 
                                 </div>
                             </div>
                             <hr>
-                            <input class="btn btn-primary" type="submit" name="cadCli" value="Registrar">
+                            <input class="btn btn-primary" type="submit" name="cadAuto" value="Registrar">
                         </form>
                     </div>
                 </div>
