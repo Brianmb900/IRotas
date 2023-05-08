@@ -32,20 +32,26 @@
             int adm = 0;
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
-            String email = request.getParameter("e-mail");
+            String email = request.getParameter("email");
             String telefone = request.getParameter("phone");
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 admException = "O aluno ser maior de idade!";
-                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+                throw new java.lang.RuntimeException(admException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                admException = "Imortalidade Não Existe!";
-                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+                admException = "Imortalidade (Ainda) Não Existe!";
+                throw new java.lang.RuntimeException(admException);
             }
             String Sexo = request.getParameter("sex");
             char sexo = Sexo.charAt(0);
-            String senha = request.getParameter("pass");
+            String senha = request.getParameter("password");
+            String senha2 = request.getParameter("pass2");
+            if (senha.equals(senha2)) {
+            } else {
+                admException = "Senhas Não Correspondentes!";
+                throw new java.lang.RuntimeException(admException);
+            }
             User user = new User(
                     id,
                     adm,
@@ -72,13 +78,13 @@
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 admException = "Você deve ser maior de idade!";
-                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+                throw new java.lang.RuntimeException(admException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                admException = "Imortalidade Não Existe!";
-                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+                admException = "Imortalidade (Ainda) Não Existe!";
+                throw new java.lang.RuntimeException(admException);
             }
             char sexo = ((User) session.getAttribute("user")).getSexo();
-            String senha = request.getParameter("pass");
+            String senha = "0";
             User user = new User(
                     id,
                     adm,
@@ -100,6 +106,18 @@
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
+        if (request.getParameter("altSenha") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String senhaNova1 = request.getParameter("passNew1");
+            String senhaNova2 = request.getParameter("passNew2");
+                if (senhaNova1.equals(senhaNova2)) {
+                    User.alterarSenhaUser(senhaNova1, id);
+                } else {
+                    admException = "Senhas Não Correspondentes!";
+                    throw new java.lang.RuntimeException(admException);
+                }
+        }
+
         if (request.getParameter("orderCli") != null) {
             session.setAttribute("ORDER", Integer.parseInt(request.getParameter("order")));
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
@@ -107,12 +125,12 @@
 
         if (request.getParameter("searchCli") != null) {
             session.setAttribute("SEARCH", request.getParameter("search"));
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1");
         }
 
         if (request.getParameter("limpaBusca") != null) {
             session.setAttribute("SEARCH", "0");
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1");
         }
 
     } catch (Exception ex) {
@@ -173,7 +191,7 @@
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
-                                    <th><%=total%></th>
+                                    <th>ID</th>
                                     <th>Administrador</th>
                                     <th>Nome</th>
                                     <th>Sobrenome</th>
@@ -229,10 +247,15 @@
                                         }%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <button class="btn btn-warning" style="margin-right: 10%; color: white;">
+                                            <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altCliente"
                                                    onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
                                                                    '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')"> <b>Alterar</b></a>
+                                            </button>
+                                            <button class="btn btn-primary" style="color: white;">
+                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha"
+                                                   onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
+                                                                   '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')">Alterar Senha</a>
                                             </button>
                                             <input type="hidden" name="idenCliDel" value="<%= u.getIdCLiente()%>" />
                                             <input style="font-weight: bold;" type="submit" name="delCli" value="Remover" class="btn btn-danger"/>
@@ -293,134 +316,149 @@
                                         </form>
                                     </td>
                                 </tr>
-
-                            <div class="modal fade" style="color: black" id="altCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl text-center">
-                                    <div class="modal-content">
-                                        <div class="modal-body">                    
-                                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Aluno</h4><hr>
-                                            <div class="row">
-                                                <form autocomplete="off" method="POST">
-                                                    <input class="form-control" type="hidden" name="id" id="idenCli">
-                                                    <div class="row">
-                                                        <div class="input-group mb-3">
-                                                            <span class="input-group-text" id="inputGroup">Administrador</span>
-                                                            <select class="form-select" name="adm" required>
-                                                                <option value="1">Sim</option>
-                                                                <option value="0">Não</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome" required>
-                                                        <br><br>
-                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail" required>
-                                                        <br><br>
-                                                        <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
-                                                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
-                                                        <br><br>
-                                                        <div class="row" style="height: 38px;">
-                                                            <div class="col">
-                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento" required>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="inputGroup">Sexo</span>
-                                                                    <select class="form-select" name="sex" required>
-                                                                        <option value="M">Masculino</option>
-                                                                        <option value="F">Feminino</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br><br>
-                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="" required>
-                                                    </div>
-                                                    <div class="row" style="margin-top: 20px;">
-                                                        <div class="col-2-center">
-                                                            <input type="submit" name="altCli" value="Salvar Alterações" class="btn btn-primary" style="margin-right: 20%">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>      
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" style="color: black" id="cadCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl text-center">
-                                    <div class="modal-content">
-                                        <div class="modal-body">                    
-                                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Cadastrar Aluno</h4><hr>
-                                            <div class="row">
-                                                <form autocomplete="off" method="POST">
-                                                    <input class="form-control" type="hidden" name="id" value="1">
-                                                    <div class="row">
-                                                        <div class="input-group mb-3">
-                                                            <span class="input-group-text" id="inputGroup">Administrador</span>
-                                                            <select class="form-select" name="adm" required>
-                                                                <option value="1">Sim</option>
-                                                                <option value="0">Não</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome" required>
-                                                        <br><br>
-                                                        <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail" required>
-                                                        <br><br>
-                                                        <input class="form-control" type="text" name="phone" id="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
-                                                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
-                                                        <br><br>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento" required>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="inputGroup">Sexo</span>
-                                                                    <select class="form-select" name="sex" required>
-                                                                        <option value="M">Masculino</option>
-                                                                        <option value="F">Feminino</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br><br>
-                                                        <input class="form-control" type="password" name="pass" placeholder="" id="pass" value="" required>
-                                                    </div>
-                                                    <div class="row" style="margin-top: 20px;">
-                                                        <div class="col-2-center">
-                                                            <input type="submit" name="cadCli" value="Cadastrar" class="btn btn-primary" style="margin-right: 20%">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>      
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <%}
-                                }%>
+                                <%}
+                                    }%>
                             </tbody>
                         </table>
-                            <div style="display: inline-flex">
+                        <!--Modal de Alteração de Dados de Usuários-->
+                        <div class="modal fade" style="color: black" id="altCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl text-center">
+                                <div class="modal-content">
+                                    <div class="modal-body">                    
+                                        <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Aluno</h4><hr>
+                                        <div class="row">
+                                            <form autocomplete="off" method="POST">
+                                                <input class="form-control" type="hidden" name="id" id="idenCli">
+                                                <div class="row">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="inputGroup">Administrador</span>
+                                                        <select class="form-select" name="adm" required>
+                                                            <option value="1">Sim</option>
+                                                            <option value="0">Não</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Primeiro Nome" required>
+                                                    <br><br>
+                                                    <input class="form-control" type="email" name="e-mail" id="e-mail" placeholder="E-mail" required>
+                                                    <br><br>
+                                                    <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                                           pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
+                                                </div>
+                                                <div class="col">
+                                                    <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
+                                                    <br><br>
+                                                    <div class="row" style="height: 38px;">
+                                                        <div class="col">
+                                                            <input class="form-control" type="date" name="bDate" id="bDate" placeholder="Data de Nascimento" required>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="inputGroup">Sexo</span>
+                                                                <select class="form-select" name="sex" required>
+                                                                    <option value="M">Masculino</option>
+                                                                    <option value="F">Feminino</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-2-center">
+                                                        <input type="submit" name="altCli" value="Salvar Alterações" class="btn btn-primary" style="margin-right: 20%">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>      
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal de Cadastro de Usuários-->
+                        <div class="modal fade" style="color: black" id="cadCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
+                                <div class="modal-content">
+                                    <div class="modal-body">                    
+                                        <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Cadastrar Aluno</h4><hr>
+                                        <form autocomplete="off" method="POST">
+                                            <input class="form-control" type="hidden" name="id" value="1">
+                                            <div class="row">
+                                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome" required>
+
+                                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="sobrenome" placeholder="Sobrenome" required>
+
+                                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="email" placeholder="E-mail" required>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 0px;">
+                                                    <input class="form-control" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                                           pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
+                                                </div>
+                                                <div class="col" style="padding-right: 0px;">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="inputGroup">Sexo</span>
+                                                        <select class="form-select" name="sex" required>
+                                                            <option value="M">Masculino</option>
+                                                            <option value="F">Feminino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <input class="form-control" style="margin-bottom: 10px;" type="date" name="bDate" placeholder="Data de Nascimento" required>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col" style="padding-left: 0px;">
+                                                    <input class="form-control" type="password" name="password" placeholder="Senha" required>
+                                                </div>
+                                                <div class="col" style="padding-right: 0px;">
+                                                    <input class="form-control" type="password" name="pass2" placeholder="Confirmar Senha" required>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <input class="btn btn-primary" type="submit" name="cadCli" value="Registrar">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal de Alteração de Senha de Usuários-->
+                        <div class="modal fade" style="color: black" id="altSenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
+                                <div class="modal-content">
+                                    <div class="modal-body">                    
+                                        <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
+                                        <form method="post">
+                                            <input class="form-control" type="hidden" name="id" id="idenCli">
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Senha Nova</label>
+                                                <input name="passNew1" type="password" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Senha Nova - Confirmação</label>
+                                                <input name="passNew2" type="password" class="form-control" required>
+                                            </div>
+                                            <hr>
+                                            <div class="container" style="margin: auto;">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button name="altSenha" type="submit" class="btn btn-primary" type="submit">Confirmar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: inline-flex">
                             <button class="btn btn-primary" style="color: white;">
                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadCliente"><b>Cadastrar</b></a>
                             </button>
                             <%if (session.getAttribute("SEARCH").toString().equals("0")) {
-                            } else {%>
+                                } else {%>
                             <form autocomplete="off" method="POST">
                                 <input type="submit" name="limpaBusca" value="Limpar Busca" class="btn btn-dark" style="margin-left: 20px"/>
                             </form>

@@ -15,20 +15,26 @@
             int adm = 0;
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
-            String email = request.getParameter("e-mail");
+            String email = request.getParameter("email");
             String telefone = request.getParameter("phone");
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
                 addException = "Você deve ser maior de idade!";
-                throw new java.lang.RuntimeException("Você deve ser maior de idade!");
+                throw new java.lang.RuntimeException(addException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                addException = "Imortalidade Não Existe!";
-                throw new java.lang.RuntimeException("Imortalidade Não Existe!");
+                addException = "Imortalidade (ainda) Não Existe!";
+                throw new java.lang.RuntimeException(addException);
             }
             String Sexo = request.getParameter("sex");
             char sexo = Sexo.charAt(0);
-            String senha = request.getParameter("pass");
+            String senha = request.getParameter("password");
+            String senha2 = request.getParameter("pass2");
+            if (senha.equals(senha2)) {
+            } else {
+                addException = "Senhas Não Correspondentes!";
+                throw new java.lang.RuntimeException(addException);
+            }
             User user = new User(
                     id,
                     adm,
@@ -41,7 +47,7 @@
                     sexo
             );
             User.addUser(user);
-            response.sendRedirect("http://localhost:8080/IRotas/login.jsp");
+            Session.getLogin(request, response);
         }
 
     } catch (Exception ex) {
@@ -78,16 +84,13 @@
 
                                 <input class="form-control" style="margin-bottom: 10px;" type="text" name="sobrenome" placeholder="Sobrenome" required>
 
-                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="e-mail" placeholder="E-mail" required>
+                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="email" placeholder="E-mail" required>
                             </div>
-
                             <div class="row">
                                 <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
+                                    <input class="form-control" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
                                            title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
-
-                                    <input class="form-control" type="date" name="bDate" placeholder="Data de Nascimento" required>
                                 </div>
                                 <div class="col" style="padding-right: 0px;">
                                     <div class="input-group mb-3">
@@ -97,8 +100,17 @@
                                             <option value="F">Feminino</option>
                                         </select>
                                     </div>
-
-                                    <input class="form-control" type="password" name="pass" placeholder="Senha" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input class="form-control" style="margin-bottom: 10px;" type="date" name="bDate" placeholder="Data de Nascimento" required>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="padding-left: 0px;">
+                                    <input class="form-control" type="password" name="password" placeholder="Senha" required>
+                                </div>
+                                <div class="col" style="padding-right: 0px;">
+                                    <input class="form-control" type="password" name="pass2" placeholder="Confirmar Senha" required>
                                 </div>
                             </div>
                             <hr>

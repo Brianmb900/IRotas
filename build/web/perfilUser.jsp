@@ -55,14 +55,12 @@
                 if (senhaNova1.equals(senhaNova2)) {
                     User.alterarSenhaUser(senhaNova1, id);
                     Session.getLogoff(request, response);
-                    altException = "Senhas Não Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
-                    throw new java.lang.RuntimeException(altException);
                 } else {
-                    altException = "Senhas Não Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
+                    altException = "Senhas Não Correspondentes!";
                     throw new java.lang.RuntimeException(altException);
                 }
             } else {
-                altException = "Senha Original Inválida!";
+                altException = "Senha Atual Incorreta!";
                 throw new java.lang.RuntimeException(altException);
             }
         }
