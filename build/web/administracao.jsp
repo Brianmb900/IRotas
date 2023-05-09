@@ -191,16 +191,18 @@
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
-                                    <th>ID</th>
-                                    <th>Administrador</th>
-                                    <th>Nome</th>
-                                    <th>Sobrenome</th>
-                                    <th>E-mail</th>
-                                    <th>Telefone</th>
-                                    <th>Data de Nascimento</th>
-                                    <th>Sexo</th>
-                                    <th>Ações</th>
-                                </tr>
+                            <form autocomplete="off" method="POST">
+                                <th><input type="submit" name="orderCliId" value="ID" style="background: transparent; color: white; font-weight: 700; border: 0; padding: 0; text-decoration: underline white;"/></th>
+                                <th>Administrador</th>
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Data de Nascimento</th>
+                                <th>Sexo</th>
+                                <th>Ações</th>
+                            </form>
+                            </tr>
                             </thead>
                             <tbody>
                                 <%
