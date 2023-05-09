@@ -110,12 +110,12 @@
             int id = Integer.parseInt(request.getParameter("id"));
             String senhaNova1 = request.getParameter("passNew1");
             String senhaNova2 = request.getParameter("passNew2");
-                if (senhaNova1.equals(senhaNova2)) {
-                    User.alterarSenhaUser(senhaNova1, id);
-                } else {
-                    admException = "Senhas Não Correspondentes!";
-                    throw new java.lang.RuntimeException(admException);
-                }
+            if (senhaNova1.equals(senhaNova2)) {
+                User.alterarSenhaUser(senhaNova1, id);
+            } else {
+                admException = "Senhas Não Correspondentes!";
+                throw new java.lang.RuntimeException(admException);
+            }
         }
 
         if (request.getParameter("orderCli") != null) {
@@ -254,8 +254,7 @@
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha"
-                                                   onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
-                                                                   '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')">Alterar Senha</a>
+                                                   onclick="setaIdSenha('<%= u.getIdCLiente()%>')"><b>Alterar Senha</b></a>
                                             </button>
                                             <input type="hidden" name="idenCliDel" value="<%= u.getIdCLiente()%>" />
                                             <input style="font-weight: bold;" type="submit" name="delCli" value="Remover" class="btn btn-danger"/>
@@ -310,6 +309,10 @@
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altCliente"
                                                    onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
                                                                    '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')"> <b>Alterar</b></a>
+                                            </button>
+                                            <button class="btn btn-primary" style="color: white;">
+                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha"
+                                                   onclick="setaIdSenha('<%= u.getIdCLiente()%>')"><b>Alterar Senha</b></a>
                                             </button>
                                             <input type="hidden" name="idenCliDel" value="<%= u.getIdCLiente()%>" />
                                             <input style="font-weight: bold;" type="submit" name="delCli" value="Remover" class="btn btn-danger"/>
@@ -433,7 +436,7 @@
                                     <div class="modal-body">                    
                                         <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
                                         <form method="post">
-                                            <input class="form-control" type="hidden" name="id" id="idenCli">
+                                            <input class="form-control" type="hidden" name="id" id="idenCliSenha">
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Senha Nova</label>
                                                 <input name="passNew1" type="password" class="form-control" required>
@@ -500,6 +503,10 @@
                 document.getElementById('e-mail').value = email;
                 document.getElementById('phone').value = telefone;
                 document.getElementById('bDate').value = bDate;
+            }
+
+            function setaIdSenha(id) {
+                document.getElementById('idenCliSenha').value = id;
             }
         </script>
     </body>
