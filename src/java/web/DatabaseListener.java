@@ -64,7 +64,7 @@ public class DatabaseListener implements ServletContextListener {
                     + "ds_drivingSchool VARCHAR NOT NULL,"
                     + "nm_address_drivingSchool VARCHAR NOT NULL,"
                     + "nm_city_drivingSchool VARCHAR NOT NULL,"
-                    + "nm_neighbordhood_drivingSchool VARCHAR NOT NULL,"
+                    + "nm_neighborhood_drivingSchool VARCHAR NOT NULL,"
                     + "cd_cep_drivingSchool VARCHAR NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL,"
