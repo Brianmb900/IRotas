@@ -6,7 +6,6 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String admException = null;
@@ -40,7 +39,7 @@
                 admException = "O aluno ser maior de idade!";
                 throw new java.lang.RuntimeException(admException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                admException = "Imortalidade (Ainda) NÃ£o Existe!";
+                admException = "Imortalidade (Ainda) Não Existe!";
                 throw new java.lang.RuntimeException(admException);
             }
             String Sexo = request.getParameter("sex");
@@ -49,7 +48,7 @@
             String senha2 = request.getParameter("pass2");
             if (senha.equals(senha2)) {
             } else {
-                admException = "Senhas NÃ£o Correspondentes!";
+                admException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(admException);
             }
             User user = new User(
@@ -77,10 +76,10 @@
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
-                admException = "VocÃª deve ser maior de idade!";
+                admException = "Você deve ser maior de idade!";
                 throw new java.lang.RuntimeException(admException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                admException = "Imortalidade (Ainda) NÃ£o Existe!";
+                admException = "Imortalidade (Ainda) Não Existe!";
                 throw new java.lang.RuntimeException(admException);
             }
             char sexo = ((User) session.getAttribute("user")).getSexo();
@@ -113,12 +112,12 @@
             if (senhaNova1.equals(senhaNova2)) {
                 User.alterarSenhaUser(senhaNova1, id);
             } else {
-                admException = "Senhas NÃ£o Correspondentes!";
+                admException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(admException);
             }
         }
 
-        //ORDENAÃ‡Ã•ES
+        //ORDENAÇÕES
         if (request.getParameter("orderCliId") != null) {
             if (session.getAttribute("ORDER").toString().equals("1") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "1");
@@ -206,7 +205,7 @@
             }
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
-        //FIM ORDENAÃ‡Ã•ES
+        //FIM ORDENAÇÕES
         if (request.getParameter("searchCli") != null) {
             session.setAttribute("SEARCH", request.getParameter("search"));
             session.setAttribute("ORDER", "1");
@@ -231,7 +230,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="images/Logo2.png">
-        <title>AdministraÃ§Ã£o</title>
+        <title>Administração</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>
@@ -240,7 +239,7 @@
         <%if (session.getAttribute("user") == null) {%>
         <%} else {%> 
         <%if (((User) session.getAttribute("user")).getAdministrator() == 0) {%>
-        <%out.print("VocÃª deve ser administrador para acessar o conteÃºdo desta pÃ¡gina");%>
+        <%out.print("Você deve ser administrador para acessar o conteúdo desta página");%>
         <%} else {%>
         <div class="container-fluid" justify-content: center;">
             <div class="row justify-content-center">
@@ -256,7 +255,7 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="text" name="search" placeholder="Nome do UsuÃ¡rio" required>
+                                <input class="form-control" type="text" name="search" placeholder="Nome do Usuário" required>
                                 <input type="submit" name="searchCli" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
@@ -272,7 +271,7 @@
                                 <th><input class="orderADM" type="submit" name="orderCliTele" value="Telefone"/></th>
                                 <th><input class="orderADM" type="submit" name="orderCliNasci" value="Data de Nascimento"/></th>
                                 <th><input class="orderADM" type="submit" name="orderCliSexo" value="Sexo"/></th>
-                                <th>AÃ§Ãµes</th>
+                                <th>Ações</th>
                             </form>
                             </tr>
                             </thead>
@@ -285,7 +284,7 @@
                                     <td><% if (u.getAdministrator() == 1) {
                                             out.print("Sim");
                                         } else {
-                                            out.print("NÃ£o");
+                                            out.print("Não");
                                         }%></td>
                                     <td><%= u.getNome()%></td>
                                     <td><%= u.getSobrenome()%></td>
@@ -344,7 +343,7 @@
                                     <td><% if (u.getAdministrator() == 1) {
                                             out.print("Sim");
                                         } else {
-                                            out.print("NÃ£o");
+                                            out.print("Não");
                                         }%></td>
                                     <td><%= u.getNome()%></td>
                                     <td><%= u.getSobrenome()%></td>
@@ -381,7 +380,7 @@
                                         }%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <button class="btn btn-warning" style="margin-right: 10%; color: white;">
+                                            <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altCliente"
                                                    onclick="setaDataCli('<%= u.getIdCLiente()%>', '<%= u.getNome()%>', '<%= u.getSobrenome()%>',
                                                                    '<%= u.getEmail()%>', '<%= u.getTelefone()%>', '<%= u.getDataNascimento().toString()%>')"> <b>Alterar</b></a>
@@ -399,7 +398,7 @@
                                     }%>
                             </tbody>
                         </table>
-                        <!--Modal de AlteraÃ§Ã£o de Dados de UsuÃ¡rios-->
+                        <!--Modal de Alteração de Dados de Usuários-->
                         <div class="modal fade" style="color: black" id="altCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl text-center">
                                 <div class="modal-content">
@@ -413,7 +412,7 @@
                                                         <span class="input-group-text" id="inputGroup">Administrador</span>
                                                         <select class="form-select" name="adm" required>
                                                             <option value="1">Sim</option>
-                                                            <option value="0">NÃ£o</option>
+                                                            <option value="0">Não</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -424,7 +423,7 @@
                                                     <br><br>
                                                     <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                           title="NÃºemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
+                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
                                                 </div>
                                                 <div class="col">
                                                     <input class="form-control" type="text" name="sobrenome" id="sobrenome" placeholder="Sobrenome" required>
@@ -446,7 +445,7 @@
                                                 </div>
                                                 <div class="row" style="margin-top: 20px;">
                                                     <div class="col-2-center">
-                                                        <input type="submit" name="altCli" value="Salvar AlteraÃ§Ãµes" class="btn btn-primary" style="margin-right: 20%">
+                                                        <input type="submit" name="altCli" value="Salvar Alterações" class="btn btn-primary" style="margin-right: 20%">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>      
                                                         </form>
                                                     </div>
@@ -456,7 +455,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Modal de Cadastro de UsuÃ¡rios-->
+                        <!--Modal de Cadastro de Usuários-->
                         <div class="modal fade" style="color: black" id="cadCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
                                 <div class="modal-content">
@@ -475,7 +474,7 @@
                                                 <div class="col" style="padding-left: 0px;">
                                                     <input class="form-control" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                           title="NÃºemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
+                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
                                                 </div>
                                                 <div class="col" style="padding-right: 0px;">
                                                     <div class="input-group mb-3">
@@ -505,7 +504,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Modal de AlteraÃ§Ã£o de Senha de UsuÃ¡rios-->
+                        <!--Modal de Alteração de Senha de Usuários-->
                         <div class="modal fade" style="color: black" id="altSenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
                                 <div class="modal-content">
@@ -518,7 +517,7 @@
                                                 <input name="passNew1" type="password" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="password" class="form-label">Senha Nova - ConfirmaÃ§Ã£o</label>
+                                                <label for="password" class="form-label">Senha Nova - Confirmação</label>
                                                 <input name="passNew2" type="password" class="form-control" required>
                                             </div>
                                             <hr>

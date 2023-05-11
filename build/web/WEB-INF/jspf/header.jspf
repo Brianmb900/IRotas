@@ -5,8 +5,14 @@
     String loginException = null;
     try {
         if (request.getParameter("login") != null) {
-            Session.getLogin(request, response);
-        } else if (request.getParameter("logout") != null) {
+            Session.getLoginUser(request, response);
+        }
+
+        if (request.getParameter("loginAuto") != null) {
+            Session.getLoginSchool(request, response);
+        }
+
+        if (request.getParameter("logout") != null) {
             Session.getLogoff(request, response);
         }
     } catch (Exception ex) {
@@ -19,8 +25,7 @@
 </div>
 <hr/>
 <%}%>
-<%if (session.getAttribute(
-            "user") == null) {%>
+<%if (session.getAttribute("user") == null && session.getAttribute("school") == null) {%>
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
@@ -40,20 +45,41 @@
         <a class="dropdown-item" href="cadastroAutoescola.jsp">Cadastro Autoescola</a>
     </div>
 </nav>
-<%} else {%> 
+<%} else if (session.getAttribute("user") != null) {%> 
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
     <a class="nav-link" href="" >Encontre</a>
-    <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {
-            out.print("<a class='nav-link' href='administracao.jsp?page=1' >Administração</a>");
-        }%>
+    <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {%>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
+        <p style="margin-bottom: 0px">Administração</p>
+    </a>
+    <div class="dropdown-menu" style="text-align: center">
+        <a class="dropdown-item" href="administracao.jsp?page=1">Administração Alunos</a>
+        <a class="dropdown-item" href="administracaoAutoescola.jsp?page=1">Administração Autoescolas</a>
+    </div>
+    <%}%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
         <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((User) session.getAttribute("user")).getNome()%></b></p>
     </a>
     <div class="dropdown-menu" style="text-align: center">
         <a class="dropdown-item" href="perfilUser.jsp">Ver Perfil</a>
-        <form class="dropdown-item"method="POST">
+        <form class="dropdown-item" method="POST">
+            <input class="btn btn-ligth" style="padding: 0px; border: 0px; width: 160px"  type="submit" name="logout" value="Sair"/>
+        </form>
+    </div>
+</nav>
+<%} else if (session.getAttribute("school") != null) {%>
+<nav class="navDim sticky-top">
+    <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
+    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="" >Encontre</a>
+    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 18em;">
+        <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((DrivingSchool) session.getAttribute("school")).getNome()%></b></p>
+    </a>
+    <div class="dropdown-menu" style="text-align: center">
+        <a class="dropdown-item" href="perfilAutoescola.jsp">Ver Perfil</a>
+        <form class="dropdown-item" method="POST">
             <input class="btn btn-ligth" style="padding: 0px; border: 0px; width: 160px"  type="submit" name="logout" value="Sair"/>
         </form>
     </div>

@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.time.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String addException = null;
@@ -20,10 +19,10 @@
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
-                addException = "VocÃª deve ser maior de idade!";
+                addException = "Você deve ser maior de idade!";
                 throw new java.lang.RuntimeException(addException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                addException = "Imortalidade (ainda) NÃ£o Existe!";
+                addException = "Imortalidade (ainda) Não Existe!";
                 throw new java.lang.RuntimeException(addException);
             }
             String Sexo = request.getParameter("sex");
@@ -32,7 +31,7 @@
             String senha2 = request.getParameter("pass2");
             if (senha.equals(senha2)) {
             } else {
-                addException = "Senhas NÃ£o Correspondentes!";
+                addException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(addException);
             }
             User user = new User(
@@ -47,7 +46,7 @@
                     sexo
             );
             User.addUser(user);
-            Session.getLogin(request, response);
+            Session.getLoginUser(request, response);
         }
 
     } catch (Exception ex) {
@@ -90,7 +89,7 @@
                                 <div class="col" style="padding-left: 0px;">
                                     <input class="form-control" type="text" name="phone" placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                           title="NÃºemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
+                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" required>
                                 </div>
                                 <div class="col" style="padding-right: 0px;">
                                     <div class="input-group mb-3">
