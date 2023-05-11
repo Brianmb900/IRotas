@@ -70,9 +70,9 @@
             String bairro = request.getParameter("bairro");
             String cep = request.getParameter("cep");
             String telefone = request.getParameter("phone");
-            String email = request.getParameter("e-mail");
-            String senha = ((DrivingSchool) session.getAttribute("school")).getSenha();
-            int avali = Integer.parseInt(request.getParameter("avali"));
+            String email = request.getParameter("email");
+            String senha = "0";
+            int avali = 0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -109,7 +109,7 @@
         }
 
         //ORDENAÇÕES
-        if (request.getParameter("orderCliId") != null) {
+        if (request.getParameter("orderAutoId") != null) {
             if (session.getAttribute("ORDER").toString().equals("1") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "1");
                 session.setAttribute("ORDER2", " DESC");
@@ -117,10 +117,10 @@
                 session.setAttribute("ORDER", "1");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliAdm") != null) {
+        if (request.getParameter("orderAutoNome") != null) {
             if (session.getAttribute("ORDER").toString().equals("2") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "2");
                 session.setAttribute("ORDER2", " DESC");
@@ -128,10 +128,10 @@
                 session.setAttribute("ORDER", "2");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliNome") != null) {
+        if (request.getParameter("orderAutoDesc") != null) {
             if (session.getAttribute("ORDER").toString().equals("3") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "3");
                 session.setAttribute("ORDER2", " DESC");
@@ -139,10 +139,10 @@
                 session.setAttribute("ORDER", "3");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliSnome") != null) {
+        if (request.getParameter("orderAutoEnd") != null) {
             if (session.getAttribute("ORDER").toString().equals("4") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "4");
                 session.setAttribute("ORDER2", " DESC");
@@ -150,10 +150,10 @@
                 session.setAttribute("ORDER", "4");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliEmail") != null) {
+        if (request.getParameter("orderAutoCid") != null) {
             if (session.getAttribute("ORDER").toString().equals("5") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "5");
                 session.setAttribute("ORDER2", " DESC");
@@ -161,10 +161,21 @@
                 session.setAttribute("ORDER", "5");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliTele") != null) {
+        if (request.getParameter("orderAutoBai") != null) {
+            if (session.getAttribute("ORDER").toString().equals("6") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "6");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "6");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderAutoCep") != null) {
             if (session.getAttribute("ORDER").toString().equals("7") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "7");
                 session.setAttribute("ORDER2", " DESC");
@@ -172,10 +183,10 @@
                 session.setAttribute("ORDER", "7");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
 
-        if (request.getParameter("orderCliNasci") != null) {
+        if (request.getParameter("orderAutoTel") != null) {
             if (session.getAttribute("ORDER").toString().equals("8") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "8");
                 session.setAttribute("ORDER2", " DESC");
@@ -183,10 +194,10 @@
                 session.setAttribute("ORDER", "8");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
-
-        if (request.getParameter("orderCliSexo") != null) {
+        
+        if (request.getParameter("orderAutoMail") != null) {
             if (session.getAttribute("ORDER").toString().equals("9") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "9");
                 session.setAttribute("ORDER2", " DESC");
@@ -194,7 +205,18 @@
                 session.setAttribute("ORDER", "9");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
+        }
+        
+        if (request.getParameter("orderAutoAval") != null) {
+            if (session.getAttribute("ORDER").toString().equals("10") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "10");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "10");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
         //FIM ORDENAÇÕES
         if (request.getParameter("searchAuto") != null) {
@@ -254,15 +276,16 @@
                             <thead>
                                 <tr class="table-my">
                             <form autocomplete="off" method="POST">
-                                <th><input class="orderADM" type="submit" name="orderCliId" value="ID"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliAdm" value="Nome"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliNome" value="Descrição"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliSnome" value="Endereço"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliEmail" value="Cidade"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliTele" value="Bairro"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliNasci" value="CEP"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliSexo" value="Telefone"/></th>
-                                <th><input class="orderADM" type="submit" name="orderCliSexo" value="E-mail"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoId" value="ID"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoNome" value="Nome"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoDesc" value="Descrição"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoEnd" value="Endereço"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoCid" value="Cidade"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoBai" value="Bairro"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoCep" value="CEP"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoTel" value="Telefone"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoMail" value="E-mail"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoAval" value="Avaliação"/></th>
                                 <th>Ações</th>
                             </form>
                             </tr>
@@ -281,6 +304,7 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
+                                    <td><%= d.getAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
@@ -311,12 +335,13 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
+                                    <td><%= d.getAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
                                                    onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
-                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>', )">
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>' )">
                                                     <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
