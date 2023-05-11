@@ -75,31 +75,31 @@
                             <div class="row justify-content-center">
                                 <div class="col">
                                     <input class="form-control" type="hidden" name="id" value="1">
-                                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:">
+                                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:"required>
                                     <br><br>
-                                    <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:">
+                                    <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:"required>
                                     <br><br>
-                                    <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:">
+                                    <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:"required>
                                     <br><br>
                                     <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx">
+                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx"required>
                                     <br><br>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:">
+                                    <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:"required>
                                     <br><br>
-                                    <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:">
+                                    <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:"required>
                                     <br><br>
                                     <div class="row">
                                         <div class="col">
-                                            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:">
+                                            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:"required>
                                         </div>
                                     </div>
                                     <br><br>
                                     <input class="form-control" type="text" name="cep" id="cep" placeholder="CEP:"
                                            pattern="[0-9]{5}[-]{1}[0-9]{3}"
-                                           title="Núemro do cep Ex: 12345-123">
+                                           title="Núemro do cep Ex: 12345-123"required>
                                 </div>
                             </div>
                             <div class="row">
