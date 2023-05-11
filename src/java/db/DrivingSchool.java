@@ -141,8 +141,8 @@ public class DrivingSchool {
     public static void addDrivingSchool(DrivingSchool school) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO drivingSchools (nm_drivingSchool, ds_drivingSchool, nm_address_drivingSchool, nm_city_drivingSchool, "
-                                                    + "nm_neighbordhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
-                                                    + "nm_email_drivingSchool, cd_password_drivingSchool, vl_rating_drivingSchool)"
+                + "nm_neighbordhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
+                + "nm_email_drivingSchool, cd_password_drivingSchool, vl_rating_drivingSchool)"
                 + "VALUES (?,?,?,?,?,?,?,?)");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
@@ -179,6 +179,17 @@ public class DrivingSchool {
         con.close();
     }
 
+    public static void alterarSenhaUser(String senha, Integer identificacao) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE drivingSchools SET cd_password_drivingSchool = ? WHERE cd_user = ?");
+        stmt.setString(1, passwordMD5(senha));
+        stmt.setInt(2, identificacao);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
     public static void deleteDrivingSchool(Integer identificacao) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("DELETE FROM drivingSchools WHERE cd_drivingSchool = ?");
@@ -188,8 +199,8 @@ public class DrivingSchool {
         con.close();
     }
 
-    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep, 
-                         String telefone, String email, String senha, int avalaicao) {
+    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep,
+            String telefone, String email, String senha, int avalaicao) {
         this.idAutoescola = idAutoescola;
         this.nome = nome;
         this.descricao = descricao;
@@ -290,5 +301,5 @@ public class DrivingSchool {
     public void setAvalaicao(int avalaicao) {
         this.avalaicao = avalaicao;
     }
-    
+
 }
