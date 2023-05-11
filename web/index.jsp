@@ -7,7 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    session.setAttribute("ORDER", 1);
+    session.setAttribute("ORDER", "1");
+    session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
 %>
 <html>

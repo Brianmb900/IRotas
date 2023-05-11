@@ -28,61 +28,6 @@ public class User {
     private LocalDate dataNascimento;
     private char sexo;
 
-    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
-        MessageDigest m = MessageDigest.getInstance("MD5");
-        m.update(s.getBytes(), 0, s.length());
-        String passMD5 = new BigInteger(1, m.digest()).toString(16);
-        return passMD5;
-    }
-
-    public static ArrayList<User> getUsers(int start, int fim, int order) throws Exception {
-        ArrayList<User> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim);
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
-
-            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
-    public static ArrayList<User> getTotalUsers() throws Exception {
-        ArrayList<User> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY cd_user");
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
-
-            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
     public static User getUser(String email, String password) throws Exception {
         User user = null;
         Connection con = DatabaseListener.getConnection();
@@ -110,10 +55,58 @@ public class User {
         return user;
     }
 
-    public static ArrayList<User> searchUser(String busca, int start, int fim, int order) throws Exception {
+    public static ArrayList<User> getTotalUsers() throws Exception {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user LIKE ? ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim);
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY cd_user");
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<User> getUsers(int start, int fim, String order, String order2) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<User> searchUser(String busca, int start, int fim, String order, String order2) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user LIKE ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
         stmt.setString(1, "%" + busca + "%");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -171,7 +164,7 @@ public class User {
         stmt.close();
         con.close();
     }
-    
+
     public static void alterarSenhaUser(String senha, Integer identificacao) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement(""
@@ -190,6 +183,13 @@ public class User {
         stmt.execute();
         stmt.close();
         con.close();
+    }
+
+    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(), 0, s.length());
+        String passMD5 = new BigInteger(1, m.digest()).toString(16);
+        return passMD5;
     }
 
     public User(Integer idCLiente, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo) {

@@ -94,4 +94,13 @@
         color: var(--bs-table-color);
         border-color: var(--bs-table-border-color);
     }
+
+    .orderADM{
+        background: transparent;
+        color: white;
+        font-weight: 700;
+        border: 0;
+        padding: 0;
+        text-decoration: underline white;
+    }
 </style>
