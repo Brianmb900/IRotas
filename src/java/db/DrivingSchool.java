@@ -29,108 +29,104 @@ public class DrivingSchool {
     private String senha;
     private int avalaicao;
 
-    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
-        MessageDigest m = MessageDigest.getInstance("MD5");
-        m.update(s.getBytes(), 0, s.length());
-        String passMD5 = new BigInteger(1, m.digest()).toString(16);
-        return passMD5;
-    }
-
-    public static ArrayList<DrivingSchool> getUsers(int start, int fim, int order) throws Exception {
-        ArrayList<DrivingSchool> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + " LIMIT " + (start - 1) + "," + fim
-        );
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
-
-            list.add(new DrivingSchool(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
-    public static ArrayList<DrivingSchool> getTotalUsers() throws Exception {
-        ArrayList<DrivingSchool> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY cd_user");
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
-
-            list.add(new DrivingSchool(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
-    public static DrivingSchool getUser(String email, String password) throws Exception {
-        DrivingSchool user = null;
+    public static DrivingSchool getDrivingSchool(String email, String password) throws Exception {
+        DrivingSchool driving = null;
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE nm_email_drivingSchool = ? AND cd_password_drivingSchool = ?");
         stmt.setString(1, email);
         stmt.setString(2, passwordMD5(password));
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            int avaliacao = rs.getInt("vl_rating_drivingSchool");
 
-            user = new DrivingSchool(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao);
         }
         stmt.close();
         con.close();
 
-        return user;
+        return driving;
     }
 
-    public static ArrayList<DrivingSchool> searchUser(String busca) throws Exception {
+    public static ArrayList<DrivingSchool> getTotalSchools() throws Exception {
         ArrayList<DrivingSchool> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user = ?");
-        stmt.setString(1, busca);
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM drivingSchools ORDER BY cd_drivingSchool");
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            int avaliacao = rs.getInt("vl_rating_drivingSchool");
+
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<DrivingSchool> getSchools(int start, int fim, String order, String order2) throws Exception {
+        ArrayList<DrivingSchool> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM drivingSchools ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            int avaliacao = rs.getInt("vl_rating_drivingSchool");
+
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<DrivingSchool> searchSchool(String busca, int start, int fim, String order, String order2) throws Exception {
+        ArrayList<DrivingSchool> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE nm_drivingSchool LIKE ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        stmt.setString(1, "%" + busca + "%");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Integer id = rs.getInt("cd_user");
-            int administrator = rs.getInt("ic_administrator_yes_no_user");
-            String nome = rs.getString("nm_user");
-            String sobrenome = rs.getString("nm_last_user");
-            String emailC = rs.getString("nm_email_user");
-            String senha = rs.getString("cd_password_user");
-            String telefone = rs.getString("cd_phone_number_user");
-            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
-            String Sexo = rs.getString("ic_sex_male_female_user");
-            char sexo = Sexo.charAt(0);
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            int avaliacao = rs.getInt("vl_rating_drivingSchool");
 
-            list.add(new DrivingSchool(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao));
         }
         stmt.close();
         con.close();
@@ -141,9 +137,9 @@ public class DrivingSchool {
     public static void addDrivingSchool(DrivingSchool school) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO drivingSchools (nm_drivingSchool, ds_drivingSchool, nm_address_drivingSchool, nm_city_drivingSchool, "
-                                                    + "nm_neighbordhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
-                                                    + "nm_email_drivingSchool, cd_password_drivingSchool, vl_rating_drivingSchool)"
-                + "VALUES (?,?,?,?,?,?,?,?)");
+                + "nm_neighborhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
+                + "nm_email_drivingSchool, cd_password_drivingSchool, vl_rating_drivingSchool)"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?)");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
         stmt.setString(3, school.getEndereco());
@@ -163,7 +159,7 @@ public class DrivingSchool {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement(""
                 + "UPDATE drivingSchools SET nm_drivingSchool = ?, ds_drivingSchool = ?, nm_address_drivingSchool = ?, nm_city_drivingSchool = ?, "
-                + "nm_neighbordhood_drivingSchool = ?, cd_cep_drivingSchool = ?, cd_phone_number_drivingSchool = ?, nm_email_drivingSchool = ?"
+                + "nm_neighborhood_drivingSchool = ?, cd_cep_drivingSchool = ?, cd_phone_number_drivingSchool = ?, nm_email_drivingSchool = ?"
                 + "WHERE cd_drivingSchool = ?");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
@@ -179,6 +175,17 @@ public class DrivingSchool {
         con.close();
     }
 
+    public static void alterarSenhaSchool(String senha, Integer identificacao) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE drivingSchools SET cd_password_drivingSchool = ? WHERE cd_drivingSchool = ?");
+        stmt.setString(1, passwordMD5(senha));
+        stmt.setInt(2, identificacao);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
     public static void deleteDrivingSchool(Integer identificacao) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("DELETE FROM drivingSchools WHERE cd_drivingSchool = ?");
@@ -188,8 +195,15 @@ public class DrivingSchool {
         con.close();
     }
 
-    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep, 
-                         String telefone, String email, String senha, int avalaicao) {
+    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(), 0, s.length());
+        String passMD5 = new BigInteger(1, m.digest()).toString(16);
+        return passMD5;
+    }
+
+    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep,
+            String telefone, String email, String senha, int avalaicao) {
         this.idAutoescola = idAutoescola;
         this.nome = nome;
         this.descricao = descricao;
@@ -290,5 +304,5 @@ public class DrivingSchool {
     public void setAvalaicao(int avalaicao) {
         this.avalaicao = avalaicao;
     }
-    
+
 }

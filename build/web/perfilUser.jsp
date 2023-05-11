@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.time.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String altException = null;
@@ -22,10 +21,10 @@
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
-                altException = "VocÃª deve ser maior de idade!";
+                altException = "Você deve ser maior de idade!";
                 throw new java.lang.RuntimeException(altException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                altException = "Imortalidade (ainda) NÃ£o Existe!";
+                altException = "Imortalidade (ainda) Não Existe!";
                 throw new java.lang.RuntimeException(altException);
             }
             char sexo = ((User) session.getAttribute("user")).getSexo();
@@ -56,7 +55,7 @@
                     User.alterarSenhaUser(senhaNova1, id);
                     Session.getLogoff(request, response);
                 } else {
-                    altException = "Senhas NÃ£o Correspondentes!";
+                    altException = "Senhas Não Correspondentes!";
                     throw new java.lang.RuntimeException(altException);
                 }
             } else {
@@ -80,7 +79,7 @@
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("user") == null) {%>
-        <%out.print("VocÃª deve realizar login para acessar o conteÃºdo desta pÃ¡gina");%>
+        <%out.print("Você deve realizar login para acessar o conteúdo desta página");%>
         <%} else {%> 
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -111,10 +110,10 @@
                         <br><br>
                         <input class="form-control" type="text" name="phone" id="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                               title="NÃºemro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
+                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
                         </div>
                         <div class="col">
-                            <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Ãšltimo Sobrenome" disabled>
+                            <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="Último Sobrenome" disabled>
                             <br><br>
                             <div class="row">
                                 <div class="col">
@@ -135,7 +134,7 @@
                         </div>
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-2-center">
-                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altCli" id="altCli" value="Salvar AlteraÃ§Ã£o" disabled="">
+                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altCli" id="altCli" value="Salvar Alteração" disabled="">
                                 </form>
                                 <button class="btn btn-primary">
                                     <a onclick="removeDisabled()"> Alterar Dados</a>
@@ -161,7 +160,7 @@
                                     <input name="passNew1" type="password" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Senha Nova - ConfirmaÃ§Ã£o</label>
+                                    <label for="password" class="form-label">Senha Nova - Confirmação</label>
                                     <input name="passNew2" type="password" class="form-control" required>
                                 </div>
                                 <hr>

@@ -5,44 +5,44 @@
 --%>
 
 <%@page import="java.time.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String addException = null;
     try {
-        /*if (request.getParameter("cadAuto") != null) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            int adm = 0;
+        if (request.getParameter("cadAuto") != null) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
-            String email = request.getParameter("e-mail");
+            String desc = request.getParameter("descricao");
+            String endereco = request.getParameter("endereco");
+            String cidade = request.getParameter("cidade");
+            String bairro = request.getParameter("bairro");
+            String cep = request.getParameter("cep");
             String telefone = request.getParameter("phone");
-            LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
-            LocalDate curDate = LocalDate.now();
-            if (Period.between(nascimento, curDate).getYears() < 18) {
-                addException = "VocÃª deve ser maior de idade!";
-                throw new java.lang.RuntimeException("VocÃª deve ser maior de idade!");
-            } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                addException = "Imortalidade NÃ£o Existe!";
-                throw new java.lang.RuntimeException("Imortalidade NÃ£o Existe!");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("password");
+            String senha2 = request.getParameter("pass2");
+            if (senha.equals(senha2)) {
+            } else {
+                addException = "Senhas Não Correspondentes!";
+                throw new java.lang.RuntimeException(addException);
             }
-            String Sexo = request.getParameter("sex");
-            char sexo = Sexo.charAt(0);
-            String senha = request.getParameter("pass");
-            User user = new User(
+            int avali = 0;
+            DrivingSchool school = new DrivingSchool(
                     id,
-                    adm,
                     nome,
-                    sobrenome,
+                    desc,
+                    endereco,
+                    cidade,
+                    bairro,
+                    cep,
+                    telefone,
                     email,
                     senha,
-                    telefone,
-                    nascimento,
-                    sexo
+                    avali
             );
-            User.addUser(user);
-            response.sendRedirect("http://localhost:8080/IRotas/login.jsp");
-        }*/
+            DrivingSchool.addDrivingSchool(school);
+            Session.getLoginSchool(request, response);
+        }
 
     } catch (Exception ex) {
         addException = ex.getMessage();
@@ -72,33 +72,48 @@
                         <br>
                         <%}%>
                         <form autocomplete="off" method="POST">
-                            <input class="form-control" type="hidden" name="id" value="1">
-                            <div class="row">
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Nome da Auto Escola:" required>
-
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="EndereÃ§o:" required>
-
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Cidade:" required>
-
-                                <input class="form-control" style="margin-bottom: 10px;" type="text" name="nome" placeholder="Bairro:" required>
-
-                                <input class="form-control" style="margin-bottom: 10px;" type="email" name="e-mail" placeholder="E-mail:" required>
-                            </div>
-
-                            <div class="row">
-                                <div class="col" style="padding-left: 0px;">
-                                    <input class="form-control" style="margin-bottom: 10px;" type="text" name="phone" placeholder="Telefone Ex: (xx)xxxxx-xxxx"
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <input class="form-control" type="hidden" name="id" value="1">
+                                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:"required>
+                                    <br><br>
+                                    <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:"required>
+                                    <br><br>
+                                    <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:"required>
+                                    <br><br>
+                                    <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                           title="NÃºemro do telefone Ex: (xx)xxxxx-xxxx" required>
+                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx"required>
+                                    <br><br>
                                 </div>
-                                <div class="col" style="padding-right: 0px;">
-                                    <div class="input-group mb-3">
-                                        <input class="form-control" style="margin-bottom: 10px;" type="text" name="CEP" placeholder="CEP:"> 
-                                    </div> 
+                                <div class="col">
+                                    <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:"required>
+                                    <br><br>
+                                    <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:"required>
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:"required>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <input class="form-control" type="text" name="cep" id="cep" placeholder="CEP:"
+                                           pattern="[0-9]{5}[-]{1}[0-9]{3}"
+                                           title="Núemro do cep Ex: 12345-123"required>
                                 </div>
                             </div>
-                            <hr>
-                            <input class="btn btn-primary" type="submit" name="cadAuto" value="Registrar">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" type="password" name="password" placeholder="Senha" required>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="password" name="pass2" placeholder="Confirmar Senha" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <hr>
+                                <input class="btn btn-primary" type="submit" name="cadAuto" value="Registrar">
+                            </div>
                         </form>
                     </div>
                 </div>
