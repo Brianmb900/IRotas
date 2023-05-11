@@ -208,7 +208,7 @@
             session.setAttribute("SEARCH", "0");
             session.setAttribute("ORDER", "1");
             session.setAttribute("ORDER2", " ASC");
-            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1");
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=1");
         }
 
     } catch (Exception ex) {
@@ -246,7 +246,7 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="text" name="search" placeholder="Nome do Usuário" required>
+                                <input class="form-control" type="text" name="search" placeholder="Nome da Autoescola" required>
                                 <input type="submit" name="searchAuto" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
@@ -284,7 +284,10 @@
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
-                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"> <b>Alterar</b></a>
+                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
+                                                   onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>', )">
+                                                    <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha"
@@ -310,8 +313,11 @@
                                     <td><%= d.getEmail()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <button class="btn btn-warning" style="margin-right: 10%; color: white;">
-                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"> <b>Alterar</b></a>
+                                            <button class="btn btn-warning" style="color: white;">
+                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
+                                                   onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>', )">
+                                                    <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha"
@@ -336,43 +342,35 @@
                                             <form autocomplete="off" method="POST">
                                                 <div class="row justify-content-center">
                                                     <div class="col">
-                                                        <input class="form-control" type="hidden" name="id" value="1">
-                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:">
+                                                        <input class="form-control" type="hidden" name="id" id="id">
+                                                        <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:"required>
                                                         <br><br>
-                                                        <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:">
+                                                        <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:"required>
                                                         <br><br>
-                                                        <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:">
+                                                        <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:"required>
                                                         <br><br>
                                                         <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                                                pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx">
+                                                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx"required>
                                                         <br><br>
                                                     </div>
                                                     <div class="col">
-                                                        <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:">
+                                                        <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:"required>
                                                         <br><br>
-                                                        <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:">
+                                                        <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:"required>
                                                         <br><br>
                                                         <div class="row">
                                                             <div class="col">
-                                                                <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:">
+                                                                <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:"required>
                                                             </div>
                                                         </div>
                                                         <br><br>
                                                         <input class="form-control" type="text" name="cep" id="cep" placeholder="CEP:"
                                                                pattern="[0-9]{5}[-]{1}[0-9]{3}"
-                                                               title="Núemro do cep Ex: 12345-123">
+                                                               title="Núemro do cep Ex: 12345-123"required>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input class="form-control" type="password" name="password" placeholder="Senha" required>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input class="form-control" type="password" name="pass2" placeholder="Confirmar Senha" required>
-                                                    </div>
-                                                </div>
-                                                    <hr>
+                                                <hr>
                                                 <div class="row" style="margin-top: 20px;">
                                                     <div class="col-2-center">
                                                         <input type="submit" name="altAuto" value="Salvar Alterações" class="btn btn-primary" style="margin-right: 20%">
@@ -395,31 +393,31 @@
                                             <div class="row justify-content-center">
                                                 <div class="col">
                                                     <input class="form-control" type="hidden" name="id" value="1">
-                                                    <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome:">
+                                                    <input class="form-control" type="text" name="nome" placeholder="Nome:"required>
                                                     <br><br>
-                                                    <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição:">
+                                                    <input class="form-control" type="text" name="descricao" placeholder="Descrição:"required>
                                                     <br><br>
-                                                    <input class="form-control" type="email" name="email" id="e-mail" placeholder="E-mail:">
+                                                    <input class="form-control" type="email" name="email" placeholder="E-mail:">required
                                                     <br><br>
-                                                    <input class="form-control" type="text" name="phone" id="phone"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
+                                                    <input class="form-control" type="text" name="phone" placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx">
+                                                           title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx"required>
                                                     <br><br>
                                                 </div>
                                                 <div class="col">
-                                                    <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço:">
+                                                    <input class="form-control" type="text" name="endereco" placeholder="Endereço:"required>
                                                     <br><br>
-                                                    <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Bairro:">
+                                                    <input class="form-control" type="text" name="bairro" placeholder="Bairro:"required>
                                                     <br><br>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade:">
+                                                            <input class="form-control" type="text" name="cidade placeholder="Cidade:"required>
                                                         </div>
                                                     </div>
                                                     <br><br>
-                                                    <input class="form-control" type="text" name="cep" id="cep" placeholder="CEP:"
+                                                    <input class="form-control" type="text" name="cep" placeholder="CEP:"
                                                            pattern="[0-9]{5}[-]{1}[0-9]{3}"
-                                                           title="Núemro do cep Ex: 12345-123">
+                                                           title="Núemro do cep Ex: 12345-123" required>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -506,13 +504,16 @@
         <%}%>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
         <script>
-            function setaDataCli(id, nome, sobrenome, email, telefone, bDate) {
-                document.getElementById('idenCli').value = id;
+            function setaDataAuto(id, nome, descricao, email, phone, endereco, bairro, cidade, cep) {
+                document.getElementById('id').value = id;
                 document.getElementById('nome').value = nome;
-                document.getElementById('sobrenome').value = sobrenome;
+                document.getElementById('descricao').value = descricao;
                 document.getElementById('e-mail').value = email;
-                document.getElementById('phone').value = telefone;
-                document.getElementById('bDate').value = bDate;
+                document.getElementById('phone').value = phone;
+                document.getElementById('endereco').value = endereco;
+                document.getElementById('bairro').value = bairro;
+                document.getElementById('cidade').value = cidade;
+                document.getElementById('cep').value = cep;
             }
 
             function setaIdSenha(id) {
