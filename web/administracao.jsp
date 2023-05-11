@@ -20,12 +20,12 @@
         } else {
             pageid = (pageid - 1) * limite + 1;
         }
-        users = User.getUsers(pageid, limite, Integer.parseInt(session.getAttribute("ORDER").toString()));
-        userSearch = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, limite, Integer.parseInt(session.getAttribute("ORDER").toString()));
+        users = User.getUsers(pageid, limite, (session.getAttribute("ORDER").toString()), (session.getAttribute("ORDER2").toString()));
+        userSearch = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, limite, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString());
         if (session.getAttribute("SEARCH").toString().equals("0")) {
             total = User.getTotalUsers().size();
         } else {
-            total = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, 100000, Integer.parseInt(session.getAttribute("ORDER").toString())).size();
+            total = User.searchUser(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
         }
         if (request.getParameter("cadCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
@@ -118,18 +118,106 @@
             }
         }
 
-        if (request.getParameter("orderCli") != null) {
-            session.setAttribute("ORDER", Integer.parseInt(request.getParameter("order")));
+        //ORDENAÇÕES
+        if (request.getParameter("orderCliId") != null) {
+            if (session.getAttribute("ORDER").toString().equals("1") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "1");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "1");
+                session.setAttribute("ORDER2", " ASC");
+            }
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
         }
 
+        if (request.getParameter("orderCliAdm") != null) {
+            if (session.getAttribute("ORDER").toString().equals("2") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "2");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "2");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliNome") != null) {
+            if (session.getAttribute("ORDER").toString().equals("3") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "3");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "3");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliSnome") != null) {
+            if (session.getAttribute("ORDER").toString().equals("4") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "4");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "4");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliEmail") != null) {
+            if (session.getAttribute("ORDER").toString().equals("5") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "5");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "5");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliTele") != null) {
+            if (session.getAttribute("ORDER").toString().equals("7") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "7");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "7");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliNasci") != null) {
+            if (session.getAttribute("ORDER").toString().equals("8") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "8");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "8");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderCliSexo") != null) {
+            if (session.getAttribute("ORDER").toString().equals("9") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "9");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "9");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=" + request.getParameter("page"));
+        }
+        //FIM ORDENAÇÕES
         if (request.getParameter("searchCli") != null) {
             session.setAttribute("SEARCH", request.getParameter("search"));
+            session.setAttribute("ORDER", "1");
+            session.setAttribute("ORDER2", " ASC");
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1");
         }
 
         if (request.getParameter("limpaBusca") != null) {
             session.setAttribute("SEARCH", "0");
+            session.setAttribute("ORDER", "1");
+            session.setAttribute("ORDER2", " ASC");
             response.sendRedirect("http://localhost:8080/IRotas/administracao.jsp?page=1");
         }
 
@@ -172,34 +260,18 @@
                                 <input type="submit" name="searchCli" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
-                        <form autocomplete="off" method="POST">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup">Ordenar por:</span>
-                                <select class="form-select" name="order" required>
-                                    <option value="1">ID</option>
-                                    <option value="2">Administrador</option>
-                                    <option value="3">Nome</option>
-                                    <option value="4">Sobrenome</option>
-                                    <option value="5">E-mail</option>
-                                    <option value="7">Telefone</option>
-                                    <option value="8">Data de Nascimento</option>
-                                    <option value="9">Sexo</option>
-                                </select>
-                                <input type="submit" name="orderCli" value="Ordenar" class="btn btn-primary"/>
-                            </div>
-                        </form>
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
                             <form autocomplete="off" method="POST">
-                                <th><input type="submit" name="orderCliId" value="ID" style="background: transparent; color: white; font-weight: 700; border: 0; padding: 0; text-decoration: underline white;"/></th>
-                                <th>Administrador</th>
-                                <th>Nome</th>
-                                <th>Sobrenome</th>
-                                <th>E-mail</th>
-                                <th>Telefone</th>
-                                <th>Data de Nascimento</th>
-                                <th>Sexo</th>
+                                <th><input class="orderADM" type="submit" name="orderCliId" value="ID"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliAdm" value="Adiministrador"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliNome" value="Nome"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliSnome" value="Sobrenome"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliEmail" value="E-mail"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliTele" value="Telefone"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliNasci" value="Data de Nascimento"/></th>
+                                <th><input class="orderADM" type="submit" name="orderCliSexo" value="Sexo"/></th>
                                 <th>Ações</th>
                             </form>
                             </tr>
@@ -241,6 +313,7 @@
 
                                         }
                                         strCorreta = dia + mes + ano;
+
                                         out.print(strCorreta);%></td>
                                     <td><% if (u.getSexo() == 'M') {
                                             out.print("Masculino");
@@ -299,6 +372,7 @@
 
                                         }
                                         strCorreta = dia + mes + ano;
+
                                         out.print(strCorreta);%></td>
                                     <td><% if (u.getSexo() == 'M') {
                                             out.print("Masculino");
