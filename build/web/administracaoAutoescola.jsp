@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
     String admException = null;
@@ -196,7 +195,7 @@
             }
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
-        
+
         if (request.getParameter("orderAutoMail") != null) {
             if (session.getAttribute("ORDER").toString().equals("9") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "9");
@@ -207,7 +206,7 @@
             }
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
-        
+
         if (request.getParameter("orderAutoAval") != null) {
             if (session.getAttribute("ORDER").toString().equals("10") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "10");
@@ -341,7 +340,7 @@
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
                                                    onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
-                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>' )">
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>')">
                                                     <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
