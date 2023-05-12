@@ -65,7 +65,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid" justify-content: center;">
+        <div class="container-fluid" justify-content: center;" style="margin-bottom: 30px">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">

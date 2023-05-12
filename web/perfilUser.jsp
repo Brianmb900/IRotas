@@ -81,7 +81,7 @@
         <%if (session.getAttribute("user") == null) {%>
         <%out.print("Você deve realizar login para acessar o conteúdo desta página");%>
         <%} else {%> 
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-bottom: 30px">
             <div class="row justify-content-center">
                 <%if (altException != null) {%>
                 <div style="color: black; font-size: 30px; border: 10px double red;">
