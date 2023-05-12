@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div class="footer container-fluid text-center border-top" style="border-top: 2px var(--bs-border-style) black!important;
-     background-color: #007FFF; color: white; margin-top: 30px; padding-top: 13px;">
+     background-color: #007FFF; color: white; padding-top: 13px;">
     <!--Alguma tralha só para ter conteúdo-->
     <div class="row border-bottom pc">
         <div class="col">

@@ -29,7 +29,7 @@
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
-    <a class="nav-link" href="" >Encontre</a>
+    <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
         Login
     </a>
@@ -49,7 +49,7 @@
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
-    <a class="nav-link" href="" >Encontre</a>
+    <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
         <p style="margin-bottom: 0px">Administração</p>
@@ -73,11 +73,11 @@
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
     <a class="nav-link" href="index.jsp" >Inicio</a>
-    <a class="nav-link" href="" >Encontre</a>
+    <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 18em;">
         <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((DrivingSchool) session.getAttribute("school")).getNome()%></b></p>
     </a>
-    <div class="dropdown-menu" style="text-align: center">
+    <div class="dropdown-menu" style="text-align: center;">
         <a class="dropdown-item" href="perfilAutoescola.jsp">Ver Perfil</a>
         <form class="dropdown-item" method="POST">
             <input class="btn btn-ligth" style="padding: 0px; border: 0px; width: 160px"  type="submit" name="logout" value="Sair"/>

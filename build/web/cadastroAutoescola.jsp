@@ -26,7 +26,9 @@
                 addException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(addException);
             }
-            int avali = 0;
+            double avali = 0.0;
+            double qtdeAvali = 0.0;
+            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -38,7 +40,9 @@
                     telefone,
                     email,
                     senha,
-                    avali
+                    avali,
+                    qtdeAvali,
+                    rAvali
             );
             DrivingSchool.addDrivingSchool(school);
             Session.getLoginSchool(request, response);
@@ -60,7 +64,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container-fluid" justify-content: center;">
+        <div class="container-fluid" justify-content: center;" style="margin-bottom: 30px">
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">

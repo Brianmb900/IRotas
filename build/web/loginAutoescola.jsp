@@ -18,7 +18,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container">
+        <div class="container" style="margin-bottom: 30px">
             <div class="row justify-content-center" style="margin-top: 30px;">
                 <%if (loginException != null) {%>
                 <div style="color: black; font-size: 30px; border: 10px double red;">

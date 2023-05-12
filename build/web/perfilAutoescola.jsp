@@ -22,7 +22,9 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("e-mail");
             String senha = ((DrivingSchool) session.getAttribute("school")).getSenha();
-            int avali = Integer.parseInt(request.getParameter("avali"));
+            double avali = 0;
+            double qtdeAvali = 0;
+            double rAvali = 0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -34,10 +36,12 @@
                     telefone,
                     email,
                     senha,
-                    avali
+                    avali,
+                    qtdeAvali,
+                    rAvali
             );
             DrivingSchool.alterDrivingSchool(school);
-            Session.getLogoff(request, response);
+            Session.altDataSchool(request, response, senha);
         }
 
         if (request.getParameter("altSenha") != null) {
@@ -77,7 +81,7 @@
         <%if (session.getAttribute("user") == null && session.getAttribute("school") == null) {%>
         <%out.print("Você deve realizar login para acessar o conteúdo desta página");%>
         <%} else if (session.getAttribute("school") != null) {%> 
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-bottom: 30px">
             <div class="row justify-content-center">
                 <%if (altException != null) {%>
                 <div style="color: black; font-size: 30px; border: 10px double red;">
@@ -125,7 +129,7 @@
                             <div class="col-2-center">
                                 <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altAuto" id="altAuto" value="Salvar Alteração" disabled="">
                                 </form>
-                    <button class="btn btn-primary" style="margin-right: 5%">
+                                <button class="btn btn-primary" style="margin-right: 5%">
                                     <a onclick="removeDisabled()"> Alterar Dados</a>
                                 </button>
                                 <button class="btn btn-primary" style="color: white;">
@@ -133,6 +137,24 @@
                                 </button>
                             </div>
                         </div>
+                </div>
+                <hr>
+                <div class="row justify-content-center">
+                    <b style="font-size: 30px; padding: 0;">Pré-Visualização Do Seu Card</b>
+                    <div class="col-md-2" style="margin-bottom: 30px; margin-top: 20px">
+                        <div class="card" style="width: 16rem; height: 30em">
+                            <img src="https://i.pinimg.com/564x/0c/db/b7/0cdbb7b44011d6d4e2e910cc059401e8.jpg" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%></h5>
+                                <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%></p>
+                                <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getCidade()%></p>
+                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5</p>
+                                <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
+                                    <input type="submit" class="btn btn-primary" value="Descubra mais">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -165,7 +187,6 @@
                     </div>
                 </div>
             </div>
-
             <script>
                 function removeDisabled() {
                     document.getElementById('nome').removeAttribute("disabled");
