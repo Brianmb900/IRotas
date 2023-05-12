@@ -63,15 +63,19 @@
                     <%
                         if (session.getAttribute("SEARCH").toString().equals("0")) {
                             for (DrivingSchool d : schools) {%>
-                            <div class="col-md-2" style="margin-bottom: 30px">
+                    <div class="col-md-2" style="margin-bottom: 30px">
                         <div class="card" style="width: 16rem; height: 30em">
                             <img src="https://i.pinimg.com/564x/0c/db/b7/0cdbb7b44011d6d4e2e910cc059401e8.jpg" class="card-img-top">
                             <div class="card-body">
-                                <h5 class="card-title"><%= d.getNome() %></h5>
+                                <h5 class="card-title"><%= d.getNome()%></h5>
                                 <p class="card-text"><%= d.getDescricao()%></p>
                                 <p class="card-text"><%= d.getCidade()%></p>
-                                <div style="align-items: center">
-                                    <a href="#" class="btn btn-primary">Descubra mais</a>
+                                <p class="card-text">Avaliação: <%= d.getAvalaicao()%>/5</p>
+                                <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
+                                    <form action="perfilAutoescola.jsp" method="GET">
+                                        <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">
+                                        <input type="submit" class="btn btn-primary" value="Descubra mais">
+                                    </form>
                                 </div>
                             </div>
                         </div>
