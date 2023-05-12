@@ -66,7 +66,7 @@
                             for (DrivingSchool d : schools) {%>
                     <div class="col-md-2" style="margin-bottom: 30px">
                         <div class="card" style="width: 16rem; height: 30em">
-                            <img src="https://i.pinimg.com/564x/0c/db/b7/0cdbb7b44011d6d4e2e910cc059401e8.jpg" class="card-img-top">
+                            <img src="images/carro.png" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><%= d.getNome()%></h5>
                                 <p class="card-text"><%= d.getDescricao()%></p>

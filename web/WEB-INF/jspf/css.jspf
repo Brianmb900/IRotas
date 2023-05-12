@@ -40,10 +40,6 @@
         height: 300px;
     }
 
-    .box{
-        background-color: #A9A9A9;
-    }
-
     .table-my {
         --bs-table-color: #fff;
         /* --bs-table-bg: #212529; */

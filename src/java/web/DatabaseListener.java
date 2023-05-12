@@ -77,7 +77,7 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(2, 'Autoescola Alex', 'Autoescola do Alexxxxxxx', 'Rua 23, número 40', 'São Vincente', "
                        + "'Cidade Náutica', '12345-060', '(19)99999-9999', 'alexAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '8.0','2.0','4.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(3, 'Autoescola Erik', 'Autoescola do Erikkkkkkkkkkkkkkk', 'Rua 23, número 40', 'Praia Grande', "
-                       + "'Vila Antártica', '12345-060', '(19)99999-9999', 'erik@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '1.0','2.0','0.5')");
+                       + "'Vila Antártica', '12345-060', '(19)99999-9999', 'erikAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '1.0','2.0','0.5')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(4, 'Autoescola Luan', 'Autoescola do Luannnnnn', 'Rua 23, número 40', 'São Vincente', "
                        + "'São Vincente', '12345-060', '(19)99999-9999', 'luanAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(5, 'Autoescola Brian', 'Autoescola do Briannnnnnn', 'Rua 23, número 40', 'Praia Grande', "

@@ -90,7 +90,7 @@
                 <br>
                 <%}%>
                 <div class="col" style="margin-top: 20px;">
-                    <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: <%=((DrivingSchool) session.getAttribute("school")).getAvalaicao()%>/5.0</b>
+                    <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: <%=((DrivingSchool) session.getAttribute("school")).getAvalaicao()/((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5.0</b>
                 </div>
             </div>
             <hr>
@@ -143,7 +143,7 @@
                     <b style="font-size: 30px; padding: 0;">Pré-Visualização Do Seu Card</b>
                     <div class="col-md-2" style="margin-bottom: 30px; margin-top: 20px">
                         <div class="card" style="width: 16rem; height: 30em">
-                            <img src="https://i.pinimg.com/564x/0c/db/b7/0cdbb7b44011d6d4e2e910cc059401e8.jpg" class="card-img-top">
+                            <img src="images/carro.png" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%></h5>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%></p>
