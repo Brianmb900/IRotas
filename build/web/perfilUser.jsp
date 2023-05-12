@@ -41,7 +41,7 @@
                     sexo
             );
             User.alterarUser(user);
-            Session.getLogoff(request, response);
+            Session.altDataUser(request, response,senha);
         }
 
         if (request.getParameter("altSenha") != null) {

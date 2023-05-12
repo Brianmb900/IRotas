@@ -22,7 +22,9 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("e-mail");
             String senha = ((DrivingSchool) session.getAttribute("school")).getSenha();
-            int avali = Integer.parseInt(request.getParameter("avali"));
+            double avali = 0;
+            double qtdeAvali = 0;
+            double rAvali = 0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -34,10 +36,12 @@
                     telefone,
                     email,
                     senha,
-                    avali
+                    avali,
+                    qtdeAvali,
+                    rAvali
             );
             DrivingSchool.alterDrivingSchool(school);
-            Session.getLogoff(request, response);
+            Session.altDataSchool(request, response, senha);
         }
 
         if (request.getParameter("altSenha") != null) {
@@ -144,7 +148,7 @@
                                 <h5 class="card-title"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%></h5>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%></p>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getCidade()%></p>
-                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao()%>/5</p>
+                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5</p>
                                 <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                     <input type="submit" class="btn btn-primary" value="Descubra mais">
                                 </div>

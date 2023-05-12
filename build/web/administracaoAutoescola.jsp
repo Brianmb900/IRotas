@@ -42,7 +42,9 @@
                 admException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(admException);
             }
-            int avali = 0;
+            double avali = 0.0;
+            double qtdeAvali = 0.0;
+            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -54,7 +56,9 @@
                     telefone,
                     email,
                     senha,
-                    avali
+                    avali,
+                    qtdeAvali,
+                    rAvali
             );
             DrivingSchool.addDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -71,7 +75,9 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("email");
             String senha = "0";
-            int avali = 0;
+            double avali = 0.0;
+            double qtdeAvali = 0.0;
+            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -83,7 +89,9 @@
                     telefone,
                     email,
                     senha,
-                    avali
+                    avali,
+                    qtdeAvali,
+                    rAvali
             );
             DrivingSchool.alterDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -208,11 +216,11 @@
         }
 
         if (request.getParameter("orderAutoAval") != null) {
-            if (session.getAttribute("ORDER").toString().equals("10") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
-                session.setAttribute("ORDER", "10");
+            if (session.getAttribute("ORDER").toString().equals("13") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "13");
                 session.setAttribute("ORDER2", " DESC");
             } else {
-                session.setAttribute("ORDER", "10");
+                session.setAttribute("ORDER", "13");
                 session.setAttribute("ORDER2", " ASC");
             }
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -303,7 +311,7 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
-                                    <td><%= d.getAvalaicao()%></td>
+                                    <td><%= d.getAvalaicao() / d.getQtdeAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
@@ -334,7 +342,7 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
-                                    <td><%= d.getAvalaicao()%></td>
+                                    <td><%= d.getAvalaicao() / d.getQtdeAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">

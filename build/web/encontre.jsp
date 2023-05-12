@@ -3,6 +3,7 @@
     Created on : 9 de mar de 2023, 13:43:52
     Author     : Erik
 --%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <%
@@ -70,7 +71,7 @@
                                 <h5 class="card-title"><%= d.getNome()%></h5>
                                 <p class="card-text"><%= d.getDescricao()%></p>
                                 <p class="card-text"><%= d.getCidade()%></p>
-                                <p class="card-text">Avaliação: <%= d.getAvalaicao()%>/5</p>
+                                <p class="card-text">Avaliação: <%= d.getAvalaicao() / d.getQtdeAvalaicao()%>/5</p>
                                 <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                     <form action="perfilAutoescola.jsp" method="GET">
                                         <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">

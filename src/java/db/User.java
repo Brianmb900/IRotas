@@ -55,6 +55,33 @@ public class User {
         return user;
     }
 
+    public static User getUserAlt(String email, String password) throws Exception {
+        User user = null;
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_email_user = ? AND cd_password_user = ?");
+        stmt.setString(1, email);
+        stmt.setString(2, password);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            user = new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo);
+        }
+        stmt.close();
+        con.close();
+
+        return user;
+    }
+    
     public static ArrayList<User> getTotalUsers() throws Exception {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
