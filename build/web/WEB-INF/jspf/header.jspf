@@ -33,14 +33,14 @@
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
         Login
     </a>
-    <div class="dropdown-menu" style="text-align: left">
+    <div class="dropdown-menu" style="text-align: center">
         <a class="dropdown-item" href="login.jsp">Login Aluno</a>
         <a class="dropdown-item" href="loginAutoescola.jsp">Login Autoescola</a>
     </div>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
         Cadastro
     </a>
-    <div class="dropdown-menu" style="text-align: left">
+    <div class="dropdown-menu" style="text-align: center">
         <a class="dropdown-item" href="cadastro.jsp">Cadastro Aluno</a>
         <a class="dropdown-item" href="cadastroAutoescola.jsp">Cadastro Autoescola</a>
     </div>
@@ -57,6 +57,7 @@
     <div class="dropdown-menu" style="text-align: center">
         <a class="dropdown-item" href="administracao.jsp?page=1">Administração Alunos</a>
         <a class="dropdown-item" href="administracaoAutoescola.jsp?page=1">Administração Autoescolas</a>
+        <a class="dropdown-item" href="administracaoServicos.jsp?page=1">Administração Serviços</a>
     </div>
     <%}%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">

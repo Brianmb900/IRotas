@@ -8,12 +8,12 @@
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
-    String altException = null;
-    ArrayList<Service> servico = new ArrayList<>();
-    session.setAttribute("ORDER", 1);
+    String autoException = null;
+    ArrayList<Service> servicos = new ArrayList<>();
+    session.setAttribute("ORDER", "1");
+    session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
     try {
-        servico = Service.getServicosAutoescola(((DrivingSchool) session.getAttribute("school")).getIdAutoescola().toString());
         if (request.getParameter("altAuto") != null) {
             Integer id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
@@ -58,18 +58,72 @@
                     DrivingSchool.alterarSenhaSchool(senhaNova1, id);
                     Session.getLogoff(request, response);
                 } else {
-                    altException = "Senhas Não Correspondentes!";
-                    throw new java.lang.RuntimeException(altException);
+                    autoException = "Senhas Não Correspondentes!";
+                    throw new java.lang.RuntimeException(autoException);
                 }
             } else {
-                altException = "Senha Atual Incorreta!";
-                throw new java.lang.RuntimeException(altException);
+                autoException = "Senha Atual Incorreta!";
+                throw new java.lang.RuntimeException(autoException);
             }
         }
 
+        if (request.getParameter("delServico") != null) {
+            int idServico = Integer.parseInt(request.getParameter("idenServicoDel"));
+            Service.deleteService(idServico, ((DrivingSchool) session.getAttribute("school")).getIdAutoescola());
+            response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
+        }
+
     } catch (Exception ex) {
-        altException = ex.getMessage();
+        autoException = ex.getMessage();
     }
+
+    String serviceException = null;
+    try {
+        servicos = Service.getServicosAutoescola(((DrivingSchool) session.getAttribute("school")).getIdAutoescola().toString());
+        if (request.getParameter("cadServico") != null) {
+            int idServico = 0;
+            int idAuto = ((DrivingSchool) session.getAttribute("school")).getIdAutoescola();
+            String descricao = request.getParameter("descricao");
+            LocalTime horaInicio = LocalTime.parse(request.getParameter("inicio"));
+            LocalTime horaFim = LocalTime.parse(request.getParameter("fim"));
+            Double vAula = Double.parseDouble(request.getParameter("vAula"));
+            int tipo = Integer.parseInt(request.getParameter("tipo"));
+            Service servico = new Service(
+                    idServico,
+                    idAuto,
+                    descricao,
+                    horaInicio,
+                    horaFim,
+                    vAula,
+                    tipo
+            );
+            Service.addServico(servico);
+            response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
+        }
+        if (request.getParameter("altServico") != null) {
+            int idServico = Integer.parseInt(request.getParameter("idServico"));
+            int idAuto = ((DrivingSchool) session.getAttribute("school")).getIdAutoescola();
+            String descricao = request.getParameter("descricao");
+            LocalTime horaInicio = LocalTime.parse(request.getParameter("inicio"));
+            LocalTime horaFim = LocalTime.parse(request.getParameter("fim"));
+            Double vAula = Double.parseDouble(request.getParameter("vAula"));
+            int tipo = Integer.parseInt(request.getParameter("tipo"));
+            Service servico = new Service(
+                    idServico,
+                    idAuto,
+                    descricao,
+                    horaInicio,
+                    horaFim,
+                    vAula,
+                    tipo
+            );
+            Service.alterServico(servico);
+            response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
+        }
+    } catch (Exception ex) {
+        serviceException = ex.getMessage();
+    }
+
 %>
 <html>
     <head>
@@ -83,11 +137,17 @@
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("school") != null) {%> 
         <div class="container-fluid" style="margin-bottom: 30px">
-            <div class="caixa" style="padding-bottom: 0; padding-top: 0">
+            <div class="caixa" style="padding-bottom: 0; padding-top: 0; margin-top: 15px">
                 <div class="row justify-content-center">
-                    <%if (altException != null) {%>
+                    <%if (autoException != null) {%>
                     <div style="color: black; font-size: 30px; border: 10px double red;">
-                        <%= altException%>
+                        <%= autoException%>
+                    </div>
+                    <br>
+                    <%}%>
+                    <%if (serviceException != null) {%>
+                    <div style="color: black; font-size: 30px; border: 10px double red;">
+                        <%= serviceException%>
                     </div>
                     <br>
                     <%}%>
@@ -141,13 +201,13 @@
                             </div>
                     </div>
                     <hr>
-                    <b style="font-size: 30px; padding: 0;">Meus Serviços</b>
-                    <% for (Service s : servico) {%>
+                    <p style="font-size: 30px; padding: 0; margin-bottom: 16px"><b>Meus Serviços</b></p>
+                    <% for (Service s : servicos) {%>
                     <div class="row justify-content-center" style="border: 1px solid black; margin-bottom: 30px; margin-left: 0.00001px; margin-right: 0.000001px">
                         <div class="col-4" style="padding-top: 35px">
                             <h4><%= s.getDescricao()%></h4>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <h4>Tipo: <% if (s.getTipo() == 1) {
                                     out.print("Prática");
                                 } else {
@@ -156,8 +216,24 @@
                             <h4>Inicia: <%= s.getHoraInicio()%> - Termina <%= s.getHoraFim()%></h4>
                             <h4>Valor R$:<%= s.getValor()%></h4>
                         </div>
+                        <div class="col-2" style="padding-top: 35px">
+                            <form autocomplete="off" method="POST">
+                                <button class="btn btn-warning" style="color: white;">
+                                    <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altServico"
+                                       onclick="dadosAltServico('<%=s.getIdServico() %>','<%=s.getDescricao()%>','<%=s.getHoraInicio()%>','<%=s.getHoraFim()%>',
+                                                   '<%=s.getValor()%>','<%=s.getTipo()%>')">
+                                        <b>Alterar</b>
+                                    </a>
+                                </button>
+                                <input type="hidden" name="idenServicoDel" value="<%= s.getIdServico()%>" />
+                                <input style="font-weight: bold;" type="submit" name="delServico" value="Remover" class="btn btn-danger"/>
+                            </form>
+                        </div>
                     </div>
                     <%}%>
+                    <button class="btn btn-primary" style="color: white; margin-bottom: 20px">
+                        <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadServico">Cadastrar Serviço</a>
+                    </button>
                 </div>
                 <hr>
                 <div class="row justify-content-center">
@@ -208,6 +284,110 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="altServico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
+                    <div class="modal-content">
+                        <div class="modal-body caixa">
+                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Serviço</h4><hr>
+                            <div class="container" style="margin-bottom: 30px">
+                                <div class="row justify-content-center" style="margin-top: 30px;">
+                                    <div class="caixa" style="border: 0">
+                                        <form method="POST">
+                                            <input type="hidden" id="idServico" name="idServico">
+                                            <div class="row ">
+                                                <div class="row" >
+                                                    <div class="col">
+                                                        <h4 style="padding-bottom: 1px;" >Tipo de Aula Oferecida:</h4>
+                                                        <select class="form-select" id="tipo" name="tipo" required>
+                                                            <option value="0">Prática</option>
+                                                            <option value="1">Teórica</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4 style="padding-bottom: 1px;">Valor das Aulas:</h4>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="number" step=".01" id="vAula" name="vAula" placeholder="R$" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" >
+                                                    <h4 style="margin-top: 20px;">Horario:</h4>
+                                                    <div class="col">
+                                                        <label>Inicio:</label>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="time" id="inicio" name="inicio" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Fim:</label>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="time" id="fim" name="fim" required>
+                                                    </div>
+                                                </div>
+                                                <h4>Descrição (Incluir Categoria):</h4>
+                                                <textarea class="form-control" rows="6" id="descServico" name="descricao"></textarea>
+                                                <br>
+                                                <div class="col-xs-1" align="center" style="margin-top: 15px">
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                                                    <input class="btn btn-primary" type="submit" name="altServico" value="Alterar">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="cadServico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
+                    <div class="modal-content">
+                        <div class="modal-body caixa">
+                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Cadastrar Serviço</h4><hr>
+                            <div class="container" style="margin-bottom: 30px">
+                                <div class="row justify-content-center" style="margin-top: 30px;">
+                                    <div class="caixa" style="border: 0">
+                                        <form method="POST">
+                                            <div class="row ">
+                                                <div class="row" >
+                                                    <div class="col">
+                                                        <h4 style="padding-bottom: 1px;" >Tipo de Aula Oferecida:</h4>
+                                                        <select class="form-select" name="tipo" required>
+                                                            <option value="0">Prática</option>
+                                                            <option value="1">Teórica</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4 style="padding-bottom: 1px;">Valor das Aulas:</h4>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="number" step=".01" name="vAula" placeholder="R$" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" >
+                                                    <h4 style="margin-top: 20px;">Horario:</h4>
+                                                    <div class="col">
+                                                        <label>Inicio:</label>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="time" name="inicio" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Fim:</label>
+                                                        <input class="form-control" style="margin-bottom: 10px;" type="time" name="fim" required>
+                                                    </div>
+                                                </div>
+                                                <h4>Descrição (Incluir Categoria):</h4>
+                                                <textarea class="form-control" rows="6" name="descricao"></textarea>
+                                                <br>
+                                                <div class="col-xs-1" align="center" style="margin-top: 15px">
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                                                    <input class="btn btn-primary" type="submit" name="cadServico" value="Cadastrar">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <script>
                 function removeDisabled() {
                     document.getElementById('nome').removeAttribute("disabled");
@@ -228,8 +408,16 @@
                     document.getElementById('cep').setAttribute("required", "");
                     document.getElementById('altAuto').removeAttribute("disabled");
                 }
+                function dadosAltServico(id, desc, hrIni, hrFim, vl, tipo) {
+                    document.getElementById('idServico').value = id;
+                    document.getElementById('descServico').value = desc;
+                    document.getElementById('inicio').value = hrIni;
+                    document.getElementById('fim').value = hrFim;
+                    document.getElementById('vAula').value = vl;
+                    document.getElementById('tipo').value = tipo;
+                }
             </script>
-            <%} else if (session.getAttribute("user") == null && session.getAttribute("school") == null) {
+            <%} else {
                     out.print("Você deve realizar login para acessar o conteúdo desta página");
                 }%>
             <%@include file="WEB-INF/jspf/footer.jspf" %>
