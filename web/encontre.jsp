@@ -60,7 +60,7 @@
             <hr>
             <div class="row justify-content-center">
                 <div class="col-7">
-                    <h1 style="padding-bottom: 5px;">Filtrar E Buscar Por:</h1>
+                    <h1 style="padding-bottom: 5px;">Filtrar e/ou Buscar Por:</h1>
                     <form autocomplete="off" method="POST">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup">Buscar por:</span>
@@ -140,7 +140,7 @@
                             <p class="card-text"><%= d.getCidade()%></p>
                             <p class="card-text">Avaliação: <%= d.getAvalaicao() / d.getQtdeAvalaicao()%>/5</p>
                             <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
-                                <form action="perfilAutoescola.jsp" method="GET">
+                                <form action="perfilAutoescolaUsuario.jsp" method="GET">
                                     <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">
                                     <input type="submit" class="btn btn-primary" value="Descubra mais">
                                 </form>
@@ -160,7 +160,7 @@
                             <p class="card-text"><%= d.getCidade()%></p>
                             <p class="card-text">Avaliação: <%= d.getAvalaicao() / d.getQtdeAvalaicao()%>/5</p>
                             <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
-                                <form action="perfilAutoescola.jsp" method="GET">
+                                <form action="perfilAutoescolaUsuario.jsp" method="GET">
                                     <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">
                                     <input type="submit" class="btn btn-primary" value="Descubra mais">
                                 </form>
