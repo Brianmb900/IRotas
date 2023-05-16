@@ -4,7 +4,7 @@
     Author     : Alex
 --%>
 
-<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
@@ -23,6 +23,8 @@
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (Integer.parseInt(request.getParameter("auto")) != 0) {
                 DrivingSchool school = DrivingSchool.getDrivingSchoolView(request.getParameter("auto"));
+                ArrayList<Service> servico = new ArrayList<>();
+                servico = Service.getServicosAutoescola(request.getParameter("auto"));
         %>
         <div class="container-fluid" style="margin-bottom: 30px; margin-top: 30px">
             <div class="container-fluid caixa">
@@ -42,31 +44,33 @@
                     </div>
                     <hr style="margin-top: 10px; border-width: 3px">
                 </div>
+                <% for (Service s : servico) {%>
                 <div class="row justify-content-center" style="border: 1px solid black; margin-bottom: 30px; margin-left: 0.00001px; margin-right: 0.000001px">
-                    <div class="col-2" style="padding-top: 35px">
-                        <h4>Nome Serviço</h4>
+                    <div class="col-4" style="padding-top: 35px">
+                        <h4><%= s.getDescricao()%></h4>
                     </div>
                     <div class="col">
-                        <h4>Dados Do Serviço - Dados Do Serviço</h4>
-                        <h4>Dados Do Serviço - Dados Do Serviço</h4>
-                        <h4>Dados Do Serviço - Dados Do Serviço</h4>
+                        <h4>Tipo: <% if (s.getTipo() == 1) {
+                                out.print("Prática");
+                            } else {
+                                out.print("Teórica");
+                            }%></h4>
+                        <h4>Inicia: <%= s.getHoraInicio()%> - Termina <%= s.getHoraFim()%></h4>
+                        <h4>Valor R$:<%= s.getValor()%></h4>
                     </div>
                 </div>
+                <%}%>
                 <div class="row justify-content-center">
                     <div class="col">
                         <a class="btn btn-primary" href="<%
-                                if (session.getAttribute("user") == null) {
-                                    out.print("login.jsp");
-                                } else {
-                                    out.print("#");
-                                }%>">Tenho Interesse</a>
+                            if (session.getAttribute("user") == null) {
+                                out.print("login.jsp");
+                            } else {
+                                out.print("#");
+                            }%>">Tenho Interesse</a>
                     </div>
                 </div>
             </div>
-                    <%
-                    String hora = "10:20";
-                    out.print(LocalTime.parse(hora));
-                    %>
         </div>
 
         <%} else if (session.getAttribute("user") == null && session.getAttribute("school") == null) {

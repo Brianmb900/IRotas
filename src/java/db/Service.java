@@ -90,11 +90,11 @@ public class Service {
         return list;
     }
 
-    public static ArrayList<Service> searchServico(int idAuto, int start, int fim, String order, String order2) throws Exception {
+    public static ArrayList<Service> searchServico(String idAuto, int start, int fim, String order, String order2) throws Exception {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE cd_drivingschool_service = ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
-        stmt.setInt(1, idAuto);
+        stmt.setString(1, idAuto);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             Integer idS = rs.getInt("cd_service");
