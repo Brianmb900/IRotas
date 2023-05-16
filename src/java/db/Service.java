@@ -115,16 +115,15 @@ public class Service {
 
     public static void addServico(Service school) throws Exception {
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("INSERT INTO services (cd_service, cd_drivingschool_service, ds_service,"
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO services (cd_drivingschool_service, ds_service,"
                 + "hr_start_service, hr_end_service, vl_service, ic_class_theoretical_practical_service)"
-                + "VALUES (?,?,?,?,?,?,?)");
-        stmt.setInt(1, school.getIdServico());
-        stmt.setInt(2, school.getIdAutoescola());
-        stmt.setString(3, school.getDescricao());
-        stmt.setString(4, school.getHoraInicio().toString());
-        stmt.setString(5, school.getHoraFim().toString());
-        stmt.setDouble(6, school.getValor());
-        stmt.setInt(7, school.getTipo());
+                + "VALUES (?,?,?,?,?,?)");
+        stmt.setInt(1, school.getIdAutoescola());
+        stmt.setString(2, school.getDescricao());
+        stmt.setString(3, school.getHoraInicio().toString());
+        stmt.setString(4, school.getHoraFim().toString());
+        stmt.setDouble(5, school.getValor());
+        stmt.setInt(6, school.getTipo());
         stmt.execute();
         stmt.close();
         con.close();
