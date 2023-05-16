@@ -26,171 +26,86 @@ public class Service {
     private double valor;
     private Integer tipo;
 
-    public static Service getDrivingSchool(String email, String password) throws Exception {
-        Service driving = null;
-        Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE nm_email_drivingSchool = ? AND cd_password_drivingSchool = ?");
-        stmt.setString(1, email);
-        stmt.setString(2, passwordMD5(password));
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
-
-            driving = new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
-        }
-        stmt.close();
-        con.close();
-
-        return driving;
-    }
-
-    public static Service getDrivingSchoolAlt(String email, String password) throws Exception {
-        Service driving = null;
-        Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE nm_email_drivingSchool = ? AND cd_password_drivingSchool = ?");
-        stmt.setString(1, email);
-        stmt.setString(2, password);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
-
-            driving = new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
-        }
-        stmt.close();
-        con.close();
-
-        return driving;
-    }
-
-    public static Service getDrivingSchoolView(String idV) throws Exception {
-        Service driving = null;
-        Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE cd_drivingSchool = ?");
-        stmt.setString(1, idV);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
-
-            driving = new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
-        }
-        stmt.close();
-        con.close();
-
-        return driving;
-    }
-
-    public static ArrayList<Service> getTotalSchools() throws Exception {
+    public static ArrayList<Service> getServicosAutoescola(String idAuto) throws Exception {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM drivingSchools ORDER BY cd_drivingSchool");
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM services WHERE cd_drivingschool_service = ?");
+        stmt.setString(1, idAuto);
+        ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            Integer idS = rs.getInt("cd_service");
+            Integer idA = rs.getInt("cd_drivingschool_service");
+            String descricao = rs.getString("ds_service");
+            LocalTime hrIni = LocalTime.parse(rs.getString("hr_start_service"));
+            LocalTime hrFim = LocalTime.parse(rs.getString("hr_end_service"));
+            double valor = rs.getDouble("vl_service");
+            Integer tipo = rs.getInt("ic_class_theoretical_practical_service");
 
-            list.add(new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new Service(idS, idA, descricao, hrIni, hrFim, valor, tipo));
         }
         stmt.close();
         con.close();
         return list;
     }
 
-    public static ArrayList<Service> getSchools(int start, int fim, String order, String order2) throws Exception {
+    public static ArrayList<Service> getTotalServicos() throws Exception {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM drivingSchools ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        ResultSet rs = stmt.executeQuery("SELECT * FROM services ORDER BY cd_service");
         while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            Integer idS = rs.getInt("cd_service");
+            Integer idA = rs.getInt("cd_drivingschool_service");
+            String descricao = rs.getString("ds_service");
+            LocalTime hrIni = LocalTime.parse(rs.getString("hr_start_service"));
+            LocalTime hrFim = LocalTime.parse(rs.getString("hr_end_service"));
+            double valor = rs.getDouble("vl_service");
+            Integer tipo = rs.getInt("ic_class_theoretical_practical_service");
 
-            list.add(new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new Service(idS, idA, descricao, hrIni, hrFim, valor, tipo));
         }
         stmt.close();
         con.close();
         return list;
     }
 
-    public static ArrayList<Service> searchSchool(String busca, int start, int fim, String order, String order2) throws Exception {
+    public static ArrayList<Service> getServicos(int start, int fim, String order, String order2) throws Exception {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE nm_drivingSchool LIKE ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
-        stmt.setString(1, "%" + busca + "%");
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM services ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        while (rs.next()) {
+            Integer idS = rs.getInt("cd_service");
+            Integer idA = rs.getInt("cd_drivingschool_service");
+            String descricao = rs.getString("ds_service");
+            LocalTime hrIni = LocalTime.parse(rs.getString("hr_start_service"));
+            LocalTime hrFim = LocalTime.parse(rs.getString("hr_end_service"));
+            double valor = rs.getDouble("vl_service");
+            Integer tipo = rs.getInt("ic_class_theoretical_practical_service");
+
+            list.add(new Service(idS, idA, descricao, hrIni, hrFim, valor, tipo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<Service> searchServico(int idAuto, int start, int fim, String order, String order2) throws Exception {
+        ArrayList<Service> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE cd_drivingschool_service = ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        stmt.setInt(1, idAuto);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Integer id = rs.getInt("cd_drivingSchool");
-            String nome = rs.getString("nm_drivingSchool");
-            String descricao = rs.getString("ds_drivingSchool");
-            String endereco = rs.getString("nm_address_drivingSchool");
-            String cidade = rs.getString("nm_city_drivingSchool");
-            String bairro = rs.getString("nm_neighborhood_drivingSchool");
-            String cep = rs.getString("cd_cep_drivingSchool");
-            String telefone = rs.getString("cd_phone_number_drivingSchool");
-            String emailD = rs.getString("nm_email_drivingSchool");
-            String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            Integer idS = rs.getInt("cd_service");
+            Integer idA = rs.getInt("cd_drivingschool_service");
+            String descricao = rs.getString("ds_service");
+            LocalTime hrIni = LocalTime.parse(rs.getString("hr_start_service"));
+            LocalTime hrFim = LocalTime.parse(rs.getString("hr_end_service"));
+            double valor = rs.getDouble("vl_service");
+            Integer tipo = rs.getInt("ic_class_theoretical_practical_service");
 
-            list.add(new Service(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new Service(idS, idA, descricao, hrIni, hrFim, valor, tipo));
         }
         stmt.close();
         con.close();
