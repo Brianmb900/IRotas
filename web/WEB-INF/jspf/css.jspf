@@ -101,4 +101,23 @@
         color: var(--bs-table-color);
         border-color: var(--bs-table-border-color);
     }
+
+    .footer{
+        background: #007FFF;
+        color: white;
+        margin-top: 10px;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    li a{
+        text-decoration:none;
+        color: white;
+    }
+
+    .copyright p{
+        border-top:1px solid #fff;
+    } 
 </style>
