@@ -38,7 +38,6 @@
     <div class="dropdown-menu" style="text-align: left">
         <a class="dropdown-item" href="cadastro.jsp">Cadastro Aluno</a>
         <a class="dropdown-item" href="cadastroAutoescola.jsp">Cadastro Autoescola</a>
-        <a class="dropdown-item" href="cadastroServicos.jsp">Cadastro Autoescola</a>
     </div>
 </nav>
 <%} else {%> 
