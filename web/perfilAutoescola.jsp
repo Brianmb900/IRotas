@@ -4,13 +4,16 @@
     Author     : Alex
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
     String altException = null;
+    ArrayList<Service> servico = new ArrayList<>();
     session.setAttribute("ORDER", 1);
     session.setAttribute("SEARCH", "0");
     try {
+        servico = Service.getServicosAutoescola(((DrivingSchool) session.getAttribute("school")).getIdAutoescola().toString());
         if (request.getParameter("altAuto") != null) {
             Integer id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
@@ -80,61 +83,81 @@
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("school") != null) {%> 
         <div class="container-fluid" style="margin-bottom: 30px">
-            <div class="row justify-content-center">
-                <%if (altException != null) {%>
-                <div style="color: black; font-size: 30px; border: 10px double red;">
-                    <%= altException%>
+            <div class="caixa" style="padding-bottom: 0; padding-top: 0">
+                <div class="row justify-content-center">
+                    <%if (altException != null) {%>
+                    <div style="color: black; font-size: 30px; border: 10px double red;">
+                        <%= altException%>
+                    </div>
+                    <br>
+                    <%}%>
+                    <div class="col" style="margin-top: 20px;">
+                        <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: <%=((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5.0</b>
+                    </div>
                 </div>
-                <br>
-                <%}%>
-                <div class="col" style="margin-top: 20px;">
-                    <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: <%=((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5.0</b>
-                </div>
-            </div>
-            <hr>
-            <div class="row justify-content-center">
-                <div class="col">
-                    <form autocomplete="off" method="POST">
-                        <input class="form-control" type="hidden" name="id" value="<%= ((DrivingSchool) session.getAttribute("school")).getIdAutoescola()%>">
-                        <input class="form-control" type="hidden" name="avali" value="<%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao()%>">
-                        <input class="form-control" type="text" name="nome" id="nome" value="<%= ((DrivingSchool) session.getAttribute("school")).getNome()%>" placeholder="Nome:" disabled>
-                        <br><br>
-                        <input class="form-control" type="text" name="descricao" id="descricao" value="<%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%>" placeholder="Drescrição:" disabled>
-                        <br><br>
-                        <input class="form-control" type="email" name="e-mail" id="e-mail" value="<%= ((DrivingSchool) session.getAttribute("school")).getEmail()%>" placeholder="E-mail:" disabled>
-                        <br><br>
-                        <input class="form-control" type="text" name="phone" id="phone" value="<%= ((DrivingSchool) session.getAttribute("school")).getTelefone()%>"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
-                               pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                               title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
-                        <br><br>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" type="text" name="endereco" id="endereco" value="<%= ((DrivingSchool) session.getAttribute("school")).getEndereco()%>" placeholder="Endereço:" disabled>
+                <hr>
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <form autocomplete="off" method="POST">
+                            <input class="form-control" type="hidden" name="id" value="<%= ((DrivingSchool) session.getAttribute("school")).getIdAutoescola()%>">
+                            <input class="form-control" type="hidden" name="avali" value="<%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao()%>">
+                            <input class="form-control" type="text" name="nome" id="nome" value="<%= ((DrivingSchool) session.getAttribute("school")).getNome()%>" placeholder="Nome:" disabled>
                             <br><br>
-                            <input class="form-control" type="text" name="bairro" id="bairro" value="<%= ((DrivingSchool) session.getAttribute("school")).getBairro()%>" placeholder="Bairro:" disabled>
+                            <input class="form-control" type="text" name="descricao" id="descricao" value="<%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%>" placeholder="Drescrição:" disabled>
                             <br><br>
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control" type="text" name="cidade" id="cidade" value="<%= ((DrivingSchool) session.getAttribute("school")).getCidade()%>" placeholder="Cidade:" disabled>
+                            <input class="form-control" type="email" name="e-mail" id="e-mail" value="<%= ((DrivingSchool) session.getAttribute("school")).getEmail()%>" placeholder="E-mail:" disabled>
+                            <br><br>
+                            <input class="form-control" type="text" name="phone" id="phone" value="<%= ((DrivingSchool) session.getAttribute("school")).getTelefone()%>"  placeholder="Telefone Ex: (xx)xxxxx-xxxx"
+                                   pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
+                                   title="Núemro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
+                            <br><br>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="text" name="endereco" id="endereco" value="<%= ((DrivingSchool) session.getAttribute("school")).getEndereco()%>" placeholder="Endereço:" disabled>
+                                <br><br>
+                                <input class="form-control" type="text" name="bairro" id="bairro" value="<%= ((DrivingSchool) session.getAttribute("school")).getBairro()%>" placeholder="Bairro:" disabled>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control" type="text" name="cidade" id="cidade" value="<%= ((DrivingSchool) session.getAttribute("school")).getCidade()%>" placeholder="Cidade:" disabled>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <input class="form-control" type="text" name="cep" id="cep" value="<%= ((DrivingSchool) session.getAttribute("school")).getCep()%>"  placeholder="CEP:"
+                                       pattern="[0-9]{5}[-]{1}[0-9]{3}"
+                                       title="Núemro do cep Ex: 12345-123" disabled>
+                            </div>
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-2-center">
+                                    <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altAuto" id="altAuto" value="Salvar Alteração" disabled="">
+                                    </form>
+                                    <button class="btn btn-primary" style="margin-right: 5%">
+                                        <a onclick="removeDisabled()"> Alterar Dados</a>
+                                    </button>
+                                    <button class="btn btn-primary" style="color: white;">
+                                        <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha">Alterar Senha</a>
+                                    </button>
                                 </div>
                             </div>
-                            <br><br>
-                            <input class="form-control" type="text" name="cep" id="cep" value="<%= ((DrivingSchool) session.getAttribute("school")).getCep()%>"  placeholder="CEP:"
-                                   pattern="[0-9]{5}[-]{1}[0-9]{3}"
-                                   title="Núemro do cep Ex: 12345-123" disabled>
+                    </div>
+                    <hr>
+                    <b style="font-size: 30px; padding: 0;">Meus Serviços</b>
+                    <% for (Service s : servico) {%>
+                    <div class="row justify-content-center" style="border: 1px solid black; margin-bottom: 30px; margin-left: 0.00001px; margin-right: 0.000001px">
+                        <div class="col-4" style="padding-top: 35px">
+                            <h4><%= s.getDescricao()%></h4>
                         </div>
-                        <div class="row" style="margin-top: 20px;">
-                            <div class="col-2-center">
-                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altAuto" id="altAuto" value="Salvar Alteração" disabled="">
-                                </form>
-                                <button class="btn btn-primary" style="margin-right: 5%">
-                                    <a onclick="removeDisabled()"> Alterar Dados</a>
-                                </button>
-                                <button class="btn btn-primary" style="color: white;">
-                                    <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altSenha">Alterar Senha</a>
-                                </button>
-                            </div>
+                        <div class="col">
+                            <h4>Tipo: <% if (s.getTipo() == 1) {
+                                    out.print("Prática");
+                                } else {
+                                    out.print("Teórica");
+                                }%></h4>
+                            <h4>Inicia: <%= s.getHoraInicio()%> - Termina <%= s.getHoraFim()%></h4>
+                            <h4>Valor R$:<%= s.getValor()%></h4>
                         </div>
+                    </div>
+                    <%}%>
                 </div>
                 <hr>
                 <div class="row justify-content-center">
