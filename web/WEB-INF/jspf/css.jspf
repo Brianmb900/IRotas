@@ -81,6 +81,13 @@
         background-color: #A9A9A9;
     }
 
+    .rounded-circle {
+        border: 3.5px solid blue; 
+        margin-bottom: 10px;
+        width: 140px; 
+        height: 140px;
+    }
+
     .table-my {
         --bs-table-color: #fff;
         /* --bs-table-bg: #212529; */
