@@ -18,7 +18,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <div class="container">
+        <div class="container" style="margin-bottom: 30px">
             <div class="row justify-content-center" style="margin-top: 30px;">
                 <%if (loginException != null) {%>
                 <div style="color: black; font-size: 30px; border: 10px double red;">
@@ -32,6 +32,8 @@
                             <input class="form-control" type="text" name="email" placeholder="E-mail">
                             <br><br>
                             <input class="form-control" type="password" name="password" placeholder="Senha">
+                            <br><br>
+                            <a href="cadastroAutoescola.jsp" style="color: white">Cadastre-se</a>
                             <br><br>
                             <input class="btn btn-primary" type="submit" name="loginAuto" value="Entrar">
                         </form>

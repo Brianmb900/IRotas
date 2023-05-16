@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.time.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     String altException = null;
@@ -22,10 +21,10 @@
             LocalDate nascimento = LocalDate.parse(request.getParameter("bDate"));
             LocalDate curDate = LocalDate.now();
             if (Period.between(nascimento, curDate).getYears() < 18) {
-                altException = "Voc√™ deve ser maior de idade!";
+                altException = "VocÍ deve ser maior de idade!";
                 throw new java.lang.RuntimeException(altException);
             } else if (Period.between(nascimento, curDate).getYears() > 130) {
-                altException = "Imortalidade (ainda) N√£o Existe!";
+                altException = "Imortalidade (ainda) N„o Existe!";
                 throw new java.lang.RuntimeException(altException);
             }
             char sexo = ((User) session.getAttribute("user")).getSexo();
@@ -42,7 +41,7 @@
                     sexo
             );
             User.alterarUser(user);
-            Session.getLogoff(request, response);
+            Session.altDataUser(request, response,senha);
         }
 
         if (request.getParameter("altSenha") != null) {
@@ -55,14 +54,12 @@
                 if (senhaNova1.equals(senhaNova2)) {
                     User.alterarSenhaUser(senhaNova1, id);
                     Session.getLogoff(request, response);
-                    altException = "Senhas N√£o Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
-                    throw new java.lang.RuntimeException(altException);
                 } else {
-                    altException = "Senhas N√£o Correspondentes! - " + senhaNova1 + " - " + senhaNova2;
+                    altException = "Senhas N„o Correspondentes!";
                     throw new java.lang.RuntimeException(altException);
                 }
             } else {
-                altException = "Senha Original Inv√°lida!";
+                altException = "Senha Atual Incorreta!";
                 throw new java.lang.RuntimeException(altException);
             }
         }
@@ -82,9 +79,9 @@
     <body>
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("user") == null) {%>
-        <%out.print("Voc√™ deve realizar login para acessar o conte√∫do desta p√°gina");%>
+        <%out.print("VocÍ deve realizar login para acessar o conte˙do desta p·gina");%>
         <%} else {%> 
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-bottom: 30px">
             <div class="row justify-content-center">
                 <%if (altException != null) {%>
                 <div style="color: black; font-size: 30px; border: 10px double red;">
@@ -113,10 +110,10 @@
                         <br><br>
                         <input class="form-control" type="text" name="phone" id="phone" value="<%= ((User) session.getAttribute("user")).getTelefone()%>"  placeholder="Telefone Celular Ex: (xx)xxxxx-xxxx"
                                pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
-                               title="N√∫emro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
+                               title="N˙emro do telefone celular Ex: (xx)xxxxx-xxxx" disabled>
                         </div>
                         <div class="col">
-                            <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="√öltimo Sobrenome" disabled>
+                            <input class="form-control" type="text" name="sobrenome" id="sobrenome" value="<%= ((User) session.getAttribute("user")).getSobrenome()%>" placeholder="⁄ltimo Sobrenome" disabled>
                             <br><br>
                             <div class="row">
                                 <div class="col">
@@ -137,7 +134,7 @@
                         </div>
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-2-center">
-                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altCli" id="altCli" value="Salvar Altera√ß√£o" disabled="">
+                                <input class="btn btn-primary" style="margin-right: 5%" type="submit" name="altCli" id="altCli" value="Salvar AlteraÁ„o" disabled="">
                                 </form>
                                 <button class="btn btn-primary">
                                     <a onclick="removeDisabled()"> Alterar Dados</a>
@@ -163,7 +160,7 @@
                                     <input name="passNew1" type="password" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Senha Nova - Confirma√ß√£o</label>
+                                    <label for="password" class="form-label">Senha Nova - ConfirmaÁ„o</label>
                                     <input name="passNew2" type="password" class="form-control" required>
                                 </div>
                                 <hr>

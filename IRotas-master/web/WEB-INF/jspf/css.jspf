@@ -15,21 +15,6 @@
         border-color: black;
         margin-bottom: 40px;
     }
-    .checkbox {
-        text-align: center;
-    }
-    .textFiltro{
-        text-align: left;
-    }
-    .filtro {
-        background-color: #007FFF;
-        border-radius: 6px;
-        padding: 30px;
-        color: white;
-        border: solid 0.3px;
-        border-color: black;
-        text-align: center;
-    }
 
     .caixa {
         background-color: #007FFF;
@@ -40,6 +25,43 @@
         border-color: black;
     }
 
+    caixa2 {
+        background-color: #007FFF;
+        border-radius: 6px;
+        padding: 30px;
+        color: white;
+        border: solid 0.3px;
+        border-color: black;
+        margin-top: 120px;
+    }
+
+
+    .carousel-inner {
+        height: 300px;
+    }
+
+    .table-my {
+        --bs-table-color: #fff;
+        /* --bs-table-bg: #212529; */
+        /* --bs-table-border-color: #373b3e; */
+        --bs-table-striped-bg: #2c3034;
+        --bs-table-striped-color: #fff;
+        --bs-table-active-bg: #373b3e;
+        --bs-table-active-color: #fff;
+        --bs-table-hover-bg: #323539;
+        --bs-table-hover-color: #fff;
+        color: var(--bs-table-color);
+        border-color: var(--bs-table-border-color);
+    }
+
+    .orderADM{
+        background: transparent;
+        color: white;
+        font-weight: 700;
+        border: 0;
+        padding: 0;
+        text-decoration: underline white;
+    }
     .navDim{
         background-color: #007FFF;
         height: 4.5em;
@@ -88,30 +110,25 @@
         border-bottom: none;
     }
 
-    .carousel-inner {
-        height: 300px;
-    }
-
-    .box{
-        background-color: #A9A9A9;
-    }
-    h4 {
+    .avaliacao{
         display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: right;
     }
-    .table-my {
-        --bs-table-color: #fff;
-        /* --bs-table-bg: #212529; */
-        /* --bs-table-border-color: #373b3e; */
-        --bs-table-striped-bg: #2c3034;
-        --bs-table-striped-color: #fff;
-        --bs-table-active-bg: #373b3e;
-        --bs-table-active-color: #fff;
-        --bs-table-hover-bg: #323539;
-        --bs-table-hover-color: #fff;
-        color: var(--bs-table-color);
-        border-color: var(--bs-table-border-color);
+    .star-icon{
+        list-style-type: none;
+        cursor: pointer;
+        color: #ffe500;
+        font-size: 40px;/* alterar o tamanho das estrelas */
+    }
+    .star-icon::before{
+        content: "\2605";
+    }
+    .star-icon.ativo ~ .star-icon::before{
+        content: "\2606";
+    }
+    .avaliacao:hover .star-icon::before{
+        content: "\2605";
+    }
+    .star-icon:hover ~ .star-icon::before{
+        content: "\2606";
     }
 </style>
