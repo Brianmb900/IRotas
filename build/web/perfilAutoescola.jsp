@@ -10,7 +10,8 @@
 <%
     String altException = null;
     ArrayList<Service> servico = new ArrayList<>();
-    session.setAttribute("ORDER", 1);
+    session.setAttribute("ORDER", "1");
+    session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
     try {
         servico = Service.getServicosAutoescola(((DrivingSchool) session.getAttribute("school")).getIdAutoescola().toString());
@@ -66,7 +67,7 @@
                 throw new java.lang.RuntimeException(altException);
             }
         }
-        
+
         if (request.getParameter("delServico") != null) {
             int idServico = Integer.parseInt(request.getParameter("idenServicoDel"));
             Service.deleteService(idServico, ((DrivingSchool) session.getAttribute("school")).getIdAutoescola());
@@ -165,7 +166,7 @@
                         <div class="col-2" style="padding-top: 35px">
                             <form autocomplete="off" method="POST">
                                 <button class="btn btn-warning" style="color: white;">
-                                    <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola">
+                                    <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altServico">
                                         <b>Alterar</b>
                                     </a>
                                 </button>
@@ -225,6 +226,37 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="altServico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-m text-center">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
+                            <form method="post">
+                                <input class="form-control" type="hidden" name="id" value="<%= ((DrivingSchool) session.getAttribute("school")).getIdAutoescola()%>">
+                                <div class="mb-3">
+                                    <label for="text" class="form-label">Senha Atual</label>
+                                    <input name="passOri" type="password" class="form-control" required>
+                                </div><hr>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Senha Nova</label>
+                                    <input name="passNew1" type="password" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Senha Nova - Confirmação</label>
+                                    <input name="passNew2" type="password" class="form-control" required>
+                                </div>
+                                <hr>
+                                <div class="container" style="margin: auto;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button name="altSenha" type="submit" class="btn btn-primary" type="submit">Confirmar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <script>
                 function removeDisabled() {
                     document.getElementById('nome').removeAttribute("disabled");

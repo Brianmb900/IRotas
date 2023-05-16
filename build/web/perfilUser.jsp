@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <%
     String altException = null;
-    session.setAttribute("ORDER", 1);
+    session.setAttribute("ORDER", "1");
+    session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
     try {
         if (request.getParameter("altCli") != null) {

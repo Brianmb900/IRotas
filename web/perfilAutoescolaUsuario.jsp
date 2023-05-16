@@ -8,7 +8,8 @@
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
-    session.setAttribute("ORDER", 1);
+    session.setAttribute("ORDER", "1");
+    session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
 %>
 <html>
