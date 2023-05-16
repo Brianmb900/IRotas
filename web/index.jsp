@@ -16,6 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="images/Logo2.png">
         <title>Home</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
@@ -64,84 +65,83 @@
         <div class="box">
             <section class="container marketing">
                 <div class="mb-3 d-flex justify-content-center">
-                    <h2>Sobre</h2>
+                    <h2 class="mt-3">Sobre</h2>
                 </div>
+                <hr size = 7>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="https://cdn1.iconfinder.com/data/icons/business-and-office-3-4/128/130-512.png"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>Divulgação</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                Aqui fornecemos as Auto Escolas divulgar seus
+                                servições, valores, ambiente e avalições em geral.
+                                Para aumentar a area de buscar por Auto Escolas
+                                com ensino qualificado. 
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="images/2.png"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>Usabilidade fácil!</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                Criamos um site simples e objetivo, para quidem
+                                qualquer usuário tenha facilidade em navegar e 
+                                encontrar a Auto Escola que combine com seus
+                                interesses.
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="images/3.png"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>Avalições</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                Nosso sistema de avalições das Auto Escolas
+                                é feito por alunos que já frequentaram ela,
+                                tornando o primeiro contato da Auto Escolas 
+                                com novos cliente melhor!
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4 mt-3">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="images/4.jpg"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>Comunicação</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                Através de nosso site tornou-se possivel
+                                ter uma melhor comunicação e disponibilidade
+                                com as Auto Escolas e seus serviços.
+
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4 mt-3">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="images/5.png"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>CNH</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                Não perca tempo, perfies de Auto Escolas
+                                possuem os tipos de CNH e suas respectivas
+                                aulas que ofericidas!
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4 mt-3">
                         <div class="d-flex align-items-center flex-column">
-                            <img class="rounded-circle" src="images/vantagens-abrir-franquia-2.jpg"
+                            <img style="border: 3.5px solid blue;" class="rounded-circle" src="images/6.png"
                                  alt="Generic placeholder image" width="140" height="140" />
-                            <h2>Heading</h2>
+                            <h2>IRotas</h2>
                             <p>
-                                Donec sed odio dui. Etiam porta sem malesuada magna
-                                mollis euismod. Nullam id dolor id nibh ultricies vehicula
-                                ut id elit. Morbi leo risus, porta ac consectetur ac,
-                                vestibulum at eros. Praesent commodo cursus magna.
+                                O primeiro site de divulgação para Auto Escolas
+                                do Brasil, confira agora sem sair de casa uma 
+                                Auto Escola que combine com você!!
                             </p>
                         </div>
                     </div>
