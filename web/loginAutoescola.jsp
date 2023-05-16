@@ -33,6 +33,8 @@
                             <br><br>
                             <input class="form-control" type="password" name="password" placeholder="Senha">
                             <br><br>
+                            <a href="cadastroAutoescola.jsp" style="color: white">Cadastre-se</a>
+                            <br><br>
                             <input class="btn btn-primary" type="submit" name="loginAuto" value="Entrar">
                         </form>
                     </div>
