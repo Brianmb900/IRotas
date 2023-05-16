@@ -147,10 +147,11 @@ public class Service {
         con.close();
     }
 
-    public static void deleteService(Integer identificacao) throws Exception {
+    public static void deleteService(Integer idServico, Integer idAuto) throws Exception {
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("DELETE FROM services WHERE cd_service = ?");
-        stmt.setInt(1, identificacao);
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM services WHERE cd_service = ? AND cd_drivingschool_service = ?");
+        stmt.setInt(1, idServico);
+        stmt.setInt(2, idAuto);
         stmt.execute();
         stmt.close();
         con.close();

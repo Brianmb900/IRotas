@@ -66,6 +66,12 @@
                 throw new java.lang.RuntimeException(altException);
             }
         }
+        
+        if (request.getParameter("delServico") != null) {
+            int idServico = Integer.parseInt(request.getParameter("idenServicoDel"));
+            Service.deleteService(idServico, ((DrivingSchool) session.getAttribute("school")).getIdAutoescola());
+            response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
+        }
 
     } catch (Exception ex) {
         altException = ex.getMessage();
@@ -83,7 +89,7 @@
         <%@include file="WEB-INF/jspf/header.jspf" %>
         <%if (session.getAttribute("school") != null) {%> 
         <div class="container-fluid" style="margin-bottom: 30px">
-            <div class="caixa" style="padding-bottom: 0; padding-top: 0">
+            <div class="caixa" style="padding-bottom: 0; padding-top: 0; margin-top: 15px">
                 <div class="row justify-content-center">
                     <%if (altException != null) {%>
                     <div style="color: black; font-size: 30px; border: 10px double red;">
@@ -141,13 +147,13 @@
                             </div>
                     </div>
                     <hr>
-                    <b style="font-size: 30px; padding: 0;">Meus Serviços</b>
+                    <p style="font-size: 30px; padding: 0; margin-bottom: 16px"><b>Meus Serviços</b></p>
                     <% for (Service s : servico) {%>
                     <div class="row justify-content-center" style="border: 1px solid black; margin-bottom: 30px; margin-left: 0.00001px; margin-right: 0.000001px">
                         <div class="col-4" style="padding-top: 35px">
                             <h4><%= s.getDescricao()%></h4>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <h4>Tipo: <% if (s.getTipo() == 1) {
                                     out.print("Prática");
                                 } else {
@@ -155,6 +161,17 @@
                                 }%></h4>
                             <h4>Inicia: <%= s.getHoraInicio()%> - Termina <%= s.getHoraFim()%></h4>
                             <h4>Valor R$:<%= s.getValor()%></h4>
+                        </div>
+                        <div class="col-2" style="padding-top: 35px">
+                            <form autocomplete="off" method="POST">
+                                <button class="btn btn-warning" style="color: white;">
+                                    <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola">
+                                        <b>Alterar</b>
+                                    </a>
+                                </button>
+                                <input type="hidden" name="idenServicoDel" value="<%= s.getIdServico()%>" />
+                                <input style="font-weight: bold;" type="submit" name="delServico" value="Remover" class="btn btn-danger"/>
+                            </form>
                         </div>
                     </div>
                     <%}%>
