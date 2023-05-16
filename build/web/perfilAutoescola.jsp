@@ -86,6 +86,10 @@
             String descricao = request.getParameter("descricao");
             LocalTime horaInicio = LocalTime.parse(request.getParameter("inicio"));
             LocalTime horaFim = LocalTime.parse(request.getParameter("fim"));
+            if (horaFim.isBefore(horaInicio)) {
+                serviceException = "A hora de fim deve ser maior que a de início!";
+                throw new java.lang.RuntimeException(serviceException);
+            }
             Double vAula = Double.parseDouble(request.getParameter("vAula"));
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             Service servico = new Service(
@@ -106,6 +110,10 @@
             String descricao = request.getParameter("descricao");
             LocalTime horaInicio = LocalTime.parse(request.getParameter("inicio"));
             LocalTime horaFim = LocalTime.parse(request.getParameter("fim"));
+            if (horaFim.isBefore(horaInicio)) {
+                serviceException = "A hora de fim deve ser maior que a de início!";
+                throw new java.lang.RuntimeException(serviceException);
+            }
             Double vAula = Double.parseDouble(request.getParameter("vAula"));
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             Service servico = new Service(
@@ -220,8 +228,8 @@
                             <form autocomplete="off" method="POST">
                                 <button class="btn btn-warning" style="color: white;">
                                     <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altServico"
-                                       onclick="dadosAltServico('<%=s.getIdServico() %>','<%=s.getDescricao()%>','<%=s.getHoraInicio()%>','<%=s.getHoraFim()%>',
-                                                   '<%=s.getValor()%>','<%=s.getTipo()%>')">
+                                       onclick="dadosAltServico('<%=s.getIdServico()%>', '<%=s.getDescricao()%>', '<%=s.getHoraInicio()%>', '<%=s.getHoraFim()%>',
+                                                       '<%=s.getValor()%>', '<%=s.getTipo()%>')">
                                         <b>Alterar</b>
                                     </a>
                                 </button>
