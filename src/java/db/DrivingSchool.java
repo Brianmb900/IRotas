@@ -49,9 +49,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
         }
@@ -79,9 +79,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
         }
@@ -108,9 +108,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
         }
@@ -136,9 +136,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
         }
@@ -163,9 +163,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
         }
@@ -191,9 +191,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getInt("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
         }
