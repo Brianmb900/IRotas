@@ -90,6 +90,35 @@ public class DrivingSchool {
 
         return driving;
     }
+    
+    public static DrivingSchool getDrivingSchoolView(String idV) throws Exception {
+        DrivingSchool driving = null;
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE cd_drivingSchool = ?");
+        stmt.setString(1, idV);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            double avaliacao = rs.getInt("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getInt("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getInt("vl_rating_final_drivingSchool");
+
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
+        }
+        stmt.close();
+        con.close();
+
+        return driving;
+    }
 
     public static ArrayList<DrivingSchool> getTotalSchools() throws Exception {
         ArrayList<DrivingSchool> list = new ArrayList<>();
