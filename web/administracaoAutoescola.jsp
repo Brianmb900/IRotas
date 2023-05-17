@@ -429,7 +429,7 @@
                                                     <br><br>
                                                     <input class="form-control" type="text" name="descricao" placeholder="Descrição:"required>
                                                     <br><br>
-                                                    <input class="form-control" type="email" name="email" placeholder="E-mail:">required
+                                                    <input class="form-control" type="email" name="email" placeholder="E-mail:"required>
                                                     <br><br>
                                                     <input class="form-control" type="text" name="phone" placeholder="Telefone Ex: (xx)xxxxx-xxxx"
                                                            pattern="[(]{1}[0-9]{2}[)]{1}[0-9]{5}[-]{1}[0-9]{4}"
@@ -443,7 +443,7 @@
                                                     <br><br>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input class="form-control" type="text" name="cidade placeholder="Cidade:"required>
+                                                            <input class="form-control" type="text" name="cidade" placeholder="Cidade:"required>
                                                         </div>
                                                     </div>
                                                     <br><br>

@@ -68,7 +68,7 @@ public class DatabaseListener implements ServletContextListener {
                     + "ic_class_theoretical_practical_service INTEGER NOT NULL,"
                     + "FOREIGN KEY (cd_drivingschool_service) REFERENCES drivingSchools (cd_drivingSchool))");
             stmt.execute("INSERT OR IGNORE INTO services VALUES(1, 2, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
-            stmt.execute("INSERT OR IGNORE INTO services VALUES(2, 1, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
+            stmt.execute("INSERT OR IGNORE INTO services VALUES(2, 3, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
             stmt.execute("INSERT OR IGNORE INTO services VALUES(3, 2, 'Falou em DP? Falou em Autoescola Alex', '13:10', '22:30', '9.99', 0)");
 
             //stmt.execute("DROP TABLE drivingSchools");
@@ -100,6 +100,16 @@ public class DatabaseListener implements ServletContextListener {
                     + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(7, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
                     + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+
+            stmt.execute("DROP TABLE interesteds");
+            stmt.execute("CREATE TABLE IF NOT EXISTS interesteds("
+                    + "cd_interested INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "cd_drivingSchool_interested INTEGER NOT NULL,"
+                    + "cd_user_interested INTEGER NOT NULL,"
+                    + "FOREIGN KEY (cd_drivingSchool_interested) REFERENCES drivingSchools (cd_drivingSchool),"
+                    + "FOREIGN KEY (cd_user_interested) REFERENCES users (cd_user))");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(1, 2, 7)");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(2, 3, 7)");
 
         } catch (Exception ex) {
             exception = ex;

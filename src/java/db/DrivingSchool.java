@@ -60,7 +60,7 @@ public class DrivingSchool {
 
         return driving;
     }
-    
+
     public static DrivingSchool getDrivingSchoolAlt(String email, String password) throws Exception {
         DrivingSchool driving = null;
         Connection con = DatabaseListener.getConnection();
@@ -90,7 +90,7 @@ public class DrivingSchool {
 
         return driving;
     }
-    
+
     public static DrivingSchool getDrivingSchoolView(String idV) throws Exception {
         DrivingSchool driving = null;
         Connection con = DatabaseListener.getConnection();
@@ -141,6 +141,21 @@ public class DrivingSchool {
             double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
             list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<String> getCities() throws Exception {
+        ArrayList<String> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT DISTINCT nm_city_drivingSchool FROM drivingSchools");
+        while (rs.next()) {
+            String cidade = rs.getString("nm_city_drivingSchool");
+
+            list.add(cidade);
         }
         stmt.close();
         con.close();
