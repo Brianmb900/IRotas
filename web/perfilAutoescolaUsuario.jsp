@@ -8,9 +8,22 @@
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
+    String interestedExecption = null;
     session.setAttribute("ORDER", "1");
     session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
+
+    try {
+        if (request.getParameter("addInteressado") != null) {
+            Interested interessado = new Interested(
+                    0,
+                    Integer.parseInt(request.getParameter("auto")),
+                    ((User) session.getAttribute("user")).getIdCLiente());
+            Interested.addInterested(interessado);
+        }
+    } catch (Exception ex) {
+        interestedExecption = ex.getMessage();
+    }
 %>
 <html>
     <head>
@@ -30,6 +43,12 @@
         <div class="container-fluid" style="margin-bottom: 30px; margin-top: 30px">
             <div class="container-fluid caixa">
                 <div class="row justify-content-center">
+                    <%if (interestedExecption != null) {%>
+                    <div style="color: black; font-size: 30px; border: 10px double red;">
+                        <%= interestedExecption%>
+                    </div>
+                    <br>
+                    <%}%>
                     <div class="col-2">
                         <img src="images/carro.png" class="card-img-top" style="border: 1px solid black">
                     </div>
@@ -63,12 +82,14 @@
                 <%}%>
                 <div class="row justify-content-center">
                     <div class="col">
-                        <a class="btn btn-primary" href="<%
-                            if (session.getAttribute("user") == null) {
-                                out.print("login.jsp");
-                            } else {
-                                out.print("#");
-                            }%>">Tenho Interesse</a>
+                        <%
+                            if (session.getAttribute("user") == null) {%>
+                        <a class="btn btn-primary" href="login.jsp">Tenho Interesse</a>
+                        <%} else {%>
+                        <form method="POST">
+                            <input class="btn btn-primary" type="submit" name="addInteressado" value="Tenho Interesse">
+                        </form>
+                        <%}%>
                     </div>
                 </div>
             </div>
