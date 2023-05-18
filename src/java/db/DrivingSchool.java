@@ -162,6 +162,34 @@ public class DrivingSchool {
         return list;
     }
 
+    public static ArrayList<DrivingSchool> getSchoolsInterested(String idUser) throws Exception {
+        ArrayList<DrivingSchool> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM drivingSchools WHERE cd_drivingSchool IN (SELECT cd_drivingSchool_interested FROM interesteds WHERE cd_user_interested = ?) ORDER BY 2");
+        stmt.setString(1, idUser);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_drivingSchool");
+            String nome = rs.getString("nm_drivingSchool");
+            String descricao = rs.getString("ds_drivingSchool");
+            String endereco = rs.getString("nm_address_drivingSchool");
+            String cidade = rs.getString("nm_city_drivingSchool");
+            String bairro = rs.getString("nm_neighborhood_drivingSchool");
+            String cep = rs.getString("cd_cep_drivingSchool");
+            String telefone = rs.getString("cd_phone_number_drivingSchool");
+            String emailD = rs.getString("nm_email_drivingSchool");
+            String senha = rs.getString("cd_password_drivingSchool");
+            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
+            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
+            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
+
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
     public static ArrayList<DrivingSchool> getSchools(int start, int fim, String order, String order2) throws Exception {
         ArrayList<DrivingSchool> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();

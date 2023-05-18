@@ -10,10 +10,12 @@
 <%
     String autoException = null;
     ArrayList<Service> servicos = new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
     session.setAttribute("ORDER", "1");
     session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
     try {
+        users = User.getUsersInteresteds(((DrivingSchool) session.getAttribute("school")).getIdAutoescola().toString());
         if (request.getParameter("altAuto") != null) {
             Integer id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
@@ -128,6 +130,12 @@
             Service.alterServico(servico);
             response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
         }
+
+        if (request.getParameter("delInteressado") != null) {
+            Interested.deleteInterestedUser(Integer.parseInt(request.getParameter("idUser")), ((DrivingSchool) session.getAttribute("school")).getIdAutoescola());
+            response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescola.jsp");
+        }
+
     } catch (Exception ex) {
         serviceException = ex.getMessage();
     }
@@ -243,6 +251,28 @@
                         <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadServico">Cadastrar Serviço</a>
                     </button>
                 </div>
+                <hr>
+                <% for (User u : users) {%>
+                <div class="row" style="padding-right: 12px; padding-left: 12px">
+                    <hr style="margin-top: 0; margin-bottom: 3px">
+                    <div class="col-4">
+                        <h4><%= u.getNome()%> <%= u.getSobrenome()%></h4>
+                    </div>
+                    <div class="col" >
+                        <h4>E-mail: <%= u.getEmail()%></h4>
+                    </div>
+                    <div class="col" >
+                        <h4>Telefone: R$:<%= u.getTelefone()%></h4>
+                    </div>
+                    <div class="col">
+                        <form method="POST">
+                            <input type="hidden" name="idUser" value="<%=u.getIdCLiente()%>">
+                            <input class="btn btn-danger" type="submit" name="delInteressado" value="Remover">
+                        </form>
+                    </div>
+                            <hr style="margin-top: 3px">
+                </div>
+                <%}%>
                 <hr>
                 <div class="row justify-content-center">
                     <b style="font-size: 30px; padding: 0;">Pré-Visualização Do Seu Card</b>

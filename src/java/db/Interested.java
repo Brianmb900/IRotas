@@ -33,7 +33,7 @@ public class Interested {
         con.close();
         return list;
     }
-//Passar os dados (ids) daqui por meio de uma subquerie para poder exibir as autoescolas e os alunos
+
     public static ArrayList<Interested> getInteresteds(int start, int fim, String order, String order2) throws Exception {
         ArrayList<Interested> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
@@ -70,18 +70,28 @@ public class Interested {
 
     public static void addInterested(Interested interessado) throws Exception {
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("INSERT INTO users (cd_drivingSchool_interested, cd_user_interested) VALUES (?,?,)");
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO interesteds (cd_drivingSchool_interested, cd_user_interested) VALUES (?,?)");
         stmt.setInt(1, interessado.getIdAutoescola());
-        stmt.setInt(1, interessado.getIdCLiente());
+        stmt.setInt(2, interessado.getIdCLiente());
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public static void deleteInterested(Integer identificacao) throws Exception {
+    public static void deleteInterestedAdm(Integer identificacao) throws Exception {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("DELETE FROM interesteds WHERE cd_interested = ?");
         stmt.setInt(1, identificacao);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+    
+    public static void deleteInterestedUser(Integer idUser, Integer idAuto) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM interesteds WHERE cd_user_interested = ? AND cd_drivingSchool_interested = ?");
+        stmt.setInt(1, idUser);
+        stmt.setInt(2, idAuto);
         stmt.execute();
         stmt.close();
         con.close();

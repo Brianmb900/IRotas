@@ -4,6 +4,7 @@
     Author     : Alex
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
@@ -11,7 +12,9 @@
     session.setAttribute("ORDER", "1");
     session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
+    ArrayList<DrivingSchool> schools = new ArrayList<>();
     try {
+        schools = DrivingSchool.getSchoolsInterested(((User) session.getAttribute("user")).getIdCLiente().toString());
         if (request.getParameter("altCli") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             int adm = Integer.parseInt(request.getParameter("adm"));
@@ -42,7 +45,7 @@
                     sexo
             );
             User.alterarUser(user);
-            Session.altDataUser(request, response,senha);
+            Session.altDataUser(request, response, senha);
         }
 
         if (request.getParameter("altSenha") != null) {
@@ -63,6 +66,11 @@
                 altException = "Senha Atual Incorreta!";
                 throw new java.lang.RuntimeException(altException);
             }
+        }
+        
+        if (request.getParameter("delInteressado") != null) {
+            Interested.deleteInterestedUser(((User) session.getAttribute("user")).getIdCLiente(), Integer.parseInt(request.getParameter("idAuto")));
+            response.sendRedirect("http://localhost:8080/IRotas/perfilUser.jsp");
         }
 
     } catch (Exception ex) {
@@ -142,55 +150,85 @@
                                 </button>
                             </div>
                         </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="altSenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
-                            <form method="post">
-                                <input class="form-control" type="hidden" name="id" value="<%=((User) session.getAttribute("user")).getIdCLiente()%>">
-                                <div class="mb-3">
-                                    <label for="text" class="form-label">Senha Atual</label>
-                                    <input name="passOri" type="password" class="form-control" required>
-                                </div><hr>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Senha Nova</label>
-                                    <input name="passNew1" type="password" class="form-control" required>
+                        <hr style="margin-top: 16px">
+                        <div class="row justify-content-center caixa" style="border: 1px solid black; margin-bottom: 30px; margin-left: 0.00001px; margin-right: 0.000001px">
+                            <h3>Autoescolas Em Que Tenho Interesse</h3>
+                            <% for (DrivingSchool d : schools) {%>
+                            <div class="row" style="text-align: left;">
+                                <hr>
+                                <div class="col-2">
+                                    <h4>Nome: <%=d.getNome()%></h4>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Senha Nova - Confirmação</label>
-                                    <input name="passNew2" type="password" class="form-control" required>
+                                <div class="col-4">
+                                    <h4>Endereço: <%= d.getEndereco()%>, <%= d.getBairro()%>, <%= d.getCidade()%></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h4>E-mail: <%= d.getEmail()%></h4> 
+                                    <h4>Fone:<%= d.getTelefone()%></h4>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-primary" href="perfilAutoescolaUsuario.jsp?auto=<%=d.getIdAutoescola()%>">Ver Autoescola</a>
+                                </div>
+                                <div class="col">
+                                    <form method="POST">
+                                        <input type="hidden" name="idAuto" value="<%=d.getIdAutoescola()%>">
+                                        <input class="btn btn-danger" type="submit" name="delInteressado" value="Remover">
+                                    </form>
                                 </div>
                                 <hr>
-                                <div class="container" style="margin: auto;">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button name="altSenha" type="submit" class="btn btn-primary" type="submit">Confirmar</button>
-                                </div>
-                            </form>
+                            </div>
+                            <%}%>
                         </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="altSenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Senha</h4><hr>
+                        <form method="post">
+                            <input class="form-control" type="hidden" name="id" value="<%=((User) session.getAttribute("user")).getIdCLiente()%>">
+                            <div class="mb-3">
+                                <label for="text" class="form-label">Senha Atual</label>
+                                <input name="passOri" type="password" class="form-control" required>
+                            </div><hr>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha Nova</label>
+                                <input name="passNew1" type="password" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha Nova - Confirmação</label>
+                                <input name="passNew2" type="password" class="form-control" required>
+                            </div>
+                            <hr>
+                            <div class="container" style="margin: auto;">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button name="altSenha" type="submit" class="btn btn-primary" type="submit">Confirmar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <script>
-                function removeDisabled() {
-                    document.getElementById('nome').removeAttribute("disabled");
-                    document.getElementById('nome').setAttribute("required", "");
-                    document.getElementById('e-mail').removeAttribute("disabled");
-                    document.getElementById('e-mail').setAttribute("required", "");
-                    document.getElementById('phone').removeAttribute("disabled");
-                    document.getElementById('phone').setAttribute("required", "");
-                    document.getElementById('sobrenome').removeAttribute("disabled");
-                    document.getElementById('sobrenome').setAttribute("required", "");
-                    document.getElementById('bDate').removeAttribute("disabled");
-                    document.getElementById('bDate').setAttribute("required", "");
-                    document.getElementById('altCli').removeAttribute("disabled");
-                }
-            </script>
-            <%}%>
-            <%@include file="WEB-INF/jspf/footer.jspf" %>
+        <script>
+            function removeDisabled() {
+                document.getElementById('nome').removeAttribute("disabled");
+                document.getElementById('nome').setAttribute("required", "");
+                document.getElementById('e-mail').removeAttribute("disabled");
+                document.getElementById('e-mail').setAttribute("required", "");
+                document.getElementById('phone').removeAttribute("disabled");
+                document.getElementById('phone').setAttribute("required", "");
+                document.getElementById('sobrenome').removeAttribute("disabled");
+                document.getElementById('sobrenome').setAttribute("required", "");
+                document.getElementById('bDate').removeAttribute("disabled");
+                document.getElementById('bDate').setAttribute("required", "");
+                document.getElementById('altCli').removeAttribute("disabled");
+            }
+        </script>
+        <%}%>
+        <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

@@ -100,6 +100,18 @@ public class DatabaseListener implements ServletContextListener {
                     + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(7, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
                     + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(8, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(9, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(10, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(11, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(12, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+            stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(13, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
 
             stmt.execute("DROP TABLE interesteds");
             stmt.execute("CREATE TABLE IF NOT EXISTS interesteds("
@@ -110,6 +122,10 @@ public class DatabaseListener implements ServletContextListener {
                     + "FOREIGN KEY (cd_user_interested) REFERENCES users (cd_user))");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(1, 2, 7)");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(2, 3, 7)");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(3, 4, 7)");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(4, 2, 9)");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(5, 2, 8)");
+            stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(6, 5, 7)");
 
         } catch (Exception ex) {
             exception = ex;
