@@ -147,21 +147,6 @@ public class DrivingSchool {
         return list;
     }
 
-    public static ArrayList<String> getCities() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT DISTINCT nm_city_drivingSchool FROM drivingSchools");
-        while (rs.next()) {
-            String cidade = rs.getString("nm_city_drivingSchool");
-
-            list.add(cidade);
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
     public static ArrayList<DrivingSchool> getSchoolsInterested(String idUser) throws Exception {
         ArrayList<DrivingSchool> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
@@ -284,6 +269,19 @@ public class DrivingSchool {
         stmt.setString(7, school.getTelefone());
         stmt.setString(8, school.getEmail());
         stmt.setInt(9, school.getIdAutoescola());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+    
+    public static void alterAvaliacao(DrivingSchool school) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE drivingSchools SET vl_rating_drivingSchool = ?, qt_rating_drivingSchool = ?, vl_rating_final_drivingSchool= ? WHERE cd_drivingSchool = ?");
+        stmt.setDouble(1, school.getAvalaicao());
+        stmt.setDouble(2, school.getQtdeAvalaicao());
+        stmt.setDouble(3, school.getrAvalaicao());
+        stmt.setInt(4, school.getIdAutoescola());
         stmt.execute();
         stmt.close();
         con.close();

@@ -313,8 +313,8 @@
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoInteressados.jsp?page=5">5</a>
                     <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
-                                out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                            }%>" href="administracaoInteressados.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
+                            out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
+                        }%>" href="administracaoInteressados.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>
             </div>
         </div>  
