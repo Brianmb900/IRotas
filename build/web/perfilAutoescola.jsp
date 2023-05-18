@@ -250,29 +250,30 @@
                     <button class="btn btn-primary" style="color: white; margin-bottom: 20px">
                         <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadServico">Cadastrar Serviço</a>
                     </button>
+                    <hr style="margin-bottom: 2px">
+                    <h3>Alunos Interessados</h3>
+                    <% for (User u : users) {%>
+                    <div class="row" style="padding-right: 12px; padding-left: 12px">
+                        <hr style="margin-top: 0; margin-bottom: 3px">
+                        <div class="col-4">
+                            <h4><%= u.getNome()%> <%= u.getSobrenome()%></h4>
+                        </div>
+                        <div class="col" >
+                            <h4>E-mail: <%= u.getEmail()%></h4>
+                        </div>
+                        <div class="col" >
+                            <h4>Telefone: R$:<%= u.getTelefone()%></h4>
+                        </div>
+                        <div class="col">
+                            <form method="POST">
+                                <input type="hidden" name="idUser" value="<%=u.getIdCLiente()%>">
+                                <input class="btn btn-danger" type="submit" name="delInteressado" value="Remover">
+                            </form>
+                        </div>
+                        <hr style="margin-top: 3px">
+                    </div>
+                    <%}%>
                 </div>
-                <hr>
-                <% for (User u : users) {%>
-                <div class="row" style="padding-right: 12px; padding-left: 12px">
-                    <hr style="margin-top: 0; margin-bottom: 3px">
-                    <div class="col-4">
-                        <h4><%= u.getNome()%> <%= u.getSobrenome()%></h4>
-                    </div>
-                    <div class="col" >
-                        <h4>E-mail: <%= u.getEmail()%></h4>
-                    </div>
-                    <div class="col" >
-                        <h4>Telefone: R$:<%= u.getTelefone()%></h4>
-                    </div>
-                    <div class="col">
-                        <form method="POST">
-                            <input type="hidden" name="idUser" value="<%=u.getIdCLiente()%>">
-                            <input class="btn btn-danger" type="submit" name="delInteressado" value="Remover">
-                        </form>
-                    </div>
-                            <hr style="margin-top: 3px">
-                </div>
-                <%}%>
                 <hr>
                 <div class="row justify-content-center">
                     <b style="font-size: 30px; padding: 0;">Pré-Visualização Do Seu Card</b>

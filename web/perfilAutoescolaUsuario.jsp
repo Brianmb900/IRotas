@@ -12,14 +12,16 @@
     session.setAttribute("ORDER", "1");
     session.setAttribute("ORDER2", " ASC");
     session.setAttribute("SEARCH", "0");
-
+    Interested interessados = null;
     try {
+        interessados = Interested.getAlredyInteresteds(Integer.parseInt(request.getParameter("auto")), ((User) session.getAttribute("user")).getIdCLiente());
         if (request.getParameter("addInteressado") != null) {
             Interested interessado = new Interested(
                     0,
                     Integer.parseInt(request.getParameter("auto")),
                     ((User) session.getAttribute("user")).getIdCLiente());
             Interested.addInterested(interessado);
+            response.sendRedirect("http://localhost:8080/IRotas/perfilUser");
         }
     } catch (Exception ex) {
         interestedExecption = ex.getMessage();
@@ -85,11 +87,31 @@
                         <%
                             if (session.getAttribute("user") == null) {%>
                         <a class="btn btn-primary" href="login.jsp">Tenho Interesse</a>
+                        <%} else if (interessados != null) {%>
+                        <button class="btn btn-primary" style="color: white;">
+                            <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#interesse">
+                                Tenho Interesse
+                            </a>
+                        </button>
                         <%} else {%>
                         <form method="POST">
                             <input class="btn btn-primary" type="submit" name="addInteressado" value="Tenho Interesse">
                         </form>
                         <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="interesse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm text-center">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Você já tem interesse nessa autoescola</h4>
+                        <hr>
+                        <div class="container" style="margin: auto;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                        </div>
                     </div>
                 </div>
             </div>

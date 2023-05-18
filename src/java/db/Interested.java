@@ -22,7 +22,7 @@ public class Interested {
         ArrayList<Interested> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM interesteds ORDER BY cd_user");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM interesteds ORDER BY cd_interested");
         while (rs.next()) {
             Integer idInteressado = rs.getInt("cd_interested");
             Integer idAutoescola = rs.getInt("cd_drivingSchool_interested");
@@ -34,6 +34,24 @@ public class Interested {
         return list;
     }
 
+    public static Interested getAlredyInteresteds(int idAuto, int idUser) throws Exception {
+        Interested interessado = null;
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM interesteds WHERE cd_user_interested = ? AND cd_drivingSchool_interested = ?");
+        stmt.setInt(1, idUser);
+        stmt.setInt(2, idAuto);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer idInteressado = rs.getInt("cd_interested");
+            Integer idAutoescola = rs.getInt("cd_drivingSchool_interested");
+            Integer idCliente = rs.getInt("cd_user_interested");
+            interessado = new Interested(idInteressado, idAutoescola, idCliente );
+        }
+        stmt.close();
+        con.close();
+        return interessado;
+    }
+    
     public static ArrayList<Interested> getInteresteds(int start, int fim, String order, String order2) throws Exception {
         ArrayList<Interested> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();
@@ -66,6 +84,17 @@ public class Interested {
         con.close();
 
         return list;
+    }
+    
+    public static void altInterested(Interested interessado) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("UPDATE interesteds SET cd_drivingSchool_interested = ? cd_user_interested = ? WHERE cd_interested = ?)");
+        stmt.setInt(1, interessado.getIdAutoescola());
+        stmt.setInt(2, interessado.getIdCLiente());
+        stmt.setInt(3, interessado.getIdInteressado());
+        stmt.execute();
+        stmt.close();
+        con.close();
     }
 
     public static void addInterested(Interested interessado) throws Exception {
