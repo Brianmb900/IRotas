@@ -21,7 +21,7 @@
                     Integer.parseInt(request.getParameter("auto")),
                     ((User) session.getAttribute("user")).getIdCLiente());
             Interested.addInterested(interessado);
-            response.sendRedirect("http://localhost:8080/IRotas/perfilUser");
+            response.sendRedirect("http://localhost:8080/IRotas/perfilUser.jsp");
         }
     } catch (Exception ex) {
         interestedExecption = ex.getMessage();
