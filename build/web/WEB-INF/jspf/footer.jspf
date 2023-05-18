@@ -3,8 +3,35 @@
      background-color: #007FFF; color: white; padding-top: 13px;">
     <!--Alguma tralha só para ter conteúdo-->
     <div class="row border-bottom pc">
-        <div class="col">
-            <a class="nav-link" href="https://docs.google.com/document/d/1vLdbW79J6m_xQSUNV5K0vXiEHC7UatG_0mK7zpHqL9U/" target="_blank" style="margin-bottom: 16px;"> Link da Documentação do Projeto</a>
+        <div class="row">
+            <div class="col-lg-4">
+                <a href="index.jsp">
+                <img src="images/Logo2.png" width="140" height="140">
+                </a>
+            </div>
+
+            <div class="col-lg-4">
+                <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+                <ul class="m-0 p-0" style=" list-style-type: none;">
+                    <li><a class="orderADM" href="index.jsp">Home</a></li>
+                    <li><a class="orderADM" href="encontre.jsp?page=1">Escontre</a></li>
+                    <li><a class="orderADM" href="login.jsp">Aluno</a></li>
+                    <li><a class="orderADM" href="loginAutoescola.jsp">Autoescola</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4">
+                <h4 class="mt-lg-0 mt-sm-3">Contatos & Localização</h4>
+                <p>Praça 19 de Janeiro, 144 - Boqueirão</p>
+                <p class="mb-0">(13) 99864-8235</p>
+                <p>IrotasInfo@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col copyright">
+                <p><small class="text-white-50">© 2023. Todos os direitos reservados.</small></p>
+            </div>
         </div>
     </div>
 </div>
