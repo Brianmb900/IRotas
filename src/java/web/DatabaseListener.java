@@ -35,43 +35,30 @@ public class DatabaseListener implements ServletContextListener {
             Class.forName(CLASS_NAME);
             Connection con = getConnection();
             Statement stmt = con.createStatement();
-            //stmt.execute("DROP TABLE users");
+
+            // USUÁRIOS
             stmt.execute("CREATE TABLE IF NOT EXISTS users("
                     + "cd_user INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "ic_administrator_yes_no_user NOT NULL,"
                     + "nm_user VARCHAR NOT NULL,"
                     + "nm_last_user VARCHAR NOT NULL,"
-                    + "nm_email_user VARCHAR NOT NULL,"
+                    + "nm_email_user VARCHAR NOT NULL UNIQUE,"
                     + "cd_password_user VARCHAR NOT NULL,"
                     + "cd_phone_number_user VARCHAR NOT NULL,"
                     + "dt_birthdate_user VARCHAR NOT NULL,"
                     + "ic_sex_male_female_user VARCHAR NOT NULL)");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(1, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(2, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(3, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(4, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(5, 1, 'Fulano', 'do Silvo', 'fulano@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
-            stmt.execute("INSERT OR IGNORE INTO users VALUES(6, 0, 'Fulana', 'da Silva', 'fulana@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(3, 1, 'Fulano', 'do Silvo', 'fulanos@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(4, 0, 'Fulana', 'da Silva', 'fulanas@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(5, 1, 'Fulano', 'do Silvo', 'fulanoss@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
+            stmt.execute("INSERT OR IGNORE INTO users VALUES(6, 0, 'Fulana', 'da Silva', 'fulanass@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(7, 1, 'Brian', 'Bianchini', 'brian@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(8, 0, 'Alex', 'Alves', 'alex@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(9, 1, 'Erik', 'Faria', 'erik@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-9999', '2000-01-01', 'M')");
             stmt.execute("INSERT OR IGNORE INTO users VALUES(10, 0, 'Luan', 'Alejandro', 'luan@gmail.com', '21232f297a57a5a743894a0e4a801fc3','(19)99999-3333', '1999-10-21', 'F')");
 
-            stmt.execute("DROP TABLE services");
-            stmt.execute("CREATE TABLE IF NOT EXISTS services("
-                    + "cd_service INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "cd_drivingschool_service INTEGER,"
-                    + "ds_service VARCHAR NOT NULL,"
-                    + "hr_start_service VARCHAR NOT NULL,"
-                    + "hr_end_service VARCHAR NOT NULL,"
-                    + "vl_service REAL NOT NULL,"
-                    + "ic_class_theoretical_practical_service INTEGER NOT NULL,"
-                    + "FOREIGN KEY (cd_drivingschool_service) REFERENCES drivingSchools (cd_drivingSchool))");
-            stmt.execute("INSERT OR IGNORE INTO services VALUES(1, 2, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
-            stmt.execute("INSERT OR IGNORE INTO services VALUES(2, 3, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
-            stmt.execute("INSERT OR IGNORE INTO services VALUES(3, 2, 'Falou em DP? Falou em Autoescola Alex', '13:10', '22:30', '9.99', 0)");
-
-            //stmt.execute("DROP TABLE drivingSchools");
+            // AUTOESCOLAS
             stmt.execute("CREATE TABLE IF NOT EXISTS drivingSchools("
                     + "cd_drivingSchool INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "nm_drivingSchool VARCHAR NOT NULL,"
@@ -81,7 +68,7 @@ public class DatabaseListener implements ServletContextListener {
                     + "nm_neighborhood_drivingSchool VARCHAR NOT NULL,"
                     + "cd_cep_drivingSchool VARCHAR NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
-                    + "nm_email_drivingSchool VARCHAR NOT NULL,"
+                    + "nm_email_drivingSchool VARCHAR NOT NULL UNIQUE,"
                     + "cd_password_drivingSchool VARCHAR NOT NULL,"
                     + "vl_rating_drivingSchool REAL NOT NULL,"
                     + "qt_rating_drivingSchool REAL NOT NULL,"
@@ -97,23 +84,37 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(5, 'Autoescola Brian', 'Autoescola do Briannnnnnn', 'Rua 23, número 40', 'Praia Grande', "
                     + "'Boqueirão', '12345-060', '(19)99999-9999', 'brianAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','2.0','1.5')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(6, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutos@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(7, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutoss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(8, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(9, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(10, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(11, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(12, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(13, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '3.0','1.0','3.0')");
 
-            stmt.execute("DROP TABLE interesteds");
+            // SERVIÇOS
+            stmt.execute("CREATE TABLE IF NOT EXISTS services("
+                    + "cd_service INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "cd_drivingschool_service INTEGER,"
+                    + "ds_service VARCHAR NOT NULL,"
+                    + "hr_start_service VARCHAR NOT NULL,"
+                    + "hr_end_service VARCHAR NOT NULL,"
+                    + "vl_service REAL NOT NULL,"
+                    + "ic_class_theoretical_practical_service INTEGER NOT NULL,"
+                    + "FOREIGN KEY (cd_drivingschool_service) REFERENCES drivingSchools (cd_drivingSchool))");
+            stmt.execute("INSERT OR IGNORE INTO services VALUES(1, 2, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
+            stmt.execute("INSERT OR IGNORE INTO services VALUES(2, 3, 'Aulas Práticas para categorias A e B', '10:00', '19:00', '100.99', 1)");
+            stmt.execute("INSERT OR IGNORE INTO services VALUES(3, 2, 'Falou em DP? Falou em Autoescola Alex', '13:10', '22:30', '9.99', 0)");
+
+            // INTERESSADOS
             stmt.execute("CREATE TABLE IF NOT EXISTS interesteds("
                     + "cd_interested INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "cd_drivingSchool_interested INTEGER NOT NULL,"
@@ -126,6 +127,10 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(4, 2, 9)");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(5, 2, 8)");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(6, 5, 7)");
+            //stmt.execute("DROP TABLE interesteds");
+            //stmt.execute("DROP TABLE services");
+            //stmt.execute("DROP TABLE users");
+            //stmt.execute("DROP TABLE drivingSchools");
 
         } catch (Exception ex) {
             exception = ex;
