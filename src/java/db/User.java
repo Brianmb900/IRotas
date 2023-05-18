@@ -17,143 +17,314 @@ import web.DatabaseListener;
  * @author Fatec
  */
 public class User {
-    
+
     private Integer idCLiente;
-    private boolean cliente;
-    private boolean colaborador;
+    private int administrator;
     private String nome;
+    private String sobrenome;
     private String email;
     private String password;
     private String telefone;
     private LocalDate dataNascimento;
     private char sexo;
-    private String curriculo;
-    
-    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
-        MessageDigest m = MessageDigest.getInstance("MD5");
-        m.update(s.getBytes(), 0, s.length());
-        String passMD5 = new BigInteger(1, m.digest()).toString(16);
-        return passMD5;
-    }
-    
+
     public static User getUser(String email, String password) throws Exception {
         User user = null;
         Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE email = ? and password = ?");
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_email_user = ? AND cd_password_user = ?");
         stmt.setString(1, email);
         stmt.setString(2, passwordMD5(password));
         ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
             Integer id = rs.getInt("cd_user");
-            boolean cliente = rs.getBoolean("ic_client_yes_no_user");
-            boolean colaborador = rs.getBoolean("ic_collaborator_yes_no_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
             String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
             String emailC = rs.getString("nm_email_user");
             String senha = rs.getString("cd_password_user");
             String telefone = rs.getString("cd_phone_number_user");
             LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
             String Sexo = rs.getString("ic_sex_male_female_user");
             char sexo = Sexo.charAt(0);
-            String curriculo = rs.getString("im_curriculum_user");
-            
-            user = new User(id, cliente, colaborador, nome, emailC, senha, telefone, dataNascimento, sexo, curriculo);
+
+            user = new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo);
         }
         stmt.close();
         con.close();
-        
+
         return user;
     }
-    
-    public User(Integer idCLiente, boolean cliente, boolean colaborador, String nome, String email, String password, String telefone, LocalDate dataNascimento, char sexo, String curriculo) {
+
+    public static User getUserAlt(String email, String password) throws Exception {
+        User user = null;
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_email_user = ? AND cd_password_user = ?");
+        stmt.setString(1, email);
+        stmt.setString(2, password);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            user = new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo);
+        }
+        stmt.close();
+        con.close();
+
+        return user;
+    }
+
+    public static ArrayList<User> getTotalUsers() throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY cd_user");
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<User> getUsersInteresteds(String idAuto) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE cd_user IN (SELECT cd_user_interested FROM interesteds WHERE cd_drivingSchool_interested = ?) ORDER BY 3");
+        stmt.setString(1, idAuto);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<User> getUsers(int start, int fim, String order, String order2) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Users ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+        return list;
+    }
+
+    public static ArrayList<User> searchUser(String busca, int start, int fim, String order, String order2) throws Exception {
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE nm_user LIKE ? ORDER BY " + order + order2 + " LIMIT " + (start - 1) + "," + fim);
+        stmt.setString(1, "%" + busca + "%");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("cd_user");
+            int administrator = rs.getInt("ic_administrator_yes_no_user");
+            String nome = rs.getString("nm_user");
+            String sobrenome = rs.getString("nm_last_user");
+            String emailC = rs.getString("nm_email_user");
+            String senha = rs.getString("cd_password_user");
+            String telefone = rs.getString("cd_phone_number_user");
+            LocalDate dataNascimento = LocalDate.parse(rs.getString("dt_birthdate_user"));
+            String Sexo = rs.getString("ic_sex_male_female_user");
+            char sexo = Sexo.charAt(0);
+
+            list.add(new User(id, administrator, nome, sobrenome, emailC, senha, telefone, dataNascimento, sexo));
+        }
+        stmt.close();
+        con.close();
+
+        return list;
+    }
+
+    public static void addUser(User user) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO users (ic_administrator_yes_no_user, nm_user, nm_last_user, nm_email_user,"
+                + "cd_password_user, cd_phone_number_user, dt_birthdate_user, ic_sex_male_female_user)"
+                + "VALUES (?,?,?,?,?,?,?,?)");
+        stmt.setInt(1, user.getAdministrator());
+        stmt.setString(2, user.getNome());
+        stmt.setString(3, user.getSobrenome());
+        stmt.setString(4, user.getEmail());
+        stmt.setString(5, passwordMD5(user.getPassword()));
+        stmt.setString(6, user.getTelefone());
+        stmt.setString(7, user.getDataNascimento().toString());
+        stmt.setString(8, String.valueOf(user.getSexo()));
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
+    public static void alterarUser(User user) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE users SET ic_administrator_yes_no_user = ?, nm_user = ?, nm_last_user = ?, nm_email_user = ?,"
+                + "cd_phone_number_user = ?, dt_birthdate_user = ?, ic_sex_male_female_user = ? WHERE cd_user = ?");
+        stmt.setInt(1, user.getAdministrator());
+        stmt.setString(2, user.getNome());
+        stmt.setString(3, user.getSobrenome());
+        stmt.setString(4, user.getEmail());
+        stmt.setString(5, user.getTelefone());
+        stmt.setString(6, user.getDataNascimento().toString());
+        stmt.setString(7, String.valueOf(user.getSexo()));
+        stmt.setInt(8, user.getIdCLiente());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
+    public static void alterarSenhaUser(String senha, Integer identificacao) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE users SET cd_password_user = ? WHERE cd_user = ?");
+        stmt.setString(1, passwordMD5(senha));
+        stmt.setInt(2, identificacao);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
+    public static void deleteUser(Integer identificacao) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM users WHERE cd_user = ?");
+        stmt.setInt(1, identificacao);
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
+
+    public static String passwordMD5(String s) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(), 0, s.length());
+        String passMD5 = new BigInteger(1, m.digest()).toString(16);
+        return passMD5;
+    }
+
+    public User(Integer idCLiente, int administrator, String nome, String sobrenome, String email, String password, String telefone, LocalDate dataNascimento, char sexo) {
         this.idCLiente = idCLiente;
-        this.cliente = cliente;
-        this.colaborador = colaborador;
+        this.administrator = administrator;
         this.nome = nome;
+        this.sobrenome = sobrenome;
         this.email = email;
         this.password = password;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
-        this.curriculo = curriculo;
     }
-    
+
     public Integer getIdCLiente() {
         return idCLiente;
     }
-    
+
     public void setIdCLiente(Integer idCLiente) {
         this.idCLiente = idCLiente;
     }
-    
-    public boolean isCliente() {
-        return cliente;
-    }
-    
-    public void setCliente(boolean cliente) {
-        this.cliente = cliente;
-    }
-    
-    public boolean isColaborador() {
-        return colaborador;
-    }
-    
-    public void setColaborador(boolean colaborador) {
-        this.colaborador = colaborador;
-    }
-    
+
     public String getNome() {
         return nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getTelefone() {
         return telefone;
     }
-    
+
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
-    
+
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-    
+
     public char getSexo() {
         return sexo;
     }
-    
+
     public void setSexo(char Sexo) {
         this.sexo = sexo;
     }
-    
-    public String getCurriculo() {
-        return curriculo;
+
+    public int getAdministrator() {
+        return administrator;
     }
-    
-    public void setCurriculo(String curriculo) {
-        this.curriculo = curriculo;
+
+    public void setAdministrator(int administrator) {
+        this.administrator = administrator;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 }
