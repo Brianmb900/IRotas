@@ -147,21 +147,6 @@ public class DrivingSchool {
         return list;
     }
 
-    public static ArrayList<String> getCities() throws Exception {
-        ArrayList<String> list = new ArrayList<>();
-        Connection con = DatabaseListener.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT DISTINCT nm_city_drivingSchool FROM drivingSchools");
-        while (rs.next()) {
-            String cidade = rs.getString("nm_city_drivingSchool");
-
-            list.add(cidade);
-        }
-        stmt.close();
-        con.close();
-        return list;
-    }
-
     public static ArrayList<DrivingSchool> getSchoolsInterested(String idUser) throws Exception {
         ArrayList<DrivingSchool> list = new ArrayList<>();
         Connection con = DatabaseListener.getConnection();

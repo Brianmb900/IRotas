@@ -19,7 +19,6 @@
         } else {
             pageid = (pageid - 1) * limite + 1;
         }
-        cities = DrivingSchool.getCities();
         schools = DrivingSchool.getSchools(pageid, limite, (session.getAttribute("ORDER").toString()), (session.getAttribute("ORDER2").toString()));
         schoolSearch = DrivingSchool.searchSchool(session.getAttribute("SEARCH").toString(), pageid, limite, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString());
         if (session.getAttribute("SEARCH").toString().equals("0")) {
@@ -42,13 +41,51 @@
             response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=1");
         }
 
-        if (request.getParameter("filterAuto") != null) {
-            session.setAttribute("SEARCH", "0");
-            session.setAttribute("ORDER", "1");
-            session.setAttribute("ORDER2", " ASC");
-            session.setAttribute("FILTER", "1");
-            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=1");
+        //ORDENAÇÕES
+        if (request.getParameter("orderAutoNome") != null) {
+            if (session.getAttribute("ORDER").toString().equals("2") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "2");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "2");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
         }
+
+        if (request.getParameter("orderAutoCid") != null) {
+            if (session.getAttribute("ORDER").toString().equals("5") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "5");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "5");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderAutoBai") != null) {
+            if (session.getAttribute("ORDER").toString().equals("6") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "6");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "6");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderAutoAval") != null) {
+            if (session.getAttribute("ORDER").toString().equals("13") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "13");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "13");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
+        }
+        //FIM ORDENAÇÕES
 
     } catch (Exception ex) {
         searchException = ex.getMessage();
@@ -69,8 +106,8 @@
             <h1>Encontre sua Auto Escola</h1>
             <hr>
             <div class="row justify-content-center">
-                <div class="col-7">
-                    <h1 style="padding-bottom: 5px;">Filtrar e/ou Buscar Por:</h1>
+                <div class="col-7 caixa">
+                    <h1 style="padding-bottom: 5px;">Buscar Por:</h1>
                     <form autocomplete="off" method="POST">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup">Buscar por:</span>
@@ -79,63 +116,27 @@
                         </div>
                     </form>
                     <hr>
-                    <form autocomplete="off" method="POST">
-                        <div class="row">
-                            <div class="col">
-                                <h4 style="padding-bottom: 1px;" >Tipo</h4>
-                                <div class="checkbox">
-                                    <label for="Teorica">Teórica</label>
-                                    <input type="checkbox" value="0" name="teorica"> 
-                                </div>
-
-                                <div class="checkbox">
-                                    <label for="Pratica">Pratica</label>
-                                    <input type="checkbox" value="1" name="pratica">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <h4 style="padding-bottom: 1px;">Preço</h4>
-                                    <div class="col">
-                                        <label>MIN</label>
-                                        <input class="form-control" style="margin-bottom: 10px;" type="number" step=".01" name="min" placeholder="R$" required>
-                                    </div>
-                                    <div class="col">
-                                        <label>MAX</label>
-                                        <input class="form-control" style="margin-bottom: 10px;" type="number" step=".01" name="Max" placeholder="R$" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <h4 style="padding-bottom: 1px;">Localização</h4>
-                                <label>Cidade</label>
-                                <select class="form-select" name="city" required>
-                                    <%for (int i = 0; i < cities.size(); i++) {%>
-                                    <option value="<%=cities.get(i)%>"><%=cities.get(i)%></option>
-                                    <%}%>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <h4 style="padding-bottom: 1px;">Classificação</h4>
-                                <ul class="avaliacao">
-                                    <li class="star-icon" data-avaliacao="1"></li>
-                                    <li class="star-icon" data-avaliacao="2"></li>
-                                    <li class="star-icon" data-avaliacao="3"></li>
-                                    <li class="star-icon" data-avaliacao="4"></li>
-                                    <li class="star-icon ativo" data-avaliacao="5"></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <input class="btn btn-primary" style="margin-bottom: 10px" type="submit" name="filterAuto" value="Filtrar">
-                    </form>
+                    <h1 style="padding-bottom: 5px;">Ordenar Por:</h1>
+                    <table class="table table-my table-bordered" style="">
+                        <thead>
+                            <tr class="table-my">
+                        <form autocomplete="off" method="POST">
+                            <th><input class="orderADM" type="submit" name="orderAutoNome" value="Nome"/></th>
+                            <th><input class="orderADM" type="submit" name="orderAutoCid" value="Cidade"/></th>
+                            <th><input class="orderADM" type="submit" name="orderAutoBai" value="Bairro"/></th>
+                            <th><input class="orderADM" type="submit" name="orderAutoAval" value="Avaliação"/></th>
+                        </form>
+                        </tr>
+                        </thead>
+                    </table>
                     <%if (session.getAttribute("SEARCH").toString().equals("0")) {
                         } else {%>
                     <form autocomplete="off" method="POST">
-                        <input style="align-content: center; margin-bottom: 10px" type="submit" name="clearAuto" value="Limpar Busca/Filtro" class="btn btn-dark" style="margin-left: 20px"/>
+                        <input style="align-content: center; margin-bottom: 10px" type="submit" name="clearAuto" value="Limpar Busca" class="btn btn-dark" style="margin-left: 20px"/>
                     </form>
                     <%}%>
                 </div>
-                <hr>
+                <hr style="margin-top: 16px">
             </div>
             <div class="row m-auto">
                 <%if (session.getAttribute("SEARCH").toString().equals("0")) {
@@ -147,7 +148,7 @@
                             <h5 class="card-title"><%= d.getNome()%></h5>
                             <p class="card-text"><%= d.getDescricao()%></p>
                             <p class="card-text"><%= d.getCidade()%></p>
-                            <p class="card-text">Avaliação: <%= d.getAvalaicao() / d.getQtdeAvalaicao()%>/5</p>
+                            <p class="card-text">Avaliação: <%= d.getrAvalaicao()%>/5</p>
                             <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                 <form action="perfilAutoescolaUsuario.jsp" method="GET">
                                     <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">

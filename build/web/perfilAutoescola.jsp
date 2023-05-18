@@ -284,7 +284,7 @@
                                 <h5 class="card-title"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%></h5>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%></p>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getCidade()%></p>
-                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5</p>
+                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getrAvalaicao()%>/5</p>
                                 <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                     <input type="submit" class="btn btn-primary" value="Descubra mais">
                                 </div>
