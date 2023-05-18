@@ -288,6 +288,19 @@ public class DrivingSchool {
         stmt.close();
         con.close();
     }
+    
+    public static void alterAvaliacao(DrivingSchool school) throws Exception {
+        Connection con = DatabaseListener.getConnection();
+        PreparedStatement stmt = con.prepareStatement(""
+                + "UPDATE drivingSchools SET vl_rating_drivingSchool = ?, qt_rating_drivingSchool = ?, vl_rating_final_drivingSchool= ? WHERE cd_drivingSchool = ?");
+        stmt.setDouble(1, school.getAvalaicao());
+        stmt.setDouble(2, school.getQtdeAvalaicao());
+        stmt.setDouble(3, school.getrAvalaicao());
+        stmt.setInt(4, school.getIdAutoescola());
+        stmt.execute();
+        stmt.close();
+        con.close();
+    }
 
     public static void alterarSenhaSchool(String senha, Integer identificacao) throws Exception {
         Connection con = DatabaseListener.getConnection();
