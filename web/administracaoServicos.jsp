@@ -200,7 +200,7 @@
             <div class="row justify-content-center">
                 <div class="col-10">
                     <div class="caixa" style="margin-top: 30px;">
-                        <h1 style="padding-bottom: 5px;">Lista de Autoescolas</h1>
+                        <h1 style="padding-bottom: 5px;">Lista de Serviços</h1>
                         <%if (admException != null) {%>
                         <div style="color: black; font-size: 30px; border: 10px double red;">
                             <% out.print(admException);%>
@@ -316,15 +316,12 @@
                                     <div class="row justify-content-center">
                                         <div class="caixa" style="border: 0; padding-top: 0">
                                             <form method="POST">
+                                                <input class="form-control" type="hidden"" id="idServico" name="idServico" placeholder="ID do Servico" required>
                                                 <div class="row ">
                                                     <div class="row">
                                                         <div class="col">
                                                             <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
-                                                            <input class="form-control" type="number" step="1" id="idAutoescola" name="idAutoescola" placeholder="ID da Autoescola">
-                                                        </div>
-                                                        <div class="col">
-                                                            <h4 style="padding-bottom: 1px;" >ID da Servico:</h4>
-                                                            <input class="form-control" type="number" step="1" id="idServico" name="idServico" placeholder="ID do Servico">
+                                                            <input class="form-control" type="number" step="1" id="idAutoescola" name="idAutoescola" placeholder="ID da Autoescola" required>
                                                         </div>
                                                     </div>
                                                     <div class="row" >
@@ -381,7 +378,7 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
-                                                            <input class="form-control" type="number" step="1" name="idAutoescola" placeholder="ID da Autoescola">
+                                                            <input class="form-control" type="number" step="1" name="idAutoescola" placeholder="ID da Autoescola" required>
                                                         </div>
                                                     </div>
                                                     <div class="row" >
