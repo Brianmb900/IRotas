@@ -42,9 +42,6 @@
                 admException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(admException);
             }
-            double avali = 0.0;
-            double qtdeAvali = 0.0;
-            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -55,10 +52,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    avali,
-                    qtdeAvali,
-                    rAvali
+                    senha
             );
             DrivingSchool.addDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -75,9 +69,6 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("email");
             String senha = "0";
-            double avali = 0.0;
-            double qtdeAvali = 0.0;
-            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -88,10 +79,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    avali,
-                    qtdeAvali,
-                    rAvali
+                    senha
             );
             DrivingSchool.alterDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -214,17 +202,6 @@
             }
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
         }
-
-        if (request.getParameter("orderAutoAval") != null) {
-            if (session.getAttribute("ORDER").toString().equals("13") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
-                session.setAttribute("ORDER", "13");
-                session.setAttribute("ORDER2", " DESC");
-            } else {
-                session.setAttribute("ORDER", "13");
-                session.setAttribute("ORDER2", " ASC");
-            }
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
-        }
         //FIM ORDENAÇÕES
         if (request.getParameter("searchAuto") != null) {
             session.setAttribute("SEARCH", request.getParameter("search"));
@@ -292,7 +269,6 @@
                                 <th><input class="orderADM" type="submit" name="orderAutoCep" value="CEP"/></th>
                                 <th><input class="orderADM" type="submit" name="orderAutoTel" value="Telefone"/></th>
                                 <th><input class="orderADM" type="submit" name="orderAutoMail" value="E-mail"/></th>
-                                <th><input class="orderADM" type="submit" name="orderAutoAval" value="Avaliação"/></th>
                                 <th>Ações</th>
                             </form>
                             </tr>
@@ -311,13 +287,12 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
-                                    <td><%= d.getAvalaicao() / d.getQtdeAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
                                                    onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
-                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>', )">
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>')">
                                                     <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">
@@ -342,13 +317,12 @@
                                     <td><%= d.getCep()%></td>
                                     <td><%= d.getTelefone()%></td>
                                     <td><%= d.getEmail()%></td>
-                                    <td><%= d.getAvalaicao() / d.getQtdeAvalaicao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altAutoescola"
                                                    onclick="setaDataAuto('<%= d.getIdAutoescola()%>', '<%= d.getNome()%>', '<%= d.getDescricao()%>', '<%= d.getEmail()%>',
-                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>', '<%= d.getCep()%>')">
+                                                                   '<%= d.getTelefone()%>', '<%= d.getEndereco()%>', '<%= d.getBairro()%>', '<%= d.getCidade()%>')">
                                                     <b>Alterar</b></a>
                                             </button>
                                             <button class="btn btn-primary" style="color: white;">

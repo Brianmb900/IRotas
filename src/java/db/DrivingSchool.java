@@ -27,9 +27,6 @@ public class DrivingSchool {
     private String telefone;
     private String email;
     private String senha;
-    private double avalaicao;
-    private double qtdeAvalaicao;
-    private double rAvalaicao;
 
     public static DrivingSchool getDrivingSchool(String email, String password) throws Exception {
         DrivingSchool driving = null;
@@ -49,11 +46,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
         }
         stmt.close();
         con.close();
@@ -79,11 +73,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
         }
         stmt.close();
         con.close();
@@ -108,11 +99,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
         }
         stmt.close();
         con.close();
@@ -136,11 +124,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
         }
         stmt.close();
         con.close();
@@ -164,11 +149,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
         }
         stmt.close();
         con.close();
@@ -191,11 +173,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
         }
         stmt.close();
         con.close();
@@ -219,11 +198,8 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
-            double avaliacao = rs.getDouble("vl_rating_drivingSchool");
-            double qtdeAvaliacao = rs.getDouble("qt_rating_drivingSchool");
-            double rAvaliacao = rs.getDouble("vl_rating_final_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, avaliacao, qtdeAvaliacao, rAvaliacao));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
         }
         stmt.close();
         con.close();
@@ -235,8 +211,8 @@ public class DrivingSchool {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO drivingSchools (nm_drivingSchool, ds_drivingSchool, nm_address_drivingSchool, nm_city_drivingSchool, "
                 + "nm_neighborhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
-                + "nm_email_drivingSchool, cd_password_drivingSchool, vl_rating_drivingSchool, qt_rating_drivingSchool, vl_rating_final_drivingSchool)"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                + "nm_email_drivingSchool, cd_password_drivingSchool)"
+                + "VALUES (?,?,?,?,?,?,?,?,?)");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
         stmt.setString(3, school.getEndereco());
@@ -246,9 +222,6 @@ public class DrivingSchool {
         stmt.setString(7, school.getTelefone());
         stmt.setString(8, school.getEmail());
         stmt.setString(9, passwordMD5(school.getSenha()));
-        stmt.setDouble(10, 0.0);
-        stmt.setDouble(11, 0.0);
-        stmt.setDouble(12, 0.0);
         stmt.execute();
         stmt.close();
         con.close();
@@ -269,19 +242,6 @@ public class DrivingSchool {
         stmt.setString(7, school.getTelefone());
         stmt.setString(8, school.getEmail());
         stmt.setInt(9, school.getIdAutoescola());
-        stmt.execute();
-        stmt.close();
-        con.close();
-    }
-    
-    public static void alterAvaliacao(DrivingSchool school) throws Exception {
-        Connection con = DatabaseListener.getConnection();
-        PreparedStatement stmt = con.prepareStatement(""
-                + "UPDATE drivingSchools SET vl_rating_drivingSchool = ?, qt_rating_drivingSchool = ?, vl_rating_final_drivingSchool= ? WHERE cd_drivingSchool = ?");
-        stmt.setDouble(1, school.getAvalaicao());
-        stmt.setDouble(2, school.getQtdeAvalaicao());
-        stmt.setDouble(3, school.getrAvalaicao());
-        stmt.setInt(4, school.getIdAutoescola());
         stmt.execute();
         stmt.close();
         con.close();
@@ -315,7 +275,7 @@ public class DrivingSchool {
     }
 
     public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep,
-            String telefone, String email, String senha, double avalaicao, double qtdeAvalaicao, double rAvalaicao) {
+            String telefone, String email, String senha) {
         this.idAutoescola = idAutoescola;
         this.nome = nome;
         this.descricao = descricao;
@@ -326,9 +286,6 @@ public class DrivingSchool {
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
-        this.avalaicao = avalaicao;
-        this.qtdeAvalaicao = qtdeAvalaicao;
-        this.rAvalaicao = rAvalaicao;
     }
 
     public Integer getIdAutoescola() {
@@ -409,30 +366,6 @@ public class DrivingSchool {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public double getAvalaicao() {
-        return avalaicao;
-    }
-
-    public void setAvalaicao(double avalaicao) {
-        this.avalaicao = avalaicao;
-    }
-
-    public double getQtdeAvalaicao() {
-        return qtdeAvalaicao;
-    }
-
-    public void setQtdeAvalaicao(double qtdeAvalaicao) {
-        this.qtdeAvalaicao = qtdeAvalaicao;
-    }
-
-    public double getrAvalaicao() {
-        return rAvalaicao;
-    }
-
-    public void setrAvalaicao(double rAvalaicao) {
-        this.rAvalaicao = rAvalaicao;
     }
 
 }

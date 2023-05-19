@@ -29,9 +29,6 @@
                 addException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(addException);
             }
-            double avali = 0.0;
-            double qtdeAvali = 0.0;
-            double rAvali = 0.0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -42,10 +39,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    avali,
-                    qtdeAvali,
-                    rAvali
+                    senha
             );
             DrivingSchool.addDrivingSchool(school);
             Session.getLoginSchool(request, response);
