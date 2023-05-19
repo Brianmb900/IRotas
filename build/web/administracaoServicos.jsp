@@ -11,9 +11,11 @@
     String admException = null;
     ArrayList<Service> servicos = new ArrayList<>();
     ArrayList<Service> servicoBusca = new ArrayList<>();
+    ArrayList<DrivingSchool> schools = new ArrayList<>();
     int limite = 5;
     int total = 0;
     try {
+        schools = DrivingSchool.getTotalSchools();
         int pageid = Integer.parseInt(request.getParameter("page"));
         if (pageid == 1) {
         } else {
@@ -219,7 +221,7 @@
                                 <tr class="table-my">
                             <form autocomplete="off" method="POST">
                                 <th><input class="orderADM" type="submit" name="orderServicoId" value="ID Serviço"/></th>
-                                <th><input class="orderADM" type="submit" name="orderAutoId" value="ID Autoescola"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAutoId" value="Autoescola"/></th>
                                 <th><input class="orderADM" type="submit" name="orderServicoDesc" value="Descrição"/></th>
                                 <th><input class="orderADM" type="submit" name="orderServicoInicio" value="Inicio"/></th>
                                 <th><input class="orderADM" type="submit" name="orderServicoFim" value="Fim"/></th>
@@ -235,7 +237,8 @@
                                         for (Service s : servicos) {%>
                                 <tr class="table-my">
                                     <td><%= s.getIdServico()%></td>
-                                    <td><%= s.getIdAutoescola()%></td>
+                                    <td><% DrivingSchool school = DrivingSchool.getDrivingSchoolView(s.getIdAutoescola().toString());
+                                        out.print(school.getNome());%></td>
                                     <td><%= s.getDescricao()%></td>
                                     <td><%= s.getHoraInicio()%></td>
                                     <td><%= s.getHoraFim()%></td>
@@ -250,7 +253,7 @@
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altServico"
                                                    onclick="dadosAltServico('<%=s.getIdServico()%>', '<%=s.getIdAutoescola()%>', '<%=s.getDescricao()%>', '<%=s.getHoraInicio()%>', '<%=s.getHoraFim()%>',
-                                                                   '<%=s.getValor()%>', '<%=s.getTipo()%>')">
+                                                                   '<%=s.getValor()%>', '<%=s.getTipo()%>', '<%=school.getNome()%>')">
                                                     <b>Alterar</b>
                                                 </a>
                                             </button>
@@ -265,7 +268,8 @@
                                     for (Service s : servicoBusca) {%>
                                 <tr class="table-my">
                                     <td><%= s.getIdServico()%></td>
-                                    <td><%= s.getIdAutoescola()%></td>
+                                    <td><%DrivingSchool school = DrivingSchool.getDrivingSchoolView(s.getIdAutoescola().toString());
+                                        out.print(school.getNome());%></td>
                                     <td><%= s.getDescricao()%></td>
                                     <td><%= s.getHoraInicio()%></td>
                                     <td><%= s.getHoraFim()%></td>
@@ -280,7 +284,7 @@
                                             <button class="btn btn-warning" style="color: white;">
                                                 <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altServico"
                                                    onclick="dadosAltServico('<%=s.getIdServico()%>', '<%=s.getIdAutoescola()%>', '<%=s.getDescricao()%>', '<%=s.getHoraInicio()%>', '<%=s.getHoraFim()%>',
-                                                                   '<%=s.getValor()%>', '<%=s.getTipo()%>')">
+                                                                   '<%=s.getValor()%>', '<%=s.getTipo()%>'), '<%=school.getNome()%>'">
                                                     <b>Alterar</b>
                                                 </a>
                                             </button>
@@ -320,8 +324,9 @@
                                                 <div class="row ">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
-                                                            <input class="form-control" type="number" step="1" id="idAutoescola" name="idAutoescola" placeholder="ID da Autoescola" required>
+                                                            <h4 style="padding-bottom: 1px;" >Autoescola:</h4>
+                                                            <input type="hidden" id="idAutoescola" required>
+                                                            <input class="form-control" id="nomeAutoescola" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="row" >
@@ -377,8 +382,14 @@
                                                 <div class="row ">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
-                                                            <input class="form-control" type="number" step="1" name="idAutoescola" placeholder="ID da Autoescola" required>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="inputGroup">Autoescola</span>
+                                                                <select class="form-select" name="idAutoescola" required>
+                                                                    <%for (DrivingSchool d : schools) {%>
+                                                                    <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
+                                                                    <%}%>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row" >
@@ -448,7 +459,7 @@
         <%}%>
         <%@include file="WEB-INF/jspf/footer.jspf" %>
         <script>
-            function dadosAltServico(idS, idA, desc, hrIni, hrFim, vl, tipo) {
+            function dadosAltServico(idS, idA, desc, hrIni, hrFim, vl, tipo, nome) {
                 document.getElementById('idServico').value = idS;
                 document.getElementById('idAutoescola').value = idA;
                 document.getElementById('descServico').value = desc;
@@ -456,6 +467,7 @@
                 document.getElementById('fim').value = hrFim;
                 document.getElementById('vAula').value = vl;
                 document.getElementById('tipo').value = tipo;
+                document.getElementById('nomeAutoescola').value = nome;
             }
         </script>
     </body>
