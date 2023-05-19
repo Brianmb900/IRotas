@@ -28,7 +28,7 @@
         if (session.getAttribute("SEARCH").toString().equals("0")) {
             total = Interested.getTotalInteresteds().size();
         } else {
-            total = Service.searchServico(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
+            total = Interested.searchInterested(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
         }
 
         if (request.getParameter("cadInteressado") != null) {
@@ -139,7 +139,7 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="number" name="search" placeholder="ID do Interessado" required>
+                                <input class="form-control" type="number" name="search" placeholder="ID da Autoescola" required>
                                 <input type="submit" name="searchInteressado" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>

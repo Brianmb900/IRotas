@@ -4,9 +4,6 @@
  */
 package db;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;

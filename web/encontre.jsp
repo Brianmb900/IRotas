@@ -74,17 +74,6 @@
             }
             response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
         }
-
-        if (request.getParameter("orderAutoAval") != null) {
-            if (session.getAttribute("ORDER").toString().equals("13") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
-                session.setAttribute("ORDER", "13");
-                session.setAttribute("ORDER2", " DESC");
-            } else {
-                session.setAttribute("ORDER", "13");
-                session.setAttribute("ORDER2", " ASC");
-            }
-            response.sendRedirect("http://localhost:8080/IRotas/encontre.jsp?page=" + request.getParameter("page"));
-        }
         //FIM ORDENAÇÕES
 
     } catch (Exception ex) {
@@ -124,7 +113,6 @@
                             <th><input class="orderADM" type="submit" name="orderAutoNome" value="Nome"/></th>
                             <th><input class="orderADM" type="submit" name="orderAutoCid" value="Cidade"/></th>
                             <th><input class="orderADM" type="submit" name="orderAutoBai" value="Bairro"/></th>
-                            <th><input class="orderADM" type="submit" name="orderAutoAval" value="Avaliação"/></th>
                         </form>
                         </tr>
                         </thead>
@@ -148,7 +136,11 @@
                             <h5 class="card-title"><%= d.getNome()%></h5>
                             <p class="card-text"><%= d.getDescricao()%></p>
                             <p class="card-text"><%= d.getCidade()%></p>
-                            <p class="card-text">Avaliação: <%= d.getrAvalaicao()%>/5</p>
+                            <p class="card-text"><%if (Evaluation.getEvaluationFinal(d.getIdAutoescola()) == 0) {
+                                    out.print("Ainda não avaliada");
+                                } else {%>
+                                Avaliação: <%=Evaluation.getEvaluationFinal(d.getIdAutoescola())%>/5.0</p>
+                                <%}%>
                             <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                 <form action="perfilAutoescolaUsuario.jsp" method="GET">
                                     <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">
@@ -168,7 +160,7 @@
                             <h5 class="card-title"><%= d.getNome()%></h5>
                             <p class="card-text"><%= d.getDescricao()%></p>
                             <p class="card-text"><%= d.getCidade()%></p>
-                            <p class="card-text">Avaliação: <%= d.getAvalaicao() / d.getQtdeAvalaicao()%>/5</p>
+                            <p class="card-text">Avaliação: <%%>/5</p>
                             <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                 <form action="perfilAutoescolaUsuario.jsp" method="GET">
                                     <input type="hidden" name="auto" value="<%=d.getIdAutoescola()%>">
@@ -220,4 +212,4 @@
             <%@include file="WEB-INF/jspf/footer.jspf" %>
             </body>
         </html>
-    
+        

@@ -27,9 +27,6 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("e-mail");
             String senha = ((DrivingSchool) session.getAttribute("school")).getSenha();
-            double avali = 0;
-            double qtdeAvali = 0;
-            double rAvali = 0;
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -40,10 +37,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    avali,
-                    qtdeAvali,
-                    rAvali
+                    senha
             );
             DrivingSchool.alterDrivingSchool(school);
             Session.altDataSchool(request, response, senha);
@@ -168,7 +162,12 @@
                     <br>
                     <%}%>
                     <div class="col" style="margin-top: 20px;">
-                        <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: <%=((DrivingSchool) session.getAttribute("school")).getAvalaicao() / ((DrivingSchool) session.getAttribute("school")).getQtdeAvalaicao()%>/5.0</b>
+                        <b style="font-size: 30px; margin-left: 15px;"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%> - Avaliação: 
+                            <%if (Evaluation.getEvaluationFinal(((DrivingSchool) session.getAttribute("school")).getIdAutoescola()) == 0) {
+                                    out.print("Ainda não avaliada");
+                                } else {%>
+                            <%=Evaluation.getEvaluationFinal(((DrivingSchool) session.getAttribute("school")).getIdAutoescola())%>/5.0
+                            <%}%></b>
                     </div>
                 </div>
                 <hr>
@@ -176,7 +175,6 @@
                     <div class="col">
                         <form autocomplete="off" method="POST">
                             <input class="form-control" type="hidden" name="id" value="<%= ((DrivingSchool) session.getAttribute("school")).getIdAutoescola()%>">
-                            <input class="form-control" type="hidden" name="avali" value="<%= ((DrivingSchool) session.getAttribute("school")).getAvalaicao()%>">
                             <input class="form-control" type="text" name="nome" id="nome" value="<%= ((DrivingSchool) session.getAttribute("school")).getNome()%>" placeholder="Nome:" disabled>
                             <br><br>
                             <input class="form-control" type="text" name="descricao" id="descricao" value="<%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%>" placeholder="Drescrição:" disabled>
@@ -284,7 +282,11 @@
                                 <h5 class="card-title"><%= ((DrivingSchool) session.getAttribute("school")).getNome()%></h5>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getDescricao()%></p>
                                 <p class="card-text"><%= ((DrivingSchool) session.getAttribute("school")).getCidade()%></p>
-                                <p class="card-text">Avaliação: <%= ((DrivingSchool) session.getAttribute("school")).getrAvalaicao()%>/5</p>
+                                <p class="card-text">Avaliação: <%if (Evaluation.getEvaluationFinal(((DrivingSchool) session.getAttribute("school")).getIdAutoescola()) == 0) {
+                                        out.print("Ainda não avaliada");
+                                    } else {%>
+                                    <%=Evaluation.getEvaluationFinal(((DrivingSchool) session.getAttribute("school")).getIdAutoescola())%>/5.0
+                                    <%}%></p>
                                 <div style="align-items: center; position: absolute; bottom: 30px; right: 60px">
                                     <input type="submit" class="btn btn-primary" value="Descubra mais">
                                 </div>
