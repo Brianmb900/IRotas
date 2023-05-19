@@ -127,11 +127,27 @@ public class DatabaseListener implements ServletContextListener {
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(4, 2, 9)");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(5, 2, 8)");
             stmt.execute("INSERT OR IGNORE INTO interesteds VALUES(6, 5, 7)");
+
+            // AVALIAÇÕES
+            stmt.execute("CREATE TABLE IF NOT EXISTS evaluations("
+                    + "cd_evaluation INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "cd_drivingSchool_evaluation INTEGER NOT NULL,"
+                    + "cd_user_evaluation INTEGER NOT NULL,"
+                    + "vl_evaluation REAL NOT NULL,"
+                    + "FOREIGN KEY (cd_drivingSchool_evaluation) REFERENCES drivingSchools (cd_drivingSchool),"
+                    + "FOREIGN KEY (cd_user_evaluation) REFERENCES users (cd_user))");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(1, 2, 7, 5)");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(2, 2, 6, 3.5)");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(3, 2, 5, 3.5)");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(4, 2, 4, 2.5)");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(5, 3, 7, 5)");
+            stmt.execute("INSERT OR IGNORE INTO evaluations VALUES(6, 3, 6, 3)");
+
             //stmt.execute("DROP TABLE interesteds");
+            //stmt.execute("DROP TABLE evaluations");
             //stmt.execute("DROP TABLE services");
             //stmt.execute("DROP TABLE users");
             //stmt.execute("DROP TABLE drivingSchools");
-
         } catch (Exception ex) {
             exception = ex;
         }
