@@ -11,9 +11,13 @@
     String admException = null;
     ArrayList<Interested> interessados = new ArrayList<>();
     ArrayList<Interested> interessadoBusca = new ArrayList<>();
+    ArrayList<DrivingSchool> schools = new ArrayList<>();
+    ArrayList<User> users = new ArrayList<>();
     int limite = 5;
     int total = 0;
     try {
+        schools = DrivingSchool.getTotalSchools();
+        users = User.getTotalUsers();
         int pageid = Integer.parseInt(request.getParameter("page"));
         if (pageid == 1) {
         } else {
@@ -144,9 +148,9 @@
                                 <tr class="table-my">
                             <form autocomplete="off" method="POST">
                                 <th><input class="orderADM" type="submit" name="orderInteressadoId" value="ID Interessado"/></th>
-                                <th><input class="orderADM" type="submit" name="orderAutoId" value="ID Autoescola"/></th>
-                                <th><input class="orderADM" type="submit" name="orderUserId" value="ID Aluno"/></th>
-                                <th>Ações</th>
+                                <th><input class="orderADM" type="submit" name="orderAutoId" value="Autoescola"/></th>
+                                <th><input class="orderADM" type="submit" name="orderUserId" value="Aluno"/></th>
+                                <th>Ação</th>
                             </form>
                             </tr>
                             </thead>
@@ -156,16 +160,10 @@
                                         for (Interested i : interessados) {%>
                                 <tr class="table-my">
                                     <td><%= i.getIdInteressado()%></td>
-                                    <td><%= i.getIdAutoescola()%></td>
-                                    <td><%= i.getIdCLiente()%></td>
+                                    <td><%= DrivingSchool.getDrivingSchoolView(i.getIdAutoescola().toString()).getNome()%></td>
+                                    <td><%= User.getUserId(i.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(i.getIdCLiente().toString()).getSobrenome())%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <button class="btn btn-warning" style="color: white;">
-                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altInteressado"
-                                                   onclick="dadosAltInteressado('<%=i.getIdInteressado()%>', '<%=i.getIdAutoescola()%>', '<%=i.getIdCLiente()%>')">
-                                                    <b>Alterar</b>
-                                                </a>
-                                            </button>
                                             <input type="hidden" name="idenInteressadoDel" value="<%= i.getIdInteressado()%>" />
                                             <input style="font-weight: bold;" type="submit" name="delInteressado" value="Remover" class="btn btn-danger"/>
                                         </form>
@@ -176,16 +174,10 @@
                                     for (Interested i : interessadoBusca) {%>
                                 <tr class="table-my">
                                     <td><%= i.getIdInteressado()%></td>
-                                    <td><%= i.getIdAutoescola()%></td>
-                                    <td><%= i.getIdCLiente()%></td>
+                                    <td><%= DrivingSchool.getDrivingSchoolView(i.getIdAutoescola().toString()).getNome()%></td>
+                                    <td><%= User.getUserId(i.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(i.getIdCLiente().toString()).getSobrenome())%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <button class="btn btn-warning" style="color: white;">
-                                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#altInteressado"
-                                                   onclick="dadosAltInteressado('<%=i.getIdInteressado()%>', '<%=i.getIdAutoescola()%>', '<%=i.getIdCLiente()%>')">
-                                                    <b>Alterar</b>
-                                                </a>
-                                            </button>
                                             <input type="hidden" name="idenInteressadoDel" value="<%= i.getIdInteressado()%>" />
                                             <input style="font-weight: bold;" type="submit" name="delInteressado" value="Remover" class="btn btn-danger"/>
                                         </form>
@@ -208,50 +200,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="altInteressado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Alterar Interessado</h4>
-                                <hr style="margin-bottom: 7px; margin-top: 7px">
-                                <div class="container" style="margin-bottom: 30px">
-                                    <div class="row justify-content-center">
-                                        <form method="POST">
-                                            <input type="hidden" id="idInteressado" name="idInteressado">
-                                            <div class="row ">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
-                                                        <div class="input-group mb-3">
-                                                            <input class="form-control" type="number" step="1" id="idAutoescola" name="idAutoescola" placeholder="ID da Autoescola" required>
-                                                            <a class="btn btn-primary" href="administracaoAutoescola.jsp?page=1">Ver Autoescolas</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" >
-                                                    <h4 style="padding-bottom: 1px;" >ID do Aluno:</h4>
-                                                    <div class="col">
-                                                        <div class="input-group mb-3">
-                                                            <input class="form-control" type="number" step="1" id="idAluno" name="idAluno" placeholder="ID do Aluno" required>
-                                                            <a class="btn btn-primary" href="administracao.jsp?page=1">Ver Alunos</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr style="margin-top: 16px">
-                                                <div class="row" style="margin-top: 20px;">
-                                                    <div class="col-2-center">
-                                                        <input type="submit" name="altInteressado" value="Salvar Alterações" class="btn btn-primary" style="margin-right: 20%">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="modal fade" id="cadInteressado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
@@ -264,20 +212,24 @@
                                             <div class="row ">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <h4 style="padding-bottom: 1px;" >ID da Autoescola:</h4>
                                                         <div class="input-group mb-3">
-                                                            <input class="form-control" type="number" step="1" name="idAutoescola" placeholder="ID da Autoescola" required>
-                                                            <a class="btn btn-primary" href="administracaoAutoescola.jsp?page=1">Ver Autoescolas</a>
+                                                            <span class="input-group-text" id="inputGroup">Autoescola</span>
+                                                            <select class="form-select" name="idAutoescola" required>
+                                                                <%for (DrivingSchool d : schools) {%>
+                                                                <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
+                                                                <%}%>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row" >
-                                                    <h4 style="padding-bottom: 1px;" >ID do Aluno:</h4>
-                                                    <div class="col">
-                                                        <div class="input-group mb-3">
-                                                            <input class="form-control" type="number" step="1" name="idAluno" placeholder="ID do Aluno" required>
-                                                            <a class="btn btn-primary" href="administracao.jsp?page=1">Ver Alunos</a>
-                                                        </div>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="inputGroup">Aluno</span>
+                                                        <select class="form-select" name="idAluno" required>
+                                                            <%for (User u : users) {%>
+                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome()%></option>
+                                                            <%}%>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <hr>

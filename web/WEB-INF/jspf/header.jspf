@@ -28,7 +28,7 @@
 <%if (session.getAttribute("user") == null && session.getAttribute("school") == null) {%>
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
-    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="index.jsp" >Início</a>
     <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px;">
         Login
@@ -48,7 +48,7 @@
 <%} else if (session.getAttribute("user") != null) {%> 
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
-    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="index.jsp" >Início</a>
     <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <% if (((User) session.getAttribute("user")).getAdministrator() == 1) {%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
@@ -74,7 +74,7 @@
 <%} else if (session.getAttribute("school") != null) {%>
 <nav class="navDim sticky-top">
     <a class="nav-link logoNav" href="index.jsp" style="margin-right: 0px;"><img src="images/Logo2.png" width="70" height="70"></a>
-    <a class="nav-link" href="index.jsp" >Inicio</a>
+    <a class="nav-link" href="index.jsp" >Início</a>
     <a class="nav-link" href="encontre.jsp?page=1" >Encontre</a>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 18em;">
         <p style="margin-bottom: 0px">Bem Vindo, <b> <%= ((DrivingSchool) session.getAttribute("school")).getNome()%></b></p>
