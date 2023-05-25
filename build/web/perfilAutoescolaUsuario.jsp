@@ -42,7 +42,7 @@
                 Evaluation.addEvaluation(avaliacao);
                 response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescolaUsuario.jsp?auto=" + request.getParameter("auto"));
             }
-            
+
             if (request.getParameter("reAvali") != null) {
                 Double vlAval = Double.parseDouble(request.getParameter("avali"));
                 Evaluation avaliacao = new Evaluation(
@@ -54,7 +54,12 @@
                 Evaluation.altEvaluation(avaliacao);
                 response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescolaUsuario.jsp?auto=" + request.getParameter("auto"));
             }
-            
+
+            if (request.getParameter("delAvali") != null) {
+                Evaluation.deleteEvaluation(avaliado.getIdAvaliacao());
+                response.sendRedirect("http://localhost:8080/IRotas/perfilAutoescolaUsuario.jsp?auto=" + request.getParameter("auto"));
+            }
+
         } catch (Exception ex) {
             interestedExecption = ex.getMessage();
         }
@@ -113,26 +118,27 @@
                     <div class="col">
                         <%if (session.getAttribute("user") == null) {%>
                         <a class="btn btn-primary" href="login.jsp">Tenho Interesse</a>
-                        <%} else if (interessados != null) {%>
+                        <%} else if (interessados != null && avaliado == null) {%>
                         <button class="btn btn-primary" style="color: white;">
                             <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#interesse">
                                 Tenho Interesse
                             </a>
                         </button>
-                        <%if (avaliado != null) {%>
-                        <button class="btn btn-primary" style="color: white; margin-left: 30px"
-                                onclick="reAvaliar('<%=avaliado.getAvaliacao()%>', '<%=avaliado.getIdAvaliacao()%>')">
-                            <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#reAvaliar">
-                                Avaliar
-                            </a>
-                        </button>
-                        <%} else {%>
                         <button class="btn btn-primary" style="color: white; margin-left: 30px">
                             <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#avaliar">
                                 Avaliar
                             </a>
                         </button>
-                        <%}%>
+                        <%} else if (avaliado != null) {%>
+                        <form method="POST">
+                            <button class="btn btn-primary" style="color: white; margin-left: 30px"
+                                    onclick="reAvaliar('<%=avaliado.getAvaliacao()%>', '<%=avaliado.getIdAvaliacao()%>')">
+                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#reAvaliar">
+                                    Alterar Avaliação
+                                </a>
+                            </button>
+                            <input class="btn btn-primary" style="margin-left: 30px" type="submit" name="delAvali" value="Remover Avaliação">
+                        </form>
                         <%} else {%>
                         <form method="POST">
                             <input class="btn btn-primary" type="submit" name="addInteressado" value="Tenho Interesse">
@@ -231,7 +237,8 @@
                 document.getElementById("id").value = id;
             }
         </script>
-        <%} else if (session.getAttribute("user") == null && session.getAttribute("school") == null) {
+        <%} else if (session.getAttribute(
+                    "user") == null && session.getAttribute("school") == null) {
                 out.print("Você deve realizar login para acessar o conteúdo desta página");
             }%>
         <%@include file="WEB-INF/jspf/footer.jspf" %>

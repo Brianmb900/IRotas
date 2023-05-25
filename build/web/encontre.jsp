@@ -190,7 +190,7 @@
                 <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 49) {
                         out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                     }%>" href="encontre.jsp?page=5">5</a>
-                <a style="text-decoration: none; font-size: 30px; <% if (total < 13) {
+                <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 12) {
                         out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                     }%>" href="encontre.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
             </div>

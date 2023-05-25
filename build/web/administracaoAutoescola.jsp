@@ -500,7 +500,7 @@
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoAutoescola.jsp?page=5">5</a>
-                    <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
+                    <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 5) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoAutoescola.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>
