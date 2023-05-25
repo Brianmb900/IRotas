@@ -121,7 +121,7 @@
             <div class="row justify-content-center">
                 <div class="col-10">
                     <div class="caixa" style="margin-top: 30px;">
-                        <h1 style="padding-bottom: 5px;">Lista de Interessados</h1>
+                        <h1 style="padding-bottom: 5px;">Lista de Avaliações</h1>
                         <%if (admException != null) {%>
                         <div style="color: black; font-size: 30px; border: 10px double red;">
                             <% out.print(admException);%>
@@ -187,9 +187,6 @@
                             </tbody>
                         </table>
                         <div style="display: inline-flex">
-                            <button class="btn btn-primary" style="color: white;">
-                                <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#cadInteressado"><b>Cadastrar</b></a>
-                            </button>
                             <%if (session.getAttribute("SEARCH").toString().equals("0")) {
                                 } else {%>
                             <form autocomplete="off" method="POST">
@@ -202,23 +199,23 @@
                 <div>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 18%; <% if (Integer.parseInt(request.getParameter("page")) == 1) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=<%= Integer.parseInt(request.getParameter("page")) - 1%>"><</a>
-                    <a style="text-decoration: none; font-size: 30px; margin-right: 10%;" href="administracaoInteressados.jsp?page=1">1</a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=<%= Integer.parseInt(request.getParameter("page")) - 1%>"><</a>
+                    <a style="text-decoration: none; font-size: 30px; margin-right: 10%;" href="administracaoAvaliacoes.jsp?page=1">1</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 6) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=2">2</a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=2">2</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 11) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=3">3</a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=3">3</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 10%; <% if (total < 16) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=4">4</a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=4">4</a>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=5">5</a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=5">5</a>
                     <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 5) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
-                        }%>" href="administracaoInteressados.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
+                        }%>" href="administracaoAvaliacoes.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>
             </div>
         </div>  
