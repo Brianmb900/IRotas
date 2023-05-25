@@ -69,7 +69,8 @@ public class DatabaseListener implements ServletContextListener {
                     + "cd_cep_drivingSchool VARCHAR NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL UNIQUE,"
-                    + "cd_password_drivingSchool VARCHAR NOT NULL)");
+                    + "cd_password_drivingSchool VARCHAR NOT NULL,"
+                    + "im_drivingSchool BLOB)");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(1, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
                     + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(2, 'Autoescola Alex', 'Autoescola do Alexxxxxxx', 'Rua 23, número 40', 'São Vincente', "

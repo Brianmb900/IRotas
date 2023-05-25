@@ -27,6 +27,7 @@ public class DrivingSchool {
     private String telefone;
     private String email;
     private String senha;
+    private byte[] imagem;
 
     public static DrivingSchool getDrivingSchool(String email, String password) throws Exception {
         DrivingSchool driving = null;
@@ -46,8 +47,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha,imagem);
         }
         stmt.close();
         con.close();
@@ -73,8 +75,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha,imagem);
         }
         stmt.close();
         con.close();
@@ -99,8 +102,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha);
+            driving = new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha,imagem);
         }
         stmt.close();
         con.close();
@@ -124,8 +128,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, imagem));
         }
         stmt.close();
         con.close();
@@ -149,8 +154,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, imagem));
         }
         stmt.close();
         con.close();
@@ -173,8 +179,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, imagem));
         }
         stmt.close();
         con.close();
@@ -198,8 +205,9 @@ public class DrivingSchool {
             String telefone = rs.getString("cd_phone_number_drivingSchool");
             String emailD = rs.getString("nm_email_drivingSchool");
             String senha = rs.getString("cd_password_drivingSchool");
+            byte[] imagem = rs.getBytes("im_drivingSchool");
 
-            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha));
+            list.add(new DrivingSchool(id, nome, descricao, endereco, cidade, bairro, cep, telefone, emailD, senha, imagem));
         }
         stmt.close();
         con.close();
@@ -211,8 +219,8 @@ public class DrivingSchool {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO drivingSchools (nm_drivingSchool, ds_drivingSchool, nm_address_drivingSchool, nm_city_drivingSchool, "
                 + "nm_neighborhood_drivingSchool, cd_cep_drivingSchool, cd_phone_number_drivingSchool, "
-                + "nm_email_drivingSchool, cd_password_drivingSchool)"
-                + "VALUES (?,?,?,?,?,?,?,?,?)");
+                + "nm_email_drivingSchool, cd_password_drivingSchool, im_drivingSchool)"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?)");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
         stmt.setString(3, school.getEndereco());
@@ -222,6 +230,7 @@ public class DrivingSchool {
         stmt.setString(7, school.getTelefone());
         stmt.setString(8, school.getEmail());
         stmt.setString(9, passwordMD5(school.getSenha()));
+        stmt.setBytes(10, school.getImagem());
         stmt.execute();
         stmt.close();
         con.close();
@@ -231,7 +240,7 @@ public class DrivingSchool {
         Connection con = DatabaseListener.getConnection();
         PreparedStatement stmt = con.prepareStatement(""
                 + "UPDATE drivingSchools SET nm_drivingSchool = ?, ds_drivingSchool = ?, nm_address_drivingSchool = ?, nm_city_drivingSchool = ?, "
-                + "nm_neighborhood_drivingSchool = ?, cd_cep_drivingSchool = ?, cd_phone_number_drivingSchool = ?, nm_email_drivingSchool = ?"
+                + "nm_neighborhood_drivingSchool = ?, cd_cep_drivingSchool = ?, cd_phone_number_drivingSchool = ?, nm_email_drivingSchool = ?, im_drivingSchool = ?"
                 + "WHERE cd_drivingSchool = ?");
         stmt.setString(1, school.getNome());
         stmt.setString(2, school.getDescricao());
@@ -241,7 +250,8 @@ public class DrivingSchool {
         stmt.setString(6, school.getCep());
         stmt.setString(7, school.getTelefone());
         stmt.setString(8, school.getEmail());
-        stmt.setInt(9, school.getIdAutoescola());
+        stmt.setBytes(9, school.getImagem());
+        stmt.setInt(10, school.getIdAutoescola());
         stmt.execute();
         stmt.close();
         con.close();
@@ -274,8 +284,7 @@ public class DrivingSchool {
         return passMD5;
     }
 
-    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep,
-            String telefone, String email, String senha) {
+    public DrivingSchool(Integer idAutoescola, String nome, String descricao, String endereco, String cidade, String bairro, String cep, String telefone, String email, String senha, byte[] imagem) {
         this.idAutoescola = idAutoescola;
         this.nome = nome;
         this.descricao = descricao;
@@ -286,6 +295,7 @@ public class DrivingSchool {
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
+        this.imagem = imagem;
     }
 
     public Integer getIdAutoescola() {
@@ -366,6 +376,14 @@ public class DrivingSchool {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 
 }
