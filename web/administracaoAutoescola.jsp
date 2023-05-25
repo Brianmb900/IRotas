@@ -4,6 +4,7 @@
     Author     : user
 --%>
 
+<%@page import="java.io.InputStream"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <%
@@ -37,6 +38,9 @@
             String email = request.getParameter("email");
             String senha = request.getParameter("password");
             String senha2 = request.getParameter("pass2");
+            Part imagemPart = request.getPart("iamgem");
+            InputStream imagemInputStream = imagemPart.getInputStream();
+            byte[] imagemBytes = imagemInputStream.readAllBytes();
             if (senha.equals(senha2)) {
             } else {
                 admException = "Senhas Não Correspondentes!";
@@ -52,7 +56,8 @@
                     cep,
                     telefone,
                     email,
-                    senha
+                    senha,
+                    imagemBytes
             );
             DrivingSchool.addDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -69,6 +74,9 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("email");
             String senha = "0";
+            Part imagemPart = request.getPart("iamgem");
+            InputStream imagemInputStream = imagemPart.getInputStream();
+            byte[] imagemBytes = imagemInputStream.readAllBytes();
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -79,7 +87,8 @@
                     cep,
                     telefone,
                     email,
-                    senha
+                    senha,
+                    imagemBytes
             );
             DrivingSchool.alterDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));

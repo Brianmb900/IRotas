@@ -4,6 +4,7 @@
     Author     : Alex
 --%>
 
+<%@page import="java.io.InputStream"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
@@ -27,6 +28,9 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("e-mail");
             String senha = ((DrivingSchool) session.getAttribute("school")).getSenha();
+            Part imagemPart = request.getPart("iamgem");
+            InputStream imagemInputStream = imagemPart.getInputStream();
+            byte[] imagemBytes = imagemInputStream.readAllBytes();
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -37,7 +41,8 @@
                     cep,
                     telefone,
                     email,
-                    senha
+                    senha,
+                    imagemBytes
             );
             DrivingSchool.alterDrivingSchool(school);
             Session.altDataSchool(request, response, senha);

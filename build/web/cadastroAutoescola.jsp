@@ -4,6 +4,7 @@
     Author     : user
 --%>
 
+<%@page import="java.io.InputStream"%>
 <%@page import="java.time.*"%>
 <!DOCTYPE html>
 <%
@@ -29,6 +30,9 @@
                 addException = "Senhas Não Correspondentes!";
                 throw new java.lang.RuntimeException(addException);
             }
+            Part imagemPart = request.getPart("imagem");
+            InputStream imagemInputStream = imagemPart.getInputStream();
+            byte[] imagemBytes = imagemInputStream.readAllBytes();
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -39,7 +43,8 @@
                     cep,
                     telefone,
                     email,
-                    senha
+                    senha,
+                    imagemBytes
             );
             DrivingSchool.addDrivingSchool(school);
             Session.getLoginSchool(request, response);
@@ -65,14 +70,14 @@
             <div class="row justify-content-center">
                 <div class="col-5">
                     <div class="caixa" style="margin-top: 30px;">
-                        <h1 style="padding-bottom: 5px;">Cadastro Auto Escola</h1>
+                        <h1 style="padding-bottom: 5px;">Cadastro Autoescola</h1>
                         <%if (addException != null) {%>
                         <div style="color: black; font-size: 30px; border: 10px double red;">
                             <%= addException%>
                         </div>
                         <br>
                         <%}%>
-                        <form autocomplete="off" method="POST">
+                        <form autocomplete="off" method="POST" enctype="multipart/form-data">
                             <div class="row justify-content-center">
                                 <div class="col">
                                     <input class="form-control" type="hidden" name="id" value="1">
@@ -109,6 +114,13 @@
                                 </div>
                                 <div class="col">
                                     <input class="form-control" type="password" name="pass2" placeholder="Confirmar Senha" required>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" type="file" id="imagem" name="imagem">
                                 </div>
                             </div>
                             <div class="col">
