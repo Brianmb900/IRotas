@@ -227,7 +227,7 @@
                                                         <span class="input-group-text" id="inputGroup">Aluno</span>
                                                         <select class="form-select" name="idAluno" required>
                                                             <%for (User u : users) {%>
-                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome()%></option>
+                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome()+' '+u.getSobrenome() %></option>
                                                             <%}%>
                                                         </select>
                                                     </div>

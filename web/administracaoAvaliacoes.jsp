@@ -9,26 +9,24 @@
 <!DOCTYPE html>
 <%
     String admException = null;
-    ArrayList<Interested> interessados = new ArrayList<>();
-    ArrayList<Interested> interessadoBusca = new ArrayList<>();
-    ArrayList<DrivingSchool> schools = new ArrayList<>();
+    ArrayList<Evaluation> avaliacoes = new ArrayList<>();
+    ArrayList<Evaluation> avaliacoesBusca = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
     int limite = 5;
     int total = 0;
     try {
-        schools = DrivingSchool.getTotalSchools();
         users = User.getTotalUsers();
         int pageid = Integer.parseInt(request.getParameter("page"));
         if (pageid == 1) {
         } else {
             pageid = (pageid - 1) * limite + 1;
         }
-        interessados = Interested.getInteresteds(pageid, limite, (session.getAttribute("ORDER").toString()), (session.getAttribute("ORDER2").toString()));
-        interessadoBusca = Interested.searchInterested(session.getAttribute("SEARCH").toString(), pageid, limite, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString());
+        avaliacoes = Evaluation.getEvaluations(pageid, limite, (session.getAttribute("ORDER").toString()), (session.getAttribute("ORDER2").toString()));
+        avaliacoesBusca = Evaluation.searchEvaluation(session.getAttribute("SEARCH").toString(), pageid, limite, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString());
         if (session.getAttribute("SEARCH").toString().equals("0")) {
-            total = Interested.getTotalInteresteds().size();
+            total = Evaluation.getTotalEvaluations().size();
         } else {
-            total = Interested.searchInterested(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
+            total = Evaluation.searchEvaluation(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
         }
 
         if (request.getParameter("cadInteressado") != null) {
