@@ -6,17 +6,41 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 
 <h2 align="center"> Requisitos Funcionais da aplicação: </h2>
 
+### CRUD de Usuários:
+
+* Identificação
+* Administrador: 0 / 1
+* Nome
+* E-mail
+* Senha
+* Telefone
+* Data de Nascimento
+* Sexo: M / F
+
 ### CRUD de Autoescolas:
 
-* Completar
+* Identificação
+* Nome
+* Descrição
+* Endereço: Rua, número e complemento
+* Cidade
+* Bairro
+* Cep
+* Telefone
+* E-mail
+* Servicos: Aulas fornecidas pela autoescola
+* Avaliacao: 1 a 5
 
 ### CRUD de Serviços:
 
-* Completar
-
-### CRUD de Usuários:
-
-* Completar
+* Identificação
+* Nome
+* Descricao
+* Hora de Início
+* Hora de Fim
+* Valor
+* Tipo de Aula
+* Interessados no Servico: Lista de usuários interessados no serviço
 
 <h2 align="center"> Instalação Local </h2>
 
@@ -51,6 +75,6 @@ Para executar o projeto localmento você pode utilizar o arquivo .WAR que se enc
 <h2 align="center"> Autores/Desenvolvedores </h2>
 
 * **Alex Feitoza Alves**
-* **Brian Melisnki Bianchini**
+* **Brian Melinski Bianchini**
 * **Erik Faria da Silva**
 * **Luan Alejandro Cardoso Vazquez Gil**
