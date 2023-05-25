@@ -212,7 +212,11 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="number" name="search" placeholder="ID da Autoescola" required>
+                                <select class="form-select" name="search" required>
+                                    <%for (DrivingSchool d : schools) {%>
+                                    <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
+                                    <%}%>
+                                </select>
                                 <input type="submit" name="searchServico" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
@@ -449,7 +453,7 @@
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoServicos.jsp?page=5">5</a>
-                    <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
+                    <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 5) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoServicos.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>

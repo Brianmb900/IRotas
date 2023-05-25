@@ -12,9 +12,11 @@
     ArrayList<Evaluation> avaliacoes = new ArrayList<>();
     ArrayList<Evaluation> avaliacoesBusca = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
+    ArrayList<DrivingSchool> schools = new ArrayList<>();
     int limite = 5;
     int total = 0;
     try {
+        schools = DrivingSchool.getTotalSchools();
         users = User.getTotalUsers();
         int pageid = Integer.parseInt(request.getParameter("page"));
         if (pageid == 1) {
@@ -29,33 +31,14 @@
             total = Evaluation.searchEvaluation(session.getAttribute("SEARCH").toString(), pageid, 100000, session.getAttribute("ORDER").toString(), session.getAttribute("ORDER2").toString()).size();
         }
 
-        if (request.getParameter("cadInteressado") != null) {
-            Interested interessado = new Interested(
-                    0,
-                    Integer.parseInt(request.getParameter("idAutoescola")),
-                    Integer.parseInt(request.getParameter("idAluno"))
-            );
-            Interested.addInterested(interessado);
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=1");
-        }
-        if (request.getParameter("altInteressado") != null) {
-            Interested interessado = new Interested(
-                    Integer.parseInt(request.getParameter("idInteressado")),
-                    Integer.parseInt(request.getParameter("idAutoescola")),
-                    Integer.parseInt(request.getParameter("idAluno"))
-            );
-            Interested.altInterested(interessado);
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=" + request.getParameter("page"));
-        }
-
-        if (request.getParameter("delInteressado") != null) {
-            int idInteressado = Integer.parseInt(request.getParameter("idenInteressadoDel"));
-            Interested.deleteInterestedAdm(idInteressado);
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=" + request.getParameter("page"));
+        if (request.getParameter("delAvali") != null) {
+            int idAvaliacao = Integer.parseInt(request.getParameter("idAvali"));
+            Evaluation.deleteEvaluation(idAvaliacao);
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=" + request.getParameter("page"));
         }
 
         //ORDENAÇÕES
-        if (request.getParameter("orderInteressadoId") != null) {
+        if (request.getParameter("orderAvaliacaoId") != null) {
             if (session.getAttribute("ORDER").toString().equals("1") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
                 session.setAttribute("ORDER", "1");
                 session.setAttribute("ORDER2", " DESC");
@@ -63,7 +46,7 @@
                 session.setAttribute("ORDER", "1");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=" + request.getParameter("page"));
         }
 
         if (request.getParameter("orderAutoId") != null) {
@@ -74,7 +57,7 @@
                 session.setAttribute("ORDER", "2");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=" + request.getParameter("page"));
         }
 
         if (request.getParameter("orderUserId") != null) {
@@ -85,21 +68,32 @@
                 session.setAttribute("ORDER", "3");
                 session.setAttribute("ORDER2", " ASC");
             }
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=" + request.getParameter("page"));
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=" + request.getParameter("page"));
+        }
+
+        if (request.getParameter("orderVlAvali") != null) {
+            if (session.getAttribute("ORDER").toString().equals("4") && session.getAttribute("ORDER2").toString().equals(" ASC")) {
+                session.setAttribute("ORDER", "4");
+                session.setAttribute("ORDER2", " DESC");
+            } else {
+                session.setAttribute("ORDER", "4");
+                session.setAttribute("ORDER2", " ASC");
+            }
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=" + request.getParameter("page"));
         }
         //FIM ORDENAÇÕES
-        if (request.getParameter("searchInteressado") != null) {
+        if (request.getParameter("searchAvaliacao") != null) {
             session.setAttribute("SEARCH", request.getParameter("search"));
             session.setAttribute("ORDER", "1");
             session.setAttribute("ORDER2", " ASC");
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=1");
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=1");
         }
 
         if (request.getParameter("limpaBusca") != null) {
             session.setAttribute("SEARCH", "0");
             session.setAttribute("ORDER", "1");
             session.setAttribute("ORDER2", " ASC");
-            response.sendRedirect("http://localhost:8080/IRotas/administracaoInteressados.jsp?page=1");
+            response.sendRedirect("http://localhost:8080/IRotas/administracaoAvaliacoes.jsp?page=1");
         }
 
     } catch (Exception ex) {
@@ -137,17 +131,22 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="number" name="search" placeholder="ID da Autoescola" required>
-                                <input type="submit" name="searchInteressado" value="Buscar" class="btn btn-primary"/>
+                                <select class="form-select" name="search" required>
+                                    <%for (DrivingSchool d : schools) {%>
+                                    <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
+                                    <%}%>
+                                </select>
+                                <input type="submit" name="searchAvaliacao" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
                         <table class="table table-my table-bordered" style="">
                             <thead>
                                 <tr class="table-my">
                             <form autocomplete="off" method="POST">
-                                <th><input class="orderADM" type="submit" name="orderInteressadoId" value="ID Interessado"/></th>
+                                <th><input class="orderADM" type="submit" name="orderAvaliacaoId" value="ID Avaliação"/></th>
                                 <th><input class="orderADM" type="submit" name="orderAutoId" value="Autoescola"/></th>
                                 <th><input class="orderADM" type="submit" name="orderUserId" value="Aluno"/></th>
+                                <th><input class="orderADM" type="submit" name="orderVlAvali" value="Avaliação"/></th>
                                 <th>Ação</th>
                             </form>
                             </tr>
@@ -155,29 +154,31 @@
                             <tbody>
                                 <%
                                     if (session.getAttribute("SEARCH").toString().equals("0")) {
-                                        for (Interested i : interessados) {%>
+                                        for (Evaluation e : avaliacoes) {%>
                                 <tr class="table-my">
-                                    <td><%= i.getIdInteressado()%></td>
-                                    <td><%= DrivingSchool.getDrivingSchoolView(i.getIdAutoescola().toString()).getNome()%></td>
-                                    <td><%= User.getUserId(i.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(i.getIdCLiente().toString()).getSobrenome())%></td>
+                                    <td><%= e.getIdAvaliacao()%></td>
+                                    <td><%= DrivingSchool.getDrivingSchoolView(e.getIdAutoescola().toString()).getNome()%></td>
+                                    <td><%= User.getUserId(e.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(e.getIdCLiente().toString()).getSobrenome())%></td>
+                                    <td><%= e.getAvaliacao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <input type="hidden" name="idenInteressadoDel" value="<%= i.getIdInteressado()%>" />
-                                            <input style="font-weight: bold;" type="submit" name="delInteressado" value="Remover" class="btn btn-danger"/>
+                                            <input type="hidden" name="idAvali" value="<%= e.getIdAvaliacao()%>" />
+                                            <input style="font-weight: bold;" type="submit" name="delAvali" value="Remover" class="btn btn-danger"/>
                                         </form>
                                     </td>
                                 </tr>
                                 <%}
                                 } else {
-                                    for (Interested i : interessadoBusca) {%>
+                                    for (Evaluation e : avaliacoesBusca) {%>
                                 <tr class="table-my">
-                                    <td><%= i.getIdInteressado()%></td>
-                                    <td><%= DrivingSchool.getDrivingSchoolView(i.getIdAutoescola().toString()).getNome()%></td>
-                                    <td><%= User.getUserId(i.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(i.getIdCLiente().toString()).getSobrenome())%></td>
+                                    <td><%= e.getIdAvaliacao()%></td>
+                                    <td><%= DrivingSchool.getDrivingSchoolView(e.getIdAutoescola().toString()).getNome()%></td>
+                                    <td><%= User.getUserId(e.getIdCLiente().toString()).getNome().concat(" " + User.getUserId(e.getIdCLiente().toString()).getSobrenome())%></td>
+                                    <td><%= e.getAvaliacao()%></td>
                                     <td>
                                         <form autocomplete="off" method="POST">
-                                            <input type="hidden" name="idenInteressadoDel" value="<%= i.getIdInteressado()%>" />
-                                            <input style="font-weight: bold;" type="submit" name="delInteressado" value="Remover" class="btn btn-danger"/>
+                                            <input type="hidden" name="idAvali" value="<%= e.getIdAvaliacao()%>" />
+                                            <input style="font-weight: bold;" type="submit" name="delAvali" value="Remover" class="btn btn-danger"/>
                                         </form>
                                     </td>
                                 </tr>
@@ -198,53 +199,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="modal fade" id="cadInteressado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg text-center">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h4 class="modal-title" id="exampleModalLabel" style="margin: auto;">Cadastrar Interessado</h4><hr>
-                                <div class="container" style="margin-bottom: 30px">
-                                    <div class="row justify-content-center">
-                                        <form method="POST">
-                                            <div class="row ">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="input-group mb-3">
-                                                            <span class="input-group-text" id="inputGroup">Autoescola</span>
-                                                            <select class="form-select" name="idAutoescola" required>
-                                                                <%for (DrivingSchool d : schools) {%>
-                                                                <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
-                                                                <%}%>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" >
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text" id="inputGroup">Aluno</span>
-                                                        <select class="form-select" name="idAluno" required>
-                                                            <%for (User u : users) {%>
-                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome()+' '+u.getSobrenome() %></option>
-                                                            <%}%>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row" style="margin-top: 20px;">
-                                                    <div class="col-2-center">
-                                                        <input type="submit" name="cadInteressado" value="Cadastrar" class="btn btn-primary" style="margin-right: 20%">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div>
                     <a style="text-decoration: none; font-size: 30px; margin-right: 18%; <% if (Integer.parseInt(request.getParameter("page")) == 1) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
@@ -262,7 +216,7 @@
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoInteressados.jsp?page=5">5</a>
-                    <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
+                    <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 5) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoInteressados.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>

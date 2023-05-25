@@ -139,7 +139,11 @@
                         <form autocomplete="off" method="POST">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup">Buscar por:</span>
-                                <input class="form-control" type="number" name="search" placeholder="ID da Autoescola" required>
+                                <select class="form-select" name="search" required>
+                                    <%for (DrivingSchool d : schools) {%>
+                                    <option value="<%=d.getIdAutoescola()%>"><%=d.getNome()%></option>
+                                    <%}%>
+                                </select>
                                 <input type="submit" name="searchInteressado" value="Buscar" class="btn btn-primary"/>
                             </div>
                         </form>
@@ -227,7 +231,7 @@
                                                         <span class="input-group-text" id="inputGroup">Aluno</span>
                                                         <select class="form-select" name="idAluno" required>
                                                             <%for (User u : users) {%>
-                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome()+' '+u.getSobrenome() %></option>
+                                                            <option value="<%=u.getIdCLiente()%>"><%=u.getNome() + ' ' + u.getSobrenome()%></option>
                                                             <%}%>
                                                         </select>
                                                     </div>
@@ -264,7 +268,7 @@
                     <a style="text-decoration: none; font-size: 30px; margin-right: 17%; <% if (total < 21) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoInteressados.jsp?page=5">5</a>
-                    <a style="text-decoration: none; font-size: 30px; <% if (total < 6) {
+                    <a style="text-decoration: none; font-size: 30px; <% if ((((Integer.parseInt(request.getParameter("page")) + 1) - 1) * limite + 1) > total || total <= 5) {
                             out.print(" color: grey; cursor: not-allowed; opacity: 0.5; pointer-events: none;");
                         }%>" href="administracaoInteressados.jsp?page=<%=Integer.parseInt(request.getParameter("page")) + 1%>">></a>
                 </div>

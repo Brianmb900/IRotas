@@ -59,6 +59,7 @@
         <a class="dropdown-item" href="administracaoAutoescola.jsp?page=1">Administração Autoescolas</a>
         <a class="dropdown-item" href="administracaoServicos.jsp?page=1">Administração Serviços</a>
         <a class="dropdown-item" href="administracaoInteressados.jsp?page=1">Administração Interessados</a>
+        <a class="dropdown-item" href="administracaoAvaliacoes.jsp?page=1">Administração Avaliações</a>
     </div>
     <%}%>
     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-right: solid 0.08px; width: 12em;">
