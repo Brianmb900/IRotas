@@ -55,7 +55,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="images/Logo2.png">
-        <title>Cadastro</title>
+        <title>Cadastro - Autoescola</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>
