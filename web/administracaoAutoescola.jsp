@@ -4,7 +4,6 @@
     Author     : user
 --%>
 
-<%@page import="java.io.InputStream"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <%
@@ -38,9 +37,6 @@
             String email = request.getParameter("email");
             String senha = request.getParameter("password");
             String senha2 = request.getParameter("pass2");
-            Part imagemPart = request.getPart("iamgem");
-            InputStream imagemInputStream = imagemPart.getInputStream();
-            byte[] imagemBytes = imagemInputStream.readAllBytes();
             if (senha.equals(senha2)) {
             } else {
                 admException = "Senhas Não Correspondentes!";
@@ -56,8 +52,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    imagemBytes
+                    senha
             );
             DrivingSchool.addDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -74,9 +69,6 @@
             String telefone = request.getParameter("phone");
             String email = request.getParameter("email");
             String senha = "0";
-            Part imagemPart = request.getPart("iamgem");
-            InputStream imagemInputStream = imagemPart.getInputStream();
-            byte[] imagemBytes = imagemInputStream.readAllBytes();
             DrivingSchool school = new DrivingSchool(
                     id,
                     nome,
@@ -87,8 +79,7 @@
                     cep,
                     telefone,
                     email,
-                    senha,
-                    imagemBytes
+                    senha
             );
             DrivingSchool.alterDrivingSchool(school);
             response.sendRedirect("http://localhost:8080/IRotas/administracaoAutoescola.jsp?page=" + request.getParameter("page"));
@@ -236,7 +227,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="images/Logo2.png">
-        <title>Administração</title>
+        <title>Administração - Autoescolas</title>
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
     </head>

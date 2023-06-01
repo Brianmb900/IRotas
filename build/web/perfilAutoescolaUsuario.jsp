@@ -67,7 +67,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Meu Perfil</title>
+        <title><%= school.getNome()%></title>
         <link rel="icon" href="images/Logo2.png">
         <%@include file="WEB-INF/jspf/css.jspf" %>
         <%@include file="WEB-INF/jspf/scripts.jspf" %>
@@ -89,7 +89,11 @@
                     <div class="col-2" style="text-align: left; margin-top: 2.8%">
                         <h4><%= school.getNome()%></h4>
                         <h4>Descrição: <%= school.getDescricao()%></h4>
-                        <h4>Avaliação: <%= Evaluation.getEvaluationFinal(school.getIdAutoescola())%></h4>
+                        <h4>Avaliação: <%if (Evaluation.getEvaluationFinal(school.getIdAutoescola()) == 0) {
+                                out.print("Ainda não avaliada");
+                            } else {%>
+                            Avaliação: <%=Evaluation.getEvaluationFinal(school.getIdAutoescola())%>/5.0</p>
+                            <%}%></h4>
                     </div>
                     <div class="col-1"></div>
                     <div class="col" style="border: 1px solid black; text-align: left; margin-right: 10px; margin-top: 20px; margin-bottom: 30px">
@@ -119,11 +123,6 @@
                         <%if (session.getAttribute("user") == null) {%>
                         <a class="btn btn-primary" href="login.jsp">Tenho Interesse</a>
                         <%} else if (interessados != null && avaliado == null) {%>
-                        <button class="btn btn-primary" style="color: white;">
-                            <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#interesse">
-                                Tenho Interesse
-                            </a>
-                        </button>
                         <button class="btn btn-primary" style="color: white; margin-left: 30px">
                             <a class="nav-link navLog" data-bs-toggle="modal" data-bs-target="#avaliar">
                                 Avaliar

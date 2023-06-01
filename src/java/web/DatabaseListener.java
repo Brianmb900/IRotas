@@ -69,34 +69,33 @@ public class DatabaseListener implements ServletContextListener {
                     + "cd_cep_drivingSchool VARCHAR NOT NULL,"
                     + "cd_phone_number_drivingSchool VARCHAR NOT NULL,"
                     + "nm_email_drivingSchool VARCHAR NOT NULL UNIQUE,"
-                    + "cd_password_drivingSchool VARCHAR NOT NULL,"
-                    + "im_drivingSchool BLOB)");
+                    + "cd_password_drivingSchool VARCHAR NOT NULL)");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(1, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(2, 'Autoescola Alex', 'Autoescola do Alexxxxxxx', 'Rua 23, número 40', 'São Vincente', "
-                    + "'Cidade Náutica', '12345-060', '(19)99999-9999', 'alexAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Cidade Náutica', '12345-060', '(19)99999-9999', 'alexAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(3, 'Autoescola Erik', 'Autoescola do Erikkkkkkkkkkkkkkk', 'Rua 23, número 40', 'Praia Grande', "
-                    + "'Vila Antártica', '12345-060', '(19)99999-9999', 'erikAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Vila Antártica', '12345-060', '(19)99999-9999', 'erikAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(4, 'Autoescola Luan', 'Autoescola do Luannnnnn', 'Rua 23, número 40', 'São Vincente', "
-                    + "'São Vincente', '12345-060', '(19)99999-9999', 'luanAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'São Vincente', '12345-060', '(19)99999-9999', 'luanAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(5, 'Autoescola Brian', 'Autoescola do Briannnnnnn', 'Rua 23, número 40', 'Praia Grande', "
-                    + "'Boqueirão', '12345-060', '(19)99999-9999', 'brianAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Boqueirão', '12345-060', '(19)99999-9999', 'brianAuto@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(6, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutos@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutos@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(7, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutoss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutoss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(8, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(9, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(10, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(11, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(12, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutosssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
             stmt.execute("INSERT OR IGNORE INTO drivingSchools VALUES(13, 'Autoescola Teste', 'Autoescola do Fulano Teste 1234567890', 'Rua 23, número 40', 'Testelândia', "
-                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3',NULL)");
+                    + "'Testezinho', '12345-060', '(19)99999-9999', 'fulanoAutossssssss@gmail.com', '21232f297a57a5a743894a0e4a801fc3')");
 
             // SERVIÇOS
             stmt.execute("CREATE TABLE IF NOT EXISTS services("
