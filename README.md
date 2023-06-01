@@ -28,19 +28,30 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 * Cep
 * Telefone
 * E-mail
-* Servicos: Aulas fornecidas pela autoescola
-* Avaliacao: 1 a 5
+* Senha
 
 ### CRUD de Serviços:
 
 * Identificação
-* Nome
-* Descricao
+* Identificação Autoescola do Serviço
+* Nome/Descrição
 * Hora de Início
 * Hora de Fim
 * Valor
-* Tipo de Aula
-* Interessados no Servico: Lista de usuários interessados no serviço
+* Tipo de Aula: 0 / 1
+
+### CRUD de Interessados:
+
+* Identificação
+* Identificação do Serviço
+* Identificação do Aluno
+
+### CRUD de Avaliações:
+
+* Identificação
+* Identificação da Autoescola
+* Identificação do Aluno
+* Valor da Avaliação: 0 a 5
 
 <h2 align="center"> Instalação Local </h2>
 
