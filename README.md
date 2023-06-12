@@ -9,7 +9,7 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 ### CRUD de Usuários:
 
 * Identificação
-* Administrador: 0 / 1
+* Administrador: 0 / 1 (Não/Sim)
 * Nome
 * E-mail
 * Senha
@@ -38,7 +38,7 @@ Aplicação web que oferece uma plataforma para comunicação entre diversas ins
 * Hora de Início
 * Hora de Fim
 * Valor
-* Tipo de Aula: 0 / 1
+* Tipo de Aula: 0 / 1 (Teórica/Prática)
 
 ### CRUD de Interessados:
 
